@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const base64Encode = (text) => Buffer.from(text).toString('base64');
-const toBoolean = (value) => (value?.toLowerCase() === "true");
 const isDefined = (value) => value !== undefined && value !== null;
 
 const NTFY_USERNAME = process.env.NTFY_USERNAME;

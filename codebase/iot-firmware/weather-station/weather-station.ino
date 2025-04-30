@@ -4,6 +4,9 @@
 #include <SPI.h>
 #include <SD.h>
 
+// ----- WiFi & API -----
+#include "config.h"  // <- replaces const char* declarations. remove if not using config.h
+
 // ----- Constants & Pins -----
 #define DHTPIN 2
 #define DHTTYPE DHT11
@@ -17,10 +20,14 @@ LiquidCrystal_I2C lcd(0x27, 16, 2); // I2C LCD
 SoftwareSerial espSerial(3, 4);     // ESP-01 TX/RX
 
 // ----- WiFi & API -----
-const char *ssid = "Your_SSID";
-const char *password = "Your_PASSWORD";
-const char *apiHost = "yourapi.com";
-const char *apiPath = "/weather/upload";
+/** 
+ * The below code is replaced by #include "config.h" for security reasons.
+ * Uncomment if you don't want to use config.h and remove the config.h header.
+**/
+// const char *ssid = "Your_SSID";
+// const char *password = "Your_PASSWORD";
+// const char *apiHost = "yourapi.com";
+// const char *apiPath = "/add";
 
 // ----- Setup -----
 void setup()

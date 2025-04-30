@@ -1,6 +1,5 @@
-
 import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config();
 
@@ -10,21 +9,27 @@ const supabaseTable = process.env.SUPABASE_TABLE;
 
 const supabase = createClient(supabaseUrl, supabasePublicAnonKey);
 
-const addToDb = async (preData, preTimestamp) => {
+const addToDb = async (data, preTimestamp) => {
+    const { temperature, humidity, soil_moisture, rain } = data;
     const { error } = await supabase
         .from(supabaseTable)
         .insert([
             { 
-                timestamp: preTimestamp,
-                data: preData
+                temperature,
+                humidity,
+                soil_moisture,
+                rain,
+                timestamp: preTimestamp
             }
         ]);
 
     if (error) {
         console.error('Error inserting data:', error);
+        return { success: false, error };
     } else {
         console.log('Data inserted successfully!');
+        return { success: true };
     }
 };
 
-export default addToDb;
+export { addToDb as addDataToDb };
