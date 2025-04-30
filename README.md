@@ -76,7 +76,7 @@ Figure 1: Weather Man System Overview
 
 You can browse the project source code in the following directories:
 
-- [API Backend](./codebase/api/) – Handles data processing and cloud integration.
+- [API Backend](./codebase/cloud-api/) – Handles data processing and cloud integration.
 - [IoT Firmware](./codebase/iot-firmware/) – Microcontroller and sensor code.
 - [Web Application](./codebase/web-app/) – User interface for monitoring and analytics.
 
