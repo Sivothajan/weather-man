@@ -79,7 +79,7 @@
 You can browse the project source code in the following directories:
 
 - [API Backend](./codebase/api/) – Handles data processing and cloud integration.
-- [IoT Firmware](./codebase/iot/) – Microcontroller and sensor code.
+- [IoT Firmware](./codebase/iot-firmware/) – Microcontroller and sensor code.
 - [Web Application](./codebase/web-app/) – User interface for monitoring and analytics.
 
 [**View Full Codebase on GitHub**](./codebase/)
