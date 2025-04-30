@@ -1,8 +1,6 @@
 ## The Weather Man – IoT-Based Smart Weather Monitoring System
-<p align="center">
-    <img src="./assets/System-Architecture-Diagram.svg" alt="Weather Man System Overview" width="600" height="400">
-</p>
-<em align="center">Figure 1: Weather Man System Overview</em>
+![Scratch](./assets/System-Architecture-Diagram.png)
+Figure 1: Weather Man System Overview
 
 ---
 
@@ -92,5 +90,5 @@ You can browse the project source code in the following directories:
 
 | Scratch   | Top View   | Side View  |
 |:---------:|:----------:|:----------:|
-| ![Scratch](./assets/1.jpg) | ![Top View](./assets/2.jpg) | ![Side View](./assets/3.jpg) |
+| ![Scratch](./assets/scratch.jpg) | ![Top View](./assets/top-view.jpg) | ![Side View](./assets/side-view.jpg) |
 
