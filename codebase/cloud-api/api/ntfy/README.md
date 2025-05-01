@@ -28,7 +28,7 @@ npm install dotenv
 2. **Import and use the API:**
 
     ```js
-    import ntfy from './path/to/this/module.js';
+    import ntfy from './ntfy/ntfy.js';
 
     // Send a basic notification
     await ntfy.sendNotification('Title', 'Message body');
@@ -37,7 +37,7 @@ npm install dotenv
     await ntfy.sendNotificationToChanel('Title', 'Message body', 'custom-channel');
 
     // Send with a clickable action
-    await ntfy.sendNotificationToChanelWithAction('Title', 'Message body', 'custom-channel', 'https://example.com');
+    await ntfy.sendNotificationToChanelWithAction('Title', 'Message body', 'ntfy', 'https://example.com/action');
     ```
 
 ## API

@@ -55,8 +55,10 @@
     "url": "git+https://github.com/Sivothajan/weather-man.git"
   },
   "dependencies": {
+    "chart.js": "^4.4.9",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
+    "react-chartjs-2": "^5.3.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.5.3"
   },

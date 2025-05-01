@@ -1,0 +1,42 @@
+.graphContainer {
+  width: 95%; /* Slightly reduced default width with some side margin */
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Small screens (up to 576px - typical mobile phones) */
+@media (max-width: 576px) {
+  .graphContainer {
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 6px;
+  }
+}
+
+/* Medium screens (577px to 768px - typical tablets) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .graphContainer {
+    padding: 20px;
+    margin: 20px auto;
+  }
+}
+
+/* Large screens (769px to 992px - typical laptops/smaller desktops) */
+@media (min-width: 769px) and (max-width: 992px) {
+  .graphContainer {
+    padding: 25px;
+    margin: 25px auto;
+  }
+}
+
+/* Extra-large screens (993px and up - larger desktops) */
+@media (min-width: 993px) {
+  .graphContainer {
+    padding: 30px;
+    margin: 30px auto;
+  }
+}
