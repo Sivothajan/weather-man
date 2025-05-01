@@ -1,5 +1,5 @@
 
-const getTime = () => {
+export const getTime = () => {
   const now = new Date();
 
   const options = {
