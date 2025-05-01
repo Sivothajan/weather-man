@@ -7,7 +7,7 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const getFarmingAdvice = async (data) => {
+export const getFarmingAdvice = async (data) => {
   const prompt = `
 You are an expert agricultural assistant. A farmer provides the following data:
 

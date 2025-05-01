@@ -26,7 +26,7 @@ const fetchNews = async (location) => {
   };
 };
 
-const takeToTAction = async (data) => {
+export const takeToTAction = async (data) => {
   try {
     const weather = await fetchWeather(data.location);
     const news = await fetchNews(data.location);
