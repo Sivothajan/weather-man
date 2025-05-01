@@ -27,7 +27,8 @@ Figure 1: Weather Man System Overview
 
 ---
 
-### Current Progress <sub>(As of April 30, 2025)</sub>
+### Current Progress
+#### PS: If you want to see the progress as of April 30, 2025, please check the [As of April 30, 2025 GitHub Repo](https://github.com/Sivothajan/weather-man/tree/31057a6575f7ccb06b0e44e5aa5a5fb1c9c69691)
 
 #### 🔧 Hardware Setup
 
@@ -56,19 +57,19 @@ Figure 1: Weather Man System Overview
 - Basic sensor reading code: **Complete**
 - Cloud data transmission via API: **Complete**
 - Database integration: **Complete**
-- Web app integration: **In progress**
+- Web app integration: **Complete**
+- AI integration (Claude API): **Complete**
 - SD card data logging: **Planned**
-- AI integration (Claude API): **Planned**
 
-| Feature                     | Status      | Notes                                   |
-|-----------------------------|-------------|-----------------------------------------|
-| Sensor Reading              | Completed   | All sensors tested and operational      |
-| API Data Transmission       | Completed   | Web app integration ongoing             |
-| Database Integration        | Completed   | Database setup and tested               |
-| SD Card Data Logging        | Pending     | Awaiting component delivery             |
-| Web App Integration         | In Progress | UI design and backend integration       |
-| Documentation               | In Progress | User manual and technical documentation |
-| AI Integration (Claude API) | Planned     | Research and prototyping underway       |
+| Feature                     | Status      | Notes                                     |
+|-----------------------------|-------------|-------------------------------------------|
+| Sensor Reading              | Complete    | All sensors tested and operational        |
+| API Data Transmission       | Complete    | All APIs tested and operational           |
+| Database Integration        | Complete    | Database set up and tested                |
+| Web App Integration         | Complete    | Web app tested and operational            |
+| AI Integration (Claude API) | Complete    | AI integration tested and operational     |
+| SD Card Data Logging        | Pending     | Awaiting component delivery               |
+| Documentation               | In Progress | User manual and technical documentation   |
 
 ---
 
