@@ -13,7 +13,7 @@ const NTFY_CHANEL_NAME = process.env.NTFY_CHANEL_NAME ? process.env.NTFY_CHANEL_
 const AUTH_HEADER = 'Basic ' + base64Encode(NTFY_USERNAME + ":" + NTFY_PASSWORD);
 const NTFY_URL = `https://${NTFY_SERVER_DOMAIN}/${NTFY_CHANEL_NAME}`;
 
-const sendNotification = async (title, message) => {
+export const sendNotification = async (title, message) => {
   try {
     const response = await fetch(NTFY_URL, {
       method: 'POST',
@@ -38,7 +38,7 @@ const sendNotification = async (title, message) => {
   }
 }
 
-const sendNotificationToChanel = async (title, message, chanelName) => {
+export const sendNotificationToChanel = async (title, message, chanelName) => {
 
   const NTFY_URL = `https://${NTFY_SERVER_DOMAIN}/${chanelName}`;
 
@@ -66,7 +66,7 @@ const sendNotificationToChanel = async (title, message, chanelName) => {
   }
 }
 
-const sendNotificationToChanelWithAction = async (title, message, chanelName, clickToLink) => {
+export const sendNotificationToChanelWithAction = async (title, message, chanelName, clickToLink) => {
 
   const NTFY_URL = `https://${NTFY_SERVER_DOMAIN}/${chanelName}`;
 
