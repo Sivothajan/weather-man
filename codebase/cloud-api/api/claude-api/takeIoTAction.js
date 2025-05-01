@@ -26,7 +26,7 @@ const fetchNews = async (location) => {
   };
 };
 
-export const takeToTAction = async (data) => {
+export const takeIoTAction = async (data) => {
   try {
     const weather = await fetchWeather(data.location);
     const news = await fetchNews(data.location);
@@ -80,4 +80,4 @@ Don't add any explanation. Just the action word.
   }
 };
 
-export default takeToTAction;
+export default takeIoTAction;
