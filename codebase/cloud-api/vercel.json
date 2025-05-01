@@ -4,6 +4,30 @@
         { 
             "src": "api/router.js",  
             "use": "@vercel/node" 
+        },
+        { 
+            "src": "api/claude-api/getFarmingAdvice.js",
+            "use": "@vercel/node" 
+        },
+        { 
+            "src": "api/claude-api/takeIoTAction.js",
+            "use": "@vercel/node" 
+        },
+        { 
+            "src": "api/ntfy/ntfy.js",
+            "use": "@vercel/node" 
+        },
+        { 
+            "src": "api/supabase/addDataToDb.js",
+            "use": "@vercel/node" 
+        },
+        { 
+            "src": "api/supabase/getDataFromDb.js",
+            "use": "@vercel/node" 
+        },
+        { 
+            "src": "api/utils/getTime.js",
+            "use": "@vercel/node" 
         }
     ],
     "routes": [
