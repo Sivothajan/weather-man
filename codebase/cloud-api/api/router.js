@@ -34,7 +34,7 @@ app.get('/api/get/:number', async (req, res) => {
   const data = await getDataFromDb(number);
   res.status(200).json(data);
 });
-*/
+
 
 app.get('/farming-advice', async (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
@@ -118,6 +118,7 @@ app.post('/add', async (req, res) => {
     res.status(500).json({ message: 'Error processing request.' });
   }
 });
+*/
 
 app.options('*', cors());
 
