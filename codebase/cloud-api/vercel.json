@@ -6,11 +6,11 @@
             "use": "@vercel/node" 
         },
         { 
-            "src": "api/claude-api/getFarmingAdvice.js",
+            "src": "api/claude/getFarmingAdvice.js",
             "use": "@vercel/node" 
         },
         { 
-            "src": "api/claude-api/takeIoTAction.js",
+            "src": "api/claude/takeIoTAction.js",
             "use": "@vercel/node" 
         },
         { 
