@@ -123,6 +123,4 @@ app.use((req, res) => {
   res.status(404).json({ message: 'Route not found.' });
 });
 
-export default (req, res) => {
-  app(req, res);
-};
+export default app;
