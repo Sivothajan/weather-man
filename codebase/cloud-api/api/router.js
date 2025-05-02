@@ -22,6 +22,7 @@ app.get('/api/check', (req, res) => {
   res.status(200).json({ message: { 'API Status Response': 'Weather Man API is Working!' } });
 });
 
+/*
 app.get('/api/get/:number', async (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
   const number = parseInt(req.params.number.toLowerCase(), 10);
@@ -33,6 +34,7 @@ app.get('/api/get/:number', async (req, res) => {
   const data = await getDataFromDb(number);
   res.status(200).json(data);
 });
+*/
 
 app.get('/farming-advice', async (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
