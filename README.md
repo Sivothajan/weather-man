@@ -35,13 +35,13 @@ Figure 1: Weather Man System Overview
 | Component                        | Description                                 | Availability      |
 |----------------------------------|---------------------------------------------|-------------------|
 | Arduino Mega 2560                | Main controller                             | Available         |
-| DHT11                            | Temperature and Humidity sensor             | Available         |
 | Capacitive Soil Moisture Sensor  | Measures soil moisture                      | Available         |
 | AC to DC Converter               | Power supply                                | Available         |
 | Breadboard                       | For prototyping circuits                    | Available         |
 | SD Card Module                   | Logging weather data                        | Available         |
 | Raindrop Sensor Plate            | Detects rainfall                            | Available         |
 | Jumper Wires                     | For circuit connections                     | Available         |
+| DHT11                            | Temperature and Humidity sensor             | Available (Defective)|
 | LCD Display (16x2)               | Displays weather data                       | Available (Defective)|
 | ESP8266 (ESP-01)                 | Wi-Fi communication                         | Available (Defective)|
 | Weather Station Production Case  | Enclosure for all components                | Pending           |
