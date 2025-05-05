@@ -1,17 +1,18 @@
-# 🌦️ Arduino Weather Station with SD Logging & API Upload
+# 🌦️ Arduino Weather Station with SD Logging, API Upload & Fire Detection
 
-This project is a simple yet functional **Weather Monitoring System** built using an **Arduino Mega 2560**. It measures **temperature**, **humidity**, **soil moisture**, and **rain presence**, logs data to an SD card, and sends it to a remote server via **ESP8266 WiFi**.
+This project is a robust **Weather Monitoring System** using an **Arduino Mega 2560**. It measures **temperature**, **humidity**, **soil moisture**, **rain presence**, and **fire detection**. Data is logged to an SD card and sent to a remote server via **ESP8266 WiFi**.
 
 ---
 
 ## 📋 Features
 
 - 🌡️ **Temperature & Humidity** via DHT11 sensor  
-- 🌱 **Soil Moisture** in percentage  
-- ☔ **Rain Detection** using analog rain sensor  
+- 🌱 **Soil Moisture** (percentage + raw value)  
+- ☔ **Rain Detection** (digital + raw analog value)  
+- 🔥 **Fire Detection** (digital input)  
 - 📟 **Live display** on I2C 16x2 LCD  
 - 💾 **Data logging** to SD card (`datalog.txt`)  
-- 📡 **HTTP POST** JSON data to a remote API over WiFi (ESP-01)
+- 📡 **HTTP POST** JSON data (all sensor values) to a remote API over WiFi (ESP-01)
 
 ---
 
@@ -23,6 +24,7 @@ This project is a simple yet functional **Weather Monitoring System** built usin
 | DHT11 Sensor         | 1        | For temperature & humidity       |
 | Soil Moisture Sensor | 1        | Analog type                      |
 | Rain Sensor (Analog) | 1        | Outputs analog value             |
+| Fire Sensor/Module   | 1        | Digital output to pin 6          |
 | I2C LCD (16x2)       | 1        | Uses I2C (0x27 address)          |
 | ESP-01 (ESP8266)     | 1        | For WiFi connection              |
 | SD Card Module       | 1        | SPI-based SD logging             |
@@ -55,6 +57,13 @@ This project is a simple yet functional **Weather Monitoring System** built usin
 | GND        | GND              |
 | A0         | A1               |
 
+### Fire Sensor/Module
+| Fire Sensor Pin | Arduino Mega Pin |
+|-----------------|------------------|
+| VCC             | 5V               |
+| GND             | GND              |
+| DO (Digital Out)| D6               |
+
 ### I2C LCD (16x2)
 | LCD Pin | Arduino Mega Pin |
 |---------|------------------|
@@ -72,7 +81,7 @@ This project is a simple yet functional **Weather Monitoring System** built usin
 | CH_PD      | 3.3V             | Pull HIGH             |
 | GND        | GND              |                       |
 
-> **Note:** On Arduino Mega, SoftwareSerial works best on pins 10–53. Pins 3 and 4 may not work reliably. Use, for example, pins 50 (RX) and 51 (TX) for `SoftwareSerial espSerial(50, 51);` and connect ESP-01 TX to Mega RX (50), ESP-01 RX to Mega TX (51) via voltage divider.
+> **Note:** On Arduino Mega, SoftwareSerial works best on pins 10–53. Pins 3 and 4 may not work reliably. Update your wiring and code if you encounter issues.
 
 ### SD Card Module (SPI)
 | SD Module Pin | Arduino Mega Pin |
@@ -91,11 +100,12 @@ This project is a simple yet functional **Weather Monitoring System** built usin
 1. **Startup**: LCD displays "Weather Man", WiFi connects.
 2. **Sensor Readings**: Every 10 seconds:
   - Temperature (°C), Humidity (%)
-  - Soil Moisture (0–100%)
-  - Rain detected (0 or 1)
-3. **Display**: Updates live values on the LCD.
-4. **Logging**: Writes data to `datalog.txt` on SD.
-5. **API POST**: Sends JSON to specified HTTP endpoint.
+  - Soil Moisture (0–100%) and raw value
+  - Rain detected (0 or 1) and raw value
+  - Fire detected (0 or 1)
+3. **Display**: Shows processed values, raw sensor values, and fire status on LCD (2s each).
+4. **Logging**: Writes all sensor data (processed + raw) to `datalog.txt` on SD.
+5. **API POST**: Sends all sensor data as JSON to the specified HTTP endpoint.
 
 ---
 
@@ -106,16 +116,20 @@ This project is a simple yet functional **Weather Monitoring System** built usin
   "temperature": 26.45,
   "humidity": 65.12,
   "soil_moisture": 42,
-  "rain": 1
+  "soil_raw": 512,
+  "rain": 1,
+  "rain_raw": 320,
+  "fire": 0
 }
 ```
 
 ---
 
 **⚠️ Arduino Mega Pin Notes:**  
-- For `SoftwareSerial`, use pins 10–53 only.  
+- For `SoftwareSerial`, use pins 10–53 only. Pins 3/4 may not work reliably.  
 - For I2C LCD, use pins 20 (SDA) and 21 (SCL).  
-- For SD card, use SPI pins: 50 (MISO), 51 (MOSI), 52 (SCK), 53 (SS/CS, but you can use 10 as CS if you set it in code).
+- For SD card, use SPI pins: 50 (MISO), 51 (MOSI), 52 (SCK), 53 (SS/CS, but you can use 10 as CS if you set it in code).  
+- Fire sensor digital output is connected to D6.
 
 **If you use the provided code, update the `SoftwareSerial` pins and hardware wiring accordingly for Arduino Mega 2560.**
 
