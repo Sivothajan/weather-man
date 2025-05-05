@@ -55,12 +55,12 @@ Figure 1: Weather Man System Overview
 
 #### 🧠 Software Progress
 
-- Basic sensor reading code: **Complete**
-- Cloud data transmission via API: **Complete**
-- Database integration: **Complete**
-- Web app integration: **Complete**
-- AI integration (Claude API): **Complete**
-- SD card data logging: **Planned**
+- Basic sensor reading code: **Completed**
+- Cloud data transmission via API: **Completed**
+- Database integration: **Completed**
+- Web app integration: **Completed**
+- AI integration (Claude API): **Completed**
+- SD card data logging: **Completed**
 
 | Feature                     | Status         | Notes                                       |
 |-----------------------------|----------------|---------------------------------------------|
