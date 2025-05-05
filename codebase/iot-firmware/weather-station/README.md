@@ -18,19 +18,19 @@ This project is a robust **Weather Monitoring System** using an **Arduino Mega 2
 
 ## 🧰 Hardware Required
 
-| Component             | Quantity | Notes                            |
-|----------------------|----------|----------------------------------|
-| Arduino Mega 2560    | 1        | Main microcontroller             |
-| DHT11 Sensor         | 1        | For temperature & humidity       |
-| Soil Moisture Sensor | 1        | Analog type                      |
-| Rain Sensor (Analog) | 1        | Outputs analog value             |
-| Fire Sensor/Module   | 1        | Digital output to pin 6          |
-| I2C LCD (16x2)       | 1        | Uses I2C (0x27 address)          |
-| ESP-01 (ESP8266)     | 1        | For WiFi connection              |
-| SD Card Module       | 1        | SPI-based SD logging             |
-| Breadboard + Wires   | As needed|                                  |
-| 3.3V Regulator/Logic Level Shifter | 1 | For ESP-01 TX/RX safety     |
-| Power Supply (5V)    | 1        | USB or external                  |
+| Component                          | Quantity | Notes                            |
+|------------------------------------|----------|----------------------------------|
+| Arduino Mega 2560                  | 1        | Main microcontroller             |
+| DHT11 Sensor                       | 1        | For temperature & humidity       |
+| Soil Moisture Sensor               | 1        | Analog type                      |
+| Rain Sensor (Analog)               | 1        | Outputs analog value             |
+| Fire Sensor/Module                 | 1        | Digital output to pin 6          |
+| I2C LCD (16x2)                     | 1        | Uses I2C (0x27 address)          |
+| ESP-01 (ESP8266)                   | 1        | For WiFi connection              |
+| SD Card Module                     | 1        | SPI-based SD logging             |
+| Breadboard + Wires                 | As needed|                                  |
+| 3.3V Regulator/Logic Level Shifter | 1        | For ESP-01 TX/RX safety          |
+| Power Supply (12V)                 | 1        | USB or external                  |
 
 ---
 

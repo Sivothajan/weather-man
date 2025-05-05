@@ -37,18 +37,19 @@ Figure 1: Weather Man System Overview
 | Arduino Mega 2560                | Main controller                             | Available         |
 | DHT11                            | Temperature and Humidity sensor             | Available         |
 | Capacitive Soil Moisture Sensor  | Measures soil moisture                      | Available         |
-| LCD Display (16x2)               | Displays weather data                       | Available         |
-| ESP8266 (ESP-01)                 | Wi-Fi communication                         | Available         |
 | AC to DC Converter               | Power supply                                | Available         |
 | Breadboard                       | For prototyping circuits                    | Available         |
-| SD Card Module                   | Logging weather data                        | Pending           |
-| Raindrop Sensor Plate            | Detects rainfall                            | Pending           |
-| Jumper Wires                     | For circuit connections                     | Pending           |
+| SD Card Module                   | Logging weather data                        | Available         |
+| Raindrop Sensor Plate            | Detects rainfall                            | Available         |
+| Jumper Wires                     | For circuit connections                     | Available         |
+| LCD Display (16x2)               | Displays weather data                       | Available (Defective)|
+| ESP8266 (ESP-01)                 | Wi-Fi communication                         | Available (Defective)|
 | Weather Station Production Case  | Enclosure for all components                | Pending           |
 
 > **Note:**  
 > - **Available**: Component is on hand  
-> - **Pending**: Component ordered, awaiting delivery
+> - **Available (Defective)**: Component is on hand but not functional (component is defective)
+> - **Pending**: Component has been ordered and is awaiting delivery or installation/ assembly
 
 ---
 
@@ -61,15 +62,15 @@ Figure 1: Weather Man System Overview
 - AI integration (Claude API): **Complete**
 - SD card data logging: **Planned**
 
-| Feature                     | Status      | Notes                                     |
-|-----------------------------|-------------|-------------------------------------------|
-| Sensor Reading              | Complete    | All sensors tested and operational        |
-| API Data Transmission       | Complete    | All APIs tested and operational           |
-| Database Integration        | Complete    | Database set up and tested                |
-| Web App Integration         | Complete    | Web app tested and operational            |
-| AI Integration (Claude API) | Complete    | AI integration tested and operational     |
-| SD Card Data Logging        | Pending     | Awaiting component delivery               |
-| Documentation               | In Progress | User manual and technical documentation   |
+| Feature                     | Status         | Notes                                       |
+|-----------------------------|----------------|---------------------------------------------|
+| Sensor Reading              | Completed      | All sensors tested and operational          |
+| API Data Transmission       | Completed      | All APIs tested and operational             |
+| Database Integration        | Completed      | Database set up and tested                  |
+| Web App Integration         | Completed      | Web app tested and operational              |
+| AI Integration (Claude API) | Completed      | AI integration tested and operational       |
+| SD Card Data Logging        | Completed      | SD Card Datab Logging tested and operational|
+| Documentation               | In Final Stage | User manual and technical documentation     |
 
 ---
 
@@ -92,4 +93,10 @@ You can browse the project source code in the following directories:
 | Scratch   | Top View   | Side View  |
 |:---------:|:----------:|:----------:|
 | ![Scratch](./assets/scratch.jpg) | ![Top View](./assets/top-view.jpg) | ![Side View](./assets/side-view.jpg) |
+
+#### Testing the Components (Overview)
+
+| Top View   | Side View  |
+|:----------:|:----------:|
+| ![Top View](./assets/testing-top-view.jpg) | ![Side View](./assets/testing-side-view.jpg) |
 
