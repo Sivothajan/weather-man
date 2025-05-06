@@ -12,6 +12,7 @@ Figure 1: Weather Man System Overview
 ---
 
 ### Project Links
+
 - [Project Web-App](https://wm.sivothajan.me/)
 - [Project API](https://wm.api.sivothajan.me/)
 - [Project Documentation](https://gh.sivothajan.me/weather-man/)
@@ -42,19 +43,19 @@ Figure 1: Weather Man System Overview
 
 #### 🔧 Hardware Setup
 
-| Component                       | Description                     | Availability          |
-| ------------------------------- | ------------------------------- | --------------------- |
-| Arduino Mega 2560               | Main controller                 | Available             |
-| Capacitive Soil Moisture Sensor | Measures soil moisture          | Available             |
-| AC to DC Converter              | Power supply                    | Available             |
-| Breadboard                      | For prototyping circuits        | Available             |
-| SD Card Module                  | Logging weather data            | Available             |
-| Raindrop Sensor Plate           | Detects rainfall                | Available             |
-| Jumper Wires                    | For circuit connections         | Available             |
-| DHT11                           | Temperature and Humidity sensor | Defective             |
-| LCD Display (16x2)              | Displays weather data           | Defective             |
-| ESP8266 (ESP-01)                | Wi-Fi communication             | Defective             |
-| Weather Station Production Case | Enclosure for all components    | Pending               |
+| Component                       | Description                     | Availability |
+| ------------------------------- | ------------------------------- | ------------ |
+| Arduino Mega 2560               | Main controller                 | Available    |
+| Capacitive Soil Moisture Sensor | Measures soil moisture          | Available    |
+| AC to DC Converter              | Power supply                    | Available    |
+| Breadboard                      | For prototyping circuits        | Available    |
+| SD Card Module                  | Logging weather data            | Available    |
+| Raindrop Sensor Plate           | Detects rainfall                | Available    |
+| Jumper Wires                    | For circuit connections         | Available    |
+| DHT11                           | Temperature and Humidity sensor | Defective    |
+| LCD Display (16x2)              | Displays weather data           | Defective    |
+| ESP8266 (ESP-01)                | Wi-Fi communication             | Defective    |
+| Weather Station Production Case | Enclosure for all components    | Pending      |
 
 > **Note:**
 >
@@ -73,15 +74,15 @@ Figure 1: Weather Man System Overview
 - AI integration (Claude API): **Completed**
 - SD card data logging: **Completed**
 
-| Feature                     | Status         | Notes                                        |
-| --------------------------- | -------------- | -------------------------------------------- |
-| Sensor Reading              | Completed      | All sensors tested and operational           |
-| API Data Transmission       | Completed      | All APIs tested and operational              |
-| Database Integration        | Completed      | Database set up and tested                   |
-| Web App Integration         | Completed      | Web app tested and operational               |
-| AI Integration (Claude API) | Completed      | AI integration tested and operational        |
-| SD Card Data Logging        | Completed      | SD Card Datab Logging tested and operational |
-| Documentation               | Completed      | User manual and technical documentation      |
+| Feature                     | Status    | Notes                                        |
+| --------------------------- | --------- | -------------------------------------------- |
+| Sensor Reading              | Completed | All sensors tested and operational           |
+| API Data Transmission       | Completed | All APIs tested and operational              |
+| Database Integration        | Completed | Database set up and tested                   |
+| Web App Integration         | Completed | Web app tested and operational               |
+| AI Integration (Claude API) | Completed | AI integration tested and operational        |
+| SD Card Data Logging        | Completed | SD Card Datab Logging tested and operational |
+| Documentation               | Completed | User manual and technical documentation      |
 
 ---
 
