@@ -17,36 +17,37 @@ Analyze each of the following data points:
 - Soil moisture (unitless or specified)
 - Rainfall (0 or false is not raining, 1 or true is raining) 
 - Timestamp
-- Location
+- Location = ${process.env.LOCATION || "Sri Lanka"}
+- Timestamp = ${new Date().toISOString()} if you use the current time change it to srilankan time
 
 Provide farming advice organized into four distinct sections:
 
-<h2>Crop Recommendations</h2>
+<h3>Crop Recommendations</h3>
 <p>[Explain which crops are most suitable for these conditions]</p>
 <ul>
 <li>[List recommended crops]</li>
 </ul>
 
-<h2>Irrigation Needs</h2>
+<h3>Irrigation Needs</h3>
 <p>[Explain watering requirements based on soil moisture and rainfall]</p>
 <ul>
 <li>[Specific irrigation tips]</li>
 </ul>
 
-<h2>Pest Risks</h2>
+<h3>Pest Risks</h3>
 <p>[Identify potential pest threats due to temperature, humidity, and other conditions]</p>
 <ul>
 <li>[List of pests to watch for and mitigation tips]</li>
 </ul>
 
-<h2>Planting Guidance</h2>
+<h3>Planting Guidance</h3>
 <p>[Advise on planting times, techniques, or other agronomic considerations]</p>
 <ul>
 <li>[Relevant planting tips]</li>
 </ul>
 
 Requirements & Constraints:
-- Use <h2> tags for each section heading.
+- Use <h3> tags for each section heading.
 - Use <p> tags for explanations under each section.
 - Use <ul><li> tags for lists of crops, pests, or tips.
 - Do NOT include any introductory or transitional phrases.
@@ -60,6 +61,9 @@ Requirements & Constraints:
 4. Identify pest risks related to current climatic conditions.
 5. Provide planting guidance tailored to the conditions and timestamp.
 6. Format all results into a clean HTML block following the specified structure and tags.
+7. Ensure the output is concise, actionable, and free of unnecessary information.
+8. Avoid any disclaimers or unnecessary context; focus solely on the actionable advice.
+9. Use the privided data to inform your analysis and recommendations not just say "based on the data" or "based on the location" say like "in Sri Lanka, the temperature is 30 degrees celsius and the humidity is 70% so you can grow rice and corn" or "the soil moisture is 0.5 so you need to irrigate the crops" or "the rainfall is 1 so you don't need to irrigate the crops" or "the temperature is 30 degrees celsius and the humidity is 70% so you need to be careful of pests like aphids and caterpillars" or "the timestamp is 2023-10-01T12:00:00Z so you should plant your crops now".
 
 # Output Format
 Output a single HTML block containing only the four sections with their headings, paragraphs, and lists as specified, without any additional wrapping tags or commentary.
