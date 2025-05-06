@@ -186,7 +186,7 @@ function About() {
           </tbody>
         </table>
 
-        <h4>Testing the Components (Overview)</h4>
+        <h3>Testing the Components (Overview)</h3>
         <table>
           <thead>
             <tr>
