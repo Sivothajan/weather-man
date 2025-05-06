@@ -1,19 +1,24 @@
 {
   "name": "Weather Man Web App",
   "short_name": "Weather-Man",
+  "description": "A web app that provides web-based IoT weather station data.",
+  "lang": "en-US",
+  "start_url": ".",
+  "id": "/",
   "icons": [
     {
-      "src": "/android-chrome-192x192.webp",
+      "src": "/favicon/android-chrome-192x192.webp",
       "sizes": "192x192",
       "type": "image/webp"
     },
     {
-      "src": "/android-chrome-512x512.webp",
+      "src": "/favicon/android-chrome-512x512.webp",
       "sizes": "512x512",
       "type": "image/webp"
     }
   ],
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
-  "display": "standalone"
+  "display": "standalone",
+  "categories": ["productivity", "utilities"]
 }
