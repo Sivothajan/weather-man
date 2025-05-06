@@ -17,7 +17,7 @@ app.use(cors({
 
 app.use(json());
 
-app.get('/api/check', (res) => {
+app.get('/api/check', (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
   res.status(200).json({ message: { 'API Status Response': 'Weather Man API is Working!' } });
 });
@@ -37,7 +37,7 @@ app.get('/api/get/:number', async (req, res) => {
   res.status(200).json(data);
 });
 
-app.get('/farming-advice', async (res) => {
+app.get('/farming-advice', async (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
   const location = process.env.LOCATION || 'Unknown Location';
   const dbData = await getDataFromDb(1);
@@ -64,7 +64,7 @@ app.get('/farming-advice', async (res) => {
   }
 });
 
-app.get('/take-action', async (res) => {
+app.get('/take-action', async (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
   const location = process.env.LOCATION || 'Unknown Location';
   const dbData = await getDataFromDb(1);
