@@ -30,7 +30,8 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 992px) { /* Tablets and smaller desktops */
+@media (max-width: 992px) {
+  /* Tablets and smaller desktops */
   .heading {
     font-size: 2.5em;
     margin-bottom: 20px;
@@ -40,7 +41,8 @@
   }
 }
 
-@media (max-width: 768px) { /* Smaller tablets and larger phones */
+@media (max-width: 768px) {
+  /* Smaller tablets and larger phones */
   .heading {
     font-size: 2em;
   }
@@ -50,7 +52,8 @@
   }
 }
 
-@media (max-width: 576px) { /* Mobile phones */
+@media (max-width: 576px) {
+  /* Mobile phones */
   .heading {
     font-size: 1.7em;
   }

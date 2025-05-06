@@ -1,4 +1,4 @@
-import styles from './Future.module.css';
+import styles from "./Future.module.css";
 
 function Future() {
   return (

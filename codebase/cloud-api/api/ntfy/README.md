@@ -18,27 +18,36 @@ npm install dotenv
 
 1. **Configure environment variables** in a `.env` file:
 
-    ```env
-    NTFY_USERNAME=your_username
-    NTFY_PASSWORD=your_password
-    NTFY_SERVER_DOMAIN=ntfy.sivothajan.me # optional, defaults to this value
-    NTFY_CHANEL_NAME=your_channel # optional, defaults to username
-    ```
+   ```env
+   NTFY_USERNAME=your_username
+   NTFY_PASSWORD=your_password
+   NTFY_SERVER_DOMAIN=ntfy.sivothajan.me # optional, defaults to this value
+   NTFY_CHANEL_NAME=your_channel # optional, defaults to username
+   ```
 
 2. **Import and use the API:**
 
-    ```js
-    import ntfy from './ntfy/ntfy.js';
+   ```js
+   import ntfy from "./ntfy/ntfy.js";
 
-    // Send a basic notification
-    await ntfy.sendNotification('Title', 'Message body');
+   // Send a basic notification
+   await ntfy.sendNotification("Title", "Message body");
 
-    // Send to a specific channel
-    await ntfy.sendNotificationToChanel('Title', 'Message body', 'custom-channel');
+   // Send to a specific channel
+   await ntfy.sendNotificationToChanel(
+     "Title",
+     "Message body",
+     "custom-channel",
+   );
 
-    // Send with a clickable action
-    await ntfy.sendNotificationToChanelWithAction('Title', 'Message body', 'ntfy', 'https://example.com/action');
-    ```
+   // Send with a clickable action
+   await ntfy.sendNotificationToChanelWithAction(
+     "Title",
+     "Message body",
+     "ntfy",
+     "https://example.com/action",
+   );
+   ```
 
 ## API
 

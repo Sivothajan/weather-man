@@ -5,27 +5,32 @@ This section explains how to run, build, and lint the project, as well as the ma
 ### Getting Started
 
 1. **Install dependencies**:
-    ```bash
-    npm install
-    ```
+
+   ```bash
+   npm install
+   ```
 
 2. **Run the development server**:
-    ```bash
-    npm run dev
-    ```
-    The app will be available at [http://localhost:5173](http://localhost:5173) by default.
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will be available at [http://localhost:5173](http://localhost:5173) by default.
 
 3. **Build for production**:
-    ```bash
-    npm run build
-    ```
-    The production-ready files will be output to the `dist/` directory.
+
+   ```bash
+   npm run build
+   ```
+
+   The production-ready files will be output to the `dist/` directory.
 
 4. **Lint the codebase**:
-    ```bash
-    npm run lint
-    ```
-    This uses ESLint to check for code quality and style issues.
+   ```bash
+   npm run lint
+   ```
+   This uses ESLint to check for code quality and style issues.
 
 ### Main Website URLs
 

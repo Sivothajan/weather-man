@@ -1,5 +1,5 @@
-import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
 
 dotenv.config();
 
@@ -10,18 +10,18 @@ const supabaseTable = process.env.SUPABASE_TABLE;
 const supabase = createClient(supabaseUrl, supabasePublicAnonKey);
 
 const getDataFromDb = async (limit = 10) => {
-    const { data, error } = await supabase
-        .from(supabaseTable)
-        .select('*')
-        .order('timestamp', { ascending: false })
-        .limit(limit);
+  const { data, error } = await supabase
+    .from(supabaseTable)
+    .select("*")
+    .order("timestamp", { ascending: false })
+    .limit(limit);
 
-    if (error) {
-        console.error('Error fetching data:', error);
-        return { success: false, error };
-    } else {
-        return { success: true, data };
-    }
+  if (error) {
+    console.error("Error fetching data:", error);
+    return { success: false, error };
+  } else {
+    return { success: true, data };
+  }
 };
 
 export { getDataFromDb };

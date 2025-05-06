@@ -171,7 +171,7 @@ hr {
   .galleryGrid {
     grid-template-columns: 1fr; /* Single column on small screens */
   }
-  
+
   .teamSection th,
   .teamSection td,
   .progressSection th,
@@ -223,6 +223,9 @@ hr {
   }
 
   .galleryGrid {
-    grid-template-columns: repeat(3, 1fr); /* Three columns on extra-large screens */
+    grid-template-columns: repeat(
+      3,
+      1fr
+    ); /* Three columns on extra-large screens */
   }
 }

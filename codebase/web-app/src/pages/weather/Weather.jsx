@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import styles from './Weather.module.css';
+import React, { useState, useEffect } from "react";
+import styles from "./Weather.module.css";
 
-const API_URL = 'https://API_URL';
+const API_URL = "https://API_URL";
 
 function Weather() {
   const [sensorReadings, setSensorReadings] = useState([]);
-  const [farmingAdvice, setFarmingAdvice] = useState('');
+  const [farmingAdvice, setFarmingAdvice] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [adviceError, setAdviceError] = useState(null);
@@ -62,8 +62,16 @@ function Weather() {
   if (error || adviceError) {
     return (
       <div className={styles.container}>
-        {error && <p className={styles.error}>Error loading sensor data: {error.message}</p>}
-        {adviceError && <p className={styles.error}>Error loading farming advice: {adviceError.message}</p>}
+        {error && (
+          <p className={styles.error}>
+            Error loading sensor data: {error.message}
+          </p>
+        )}
+        {adviceError && (
+          <p className={styles.error}>
+            Error loading farming advice: {adviceError.message}
+          </p>
+        )}
       </div>
     );
   }

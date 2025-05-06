@@ -1,6 +1,9 @@
 import Anthropic from "@anthropic-ai/sdk";
 import dotenv from "dotenv";
-import { sendNotificationToChanel, sendNotificationToChanelWithAction } from '../ntfy/ntfy.js';
+import {
+  sendNotificationToChanel,
+  sendNotificationToChanelWithAction,
+} from "../ntfy/ntfy.js";
 
 dotenv.config();
 
@@ -61,19 +64,27 @@ Don't add any explanation. Just the action word.
       ],
     });
 
-    sendNotificationToChanel("Claude Action Decision", `Claude's decision: ${response.content}`, 'weather-man');
+    sendNotificationToChanel(
+      "Claude Action Decision",
+      `Claude's decision: ${response.content}`,
+      "weather-man",
+    );
 
     const contentItem = response.content.find((c) => c.type === "text");
     const advice = contentItem?.text?.trim().toLowerCase();
 
     if (["watering", "call", "null"].includes(advice)) {
-      sendNotificationToChanelWithAction("Action Required", `Action: ${advice}`, 'weather-man', `https://${process.env.API_URL}/action/${advice}`);
+      sendNotificationToChanelWithAction(
+        "Action Required",
+        `Action: ${advice}`,
+        "weather-man",
+        `https://${process.env.API_URL}/action/${advice}`,
+      );
       return advice;
     }
 
     console.warn("Unexpected response from Claude:", advice);
     return "null"; // Fallback if unclear
-
   } catch (error) {
     console.error("Error during Claude action decision:", error);
     throw new Error("Failed to get farming advice");

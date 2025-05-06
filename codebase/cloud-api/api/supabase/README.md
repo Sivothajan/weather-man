@@ -4,14 +4,17 @@ This table stores weather data collected from sensors, designed for use with Sup
 
 ## Table Structure
 
-| Field          | Type      | Description                                 | Constraints                  |
-|----------------|-----------|---------------------------------------------|------------------------------|
-| `id`           | SERIAL    | Auto-incremented primary key                | Primary Key                  |
-| `temperature`  | FLOAT     | Measured temperature                        | Required                     |
-| `humidity`     | FLOAT     | Measured humidity                           | Required                     |
-| `soil_moisture`| FLOAT     | Measured soil moisture                      | Required                     |
-| `rain`         | BOOLEAN   | Rain status                                 | Required                     |
-| `timestamp`    | TIMESTAMP | Time when data was collected                | Defaults to current time     |
+| Field           | Type      | Description                  | Constraints              |
+| --------------- | --------- | ---------------------------- | ------------------------ |
+| `id`            | SERIAL    | Auto-incremented primary key | Primary Key              |
+| `temperature`   | FLOAT     | Measured temperature         | Required                 |
+| `humidity`      | FLOAT     | Measured humidity            | Required                 |
+| `soil_moisture` | FLOAT     | Measured soil moisture       | Required                 |
+| `soil_raw`      | FLOAT     | Raw soil sensor value        | Optional                 |
+| `rain`          | BOOLEAN   | Rain status                  | Required                 |
+| `rain_raw`      | FLOAT     | Raw rain sensor value        | Optional                 |
+| `fire`          | BOOLEAN   | Fire detection status        | Optional                 |
+| `timestamp`     | TIMESTAMP | Time when data was collected | Defaults to current time |
 
 ## SQL Definition
 
@@ -21,7 +24,10 @@ CREATE TABLE IF NOT EXISTS weather_data (
     temperature FLOAT NOT NULL,
     humidity FLOAT NOT NULL,
     soil_moisture FLOAT NOT NULL,
+    soil_raw FLOAT,
     rain BOOLEAN NOT NULL,
+    rain_raw FLOAT,
+    fire BOOLEAN,
     timestamp TIMESTAMP NOT NULL DEFAULT NOW()
 );
 ```
@@ -39,5 +45,5 @@ To manually create the `weather_data` table in your Supabase database:
 
 - Compatible with Supabase.
 - Table is created only if it does not already exist.
-- All measurement fields are required.
+- All measurement fields except `soil_raw`, `rain_raw`, and `fire` are required.
 - `timestamp` defaults to the current time when a record is inserted.

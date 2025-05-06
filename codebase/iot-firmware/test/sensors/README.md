@@ -37,7 +37,7 @@ This Arduino sketch is a **testing code for sensors**. It reads data from multip
 Serial output columns:
 
 | Temp(C) | Humidity(%) | SoilRaw | SoilStatus | RainRaw | RainStatus | FireStatus |
-|---------|-------------|---------|------------|---------|------------|------------|
+| ------- | ----------- | ------- | ---------- | ------- | ---------- | ---------- |
 | 23.1    | 45.2        | 650     | Normal     | 300     | Rain       | NoFire     |
 
 - **Temp(C)**: Temperature in Celsius from the DHT11 sensor.

@@ -1,7 +1,7 @@
 ## Required Library
 
-| Library Name | Installation (Arduino IDE Library Manager) | Link |
-|--------------|--------------------------------------------|------|
+| Library Name | Installation (Arduino IDE Library Manager) | Link                                                              |
+| ------------ | ------------------------------------------ | ----------------------------------------------------------------- |
 | hd44780      | `hd44780 by Bill Perry`                    | [hd44780 by Bill Perry](https://github.com/duinoWitchery/hd44780) |
 
 **How to install the library:**

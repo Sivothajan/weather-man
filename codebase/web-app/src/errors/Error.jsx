@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
-import styles from './Error.module.css';
+import PropTypes from "prop-types";
+import styles from "./Error.module.css";
 
 function Error({ errorCode, errorMessage }) {
   return (
@@ -11,7 +11,8 @@ function Error({ errorCode, errorMessage }) {
 }
 
 Error.propTypes = {
-  errorCode: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  errorCode: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    .isRequired,
   errorMessage: PropTypes.string.isRequired,
 };
 
