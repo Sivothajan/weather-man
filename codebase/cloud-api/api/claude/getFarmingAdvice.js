@@ -63,7 +63,7 @@ Requirements & Constraints:
 6. Format all results into a clean HTML block following the specified structure and tags.
 7. Ensure the output is concise, actionable, and free of unnecessary information.
 8. Avoid any disclaimers or unnecessary context; focus solely on the actionable advice.
-9. Use the privided data to inform your analysis and recommendations not just say "based on the data" or "based on the location" say like "in Sri Lanka, the temperature is 30 degrees celsius and the humidity is 70% so you can grow rice and corn" or "the soil moisture is 0.5 so you need to irrigate the crops" or "the rainfall is 1 so you don't need to irrigate the crops" or "the temperature is 30 degrees celsius and the humidity is 70% so you need to be careful of pests like aphids and caterpillars" or "the timestamp is 2023-10-01T12:00:00Z so you should plant your crops now".
+9. Use the privided data to inform your analysis and recommendations not just say "based on the data" or "based on the location" say like "in Sri Lanka, the temperature is 30 degrees celsius and the humidity is 70% so you can grow rice and corn" or "the soil moisture is 0.5 so you need to irrigate the crops" or "the rainfall is 1 so you don't need to irrigate the crops" or "the temperature is 30 degrees celsius and the humidity is 70% so you need to be careful of pests like aphids and caterpillars" or "the timestamp is 05 th October, 12:00 AM (Convert to Srilankan Time if not) so you should plant your crops now".
 
 # Output Format
 Output a single HTML block containing only the four sections with their headings, paragraphs, and lists as specified, without any additional wrapping tags or commentary.
