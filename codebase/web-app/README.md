@@ -46,7 +46,6 @@ Create a `.env` file in the root directory of this project with the following va
 ### Main Website URLs
 
 - `/` or `/about` &mdash; About page
-- `/weather` &mdash; Weather page
 - `/dashboard` &mdash; Dashboard page
 - Any other path &mdash; Error 404 page
 

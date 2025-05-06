@@ -43,15 +43,15 @@ Figure 1: Weather Man System Overview
 | SD Card Module                  | Logging weather data            | Available             |
 | Raindrop Sensor Plate           | Detects rainfall                | Available             |
 | Jumper Wires                    | For circuit connections         | Available             |
-| DHT11                           | Temperature and Humidity sensor | Available (Defective) |
-| LCD Display (16x2)              | Displays weather data           | Available (Defective) |
-| ESP8266 (ESP-01)                | Wi-Fi communication             | Available (Defective) |
+| DHT11                           | Temperature and Humidity sensor | Defective             |
+| LCD Display (16x2)              | Displays weather data           | Defective             |
+| ESP8266 (ESP-01)                | Wi-Fi communication             | Defective             |
 | Weather Station Production Case | Enclosure for all components    | Pending               |
 
 > **Note:**
 >
 > - **Available**: Component is on hand
-> - **Available (Defective)**: Component is on hand but not functional (component is defective)
+> - **Defective**: Component is on hand but not functional (component is defective)
 > - **Pending**: Component has been ordered and is awaiting delivery or installation/ assembly
 
 ---
@@ -73,7 +73,7 @@ Figure 1: Weather Man System Overview
 | Web App Integration         | Completed      | Web app tested and operational               |
 | AI Integration (Claude API) | Completed      | AI integration tested and operational        |
 | SD Card Data Logging        | Completed      | SD Card Datab Logging tested and operational |
-| Documentation               | In Final Stage | User manual and technical documentation      |
+| Documentation               | Completed      | User manual and technical documentation      |
 
 ---
 
