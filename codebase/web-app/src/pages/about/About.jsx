@@ -264,7 +264,7 @@ function About() {
             </tr>
             <tr>
               <td>Documentation</td>
-              <td>In Final Stage</td>
+              <td>Completed</td>
               <td>User manual and technical documentation</td>
             </tr>
           </tbody>

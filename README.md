@@ -11,6 +11,14 @@ Figure 1: Weather Man System Overview
 
 ---
 
+### Project Links
+- [Project Web-App](https://wm.sivothajan.me/)
+- [Project API](https://wm.api.sivothajan.me/)
+- [Project Documentation](https://gh.sivothajan.me/weather-man/)
+- [Project Update Post on TheCN ePortfolio](https://www.thecn.com/SS4922/section/showcase/681252d15bc51c0abd08d563)
+
+---
+
 ### Team Members <sub>(Ordered by ascending Student IDs)</sub>
 
 | Name        | Student ID |
