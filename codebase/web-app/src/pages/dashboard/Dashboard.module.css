@@ -41,6 +41,8 @@
 
 .overview {
   margin-bottom: 30px;
+  display: grid;
+  gap: 20px;
 }
 
 .overviewCard {
