@@ -40,7 +40,7 @@ Create a `.env` file in the root directory of this project with the following va
 
 - `VITE_API_URL` — Base URL for the weather-man cloud API
 - `VITE_DATA_SIZE` — Number of data points to fetch from the API (default: 10)
-- `VITE_WEATHER_REFRESH_INTERVAL` — Interval in milliseconds for refreshing weather data (default: 6000 milliseconds)
+- `VITE_WEATHER_REFRESH_INTERVAL` — Interval in milliseconds for refreshing weather data (default: 60000 milliseconds)
 - `VITE_WEATHER_REFRESH_ENABLED` — Enable or disable automatic weather data refresh (default: true)
 
 ### Main Website URLs
