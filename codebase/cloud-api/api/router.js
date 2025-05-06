@@ -24,7 +24,10 @@ app.get('/api/check', (req, res) => {
 
 app.get('/api/get/:number', async (req, res) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
-  const number = parseInt(req.params.number.toLowerCase(), 10);
+  const { number} = req.params;
+    if (!number || typeof number !== 'string') {
+      return res.status(400).json({ error: 'Invalid number' });
+    }
 
   if (isNaN(number) || number < 1) {
     return res.status(400).json({ message: 'Invalid number parameter. Must be greater than 0.' });
