@@ -131,8 +131,8 @@ hr {
   text-align: center;
 }
 
-.galleryItem img {
-  max-width: 100%;
+.galleryImg {
+  max-width: 100%; /* Allow images to fill the grid cell */
   height: auto;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
@@ -170,6 +170,13 @@ hr {
 
   .galleryGrid {
     grid-template-columns: 1fr; /* Single column on small screens */
+  }
+  
+  .teamSection th,
+  .teamSection td,
+  .progressSection th,
+  .progressSection td {
+    border: 1px solid #ddd;
   }
 }
 

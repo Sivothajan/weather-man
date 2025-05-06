@@ -1,6 +1,11 @@
 import React from 'react';
 import styles from './About.module.css';
 import systemArchitecture from '/images/System-Architecture-Diagram.png';
+import scratch from '/images/scratch.jpg';
+import topView from '/images/top-view.jpg';
+import sideView from '/images/side-view.jpg';
+import testingTopView from '/images/testing-top-view.jpg';
+import testingSideView from '/images/testing-side-view.jpg';
 
 function About() {
   return (
@@ -19,17 +24,16 @@ function About() {
       <section className={styles.descriptionSection}>
         <h2>Description</h2>
         <p>
-          <strong>The Weather Man</strong> is an innovative IoT-based smart weather monitoring system designed for comprehensive environmental data collection, processing, and real-time visualization. This system utilizes a network of interconnected sensors to accurately measure key atmospheric and soil conditions, including temperature, humidity, soil moisture levels, and rainfall. The collected data is seamlessly transmitted to a robust cloud platform, enabling secure storage and in-depth analysis.
-        </p>
-        <p>
-          A key feature of The Weather Man is its intuitive web application, providing users with remote access to live weather data and historical trends. The system's modular design, both in its hardware components and software architecture, allows for easy customization and scalability, making it an ideal solution for diverse applications ranging from educational purposes and agricultural optimization to advanced environmental research. Furthermore, the system is architected with future integration of Artificial Intelligence (AI) capabilities in mind, paving the way for advanced predictive analytics and actionable insights.
+          <strong>The Weather Man</strong> is an IoT-based smart weather monitoring system that collects, processes, and displays real-time environmental data. It uses a suite of sensors to measure temperature, humidity, soil moisture, and rainfall, transmitting data to a cloud platform for storage and analysis. The system features a web application for remote monitoring and is designed for future AI integration to provide advanced insights. Its modular hardware and software architecture make it ideal for educational, agricultural, and research applications.
         </p>
       </section>
 
       <hr />
 
       <section className={styles.teamSection}>
-        <h2>Team Members</h2>
+        <h2>
+          Team Members <sub>(Ordered by ascending Student IDs)</sub>
+        </h2>
         <table>
           <thead>
             <tr>
@@ -55,7 +59,13 @@ function About() {
       <hr />
 
       <section className={styles.progressSection}>
-        <h2>Current Progress (As of April 30, 2025)</h2>
+        <h2>Current Progress</h2>
+        <p>
+          <strong>PS:</strong> If you want to see the progress as of April 30, 2025, please check the{' '}
+          <a href="https://github.com/Sivothajan/weather-man/tree/31057a6575f7ccb06b0e44e5aa5a5fb1c9c69691" target="_blank" rel="noopener noreferrer">
+            As of April 30, 2025 GitHub Repo
+          </a>
+        </p>
 
         <h3>🔧 Hardware Setup</h3>
         <table>
@@ -67,29 +77,34 @@ function About() {
             </tr>
           </thead>
           <tbody>
-            <tr><td>Arduino Mega 2560</td><td>Main microcontroller unit</td><td>Available</td></tr>
-            <tr><td>DHT11</td><td>Temperature and Humidity sensor</td><td>Available</td></tr>
-            <tr><td>Capacitive Soil Moisture Sensor</td><td>Measures volumetric water content in soil</td><td>Available</td></tr>
-            <tr><td>LCD Display (16x2)</td><td>Local display for real-time sensor readings</td><td>Available</td></tr>
-            <tr><td>ESP8266 (ESP-01)</td><td>Wi-Fi module for internet connectivity</td><td>Available</td></tr>
-            <tr><td>AC to DC Converter</td><td>Provides stable power supply to the system</td><td>Available</td></tr>
-            <tr><td>Breadboard</td><td>Platform for prototyping and circuit building</td><td>Available</td></tr>
-            <tr><td>SD Card Module</td><td>For offline logging of sensor data</td><td>Pending</td></tr>
-            <tr><td>Raindrop Sensor Plate</td><td>Detects the presence and intensity of rainfall</td><td>Pending</td></tr>
-            <tr><td>Jumper Wires</td><td>Essential for electrical connections</td><td>Pending</td></tr>
-            <tr><td>Weather Station Production Case</td><td>Protective enclosure for the deployed system</td><td>Pending</td></tr>
+            <tr><td>Arduino Mega 2560</td><td>Main controller</td><td>Available</td></tr>
+            <tr><td>Capacitive Soil Moisture Sensor</td><td>Measures soil moisture</td><td>Available</td></tr>
+            <tr><td>AC to DC Converter</td><td>Power supply</td><td>Available</td></tr>
+            <tr><td>Breadboard</td><td>For prototyping circuits</td><td>Available</td></tr>
+            <tr><td>SD Card Module</td><td>Logging weather data</td><td>Available</td></tr>
+            <tr><td>Raindrop Sensor Plate</td><td>Detects rainfall</td><td>Available</td></tr>
+            <tr><td>Jumper Wires</td><td>For circuit connections</td><td>Available</td></tr>
+            <tr><td>DHT11</td><td>Temperature and Humidity sensor</td><td>Available (Defective)</td></tr>
+            <tr><td>LCD Display (16x2)</td><td>Displays weather data</td><td>Available (Defective)</td></tr>
+            <tr><td>ESP8266 (ESP-01)</td><td>Wi-Fi communication</td><td>Available (Defective)</td></tr>
+            <tr><td>Weather Station Production Case</td><td>Enclosure for all components</td><td>Pending</td></tr>
           </tbody>
         </table>
-        <p className={styles.note}><strong>Note:</strong> - <strong>Available</strong>: Component is on hand - <strong>Pending</strong>: Component ordered, awaiting delivery</p>
+        <p className={styles.note}>
+          <strong>Note:</strong><br />
+          - <strong>Available</strong>: Component is on hand<br />
+          - <strong>Available (Defective)</strong>: Component is on hand but not functional (component is defective)<br />
+          - <strong>Pending</strong>: Component has been ordered and is awaiting delivery or installation/assembly
+        </p>
 
         <h3>🧠 Software Progress</h3>
         <ul>
-          <li><strong>Basic sensor reading code:</strong> Complete – Firmware successfully reads data from all available sensors.</li>
-          <li><strong>Cloud data transmission via API:</strong> Complete – Data is successfully transmitted to the cloud platform via a defined API. Web app integration for displaying this data is ongoing.</li>
-          <li><strong>Database integration:</strong> Complete – The cloud database schema is defined, and sensor data is being stored correctly.</li>
-          <li><strong>Web app integration:</strong> In Progress – Development of the user interface for real-time monitoring and historical data visualization is underway.</li>
-          <li><strong>SD card data logging:</strong> Planned – Implementation will commence upon arrival of the SD card module.</li>
-          <li><strong>AI integration (Claude API):</strong> Planned – Initial research into leveraging the Claude API for predictive analysis (e.g., forecasting soil moisture trends, predicting potential extreme weather events) is in progress.</li>
+          <li>Basic sensor reading code: <strong>Completed</strong></li>
+          <li>Cloud data transmission via API: <strong>Completed</strong></li>
+          <li>Database integration: <strong>Completed</strong></li>
+          <li>Web app integration: <strong>Completed</strong></li>
+          <li>AI integration (Claude API): <strong>Completed</strong></li>
+          <li>SD card data logging: <strong>Completed</strong></li>
         </ul>
         <table>
           <thead>
@@ -100,13 +115,13 @@ function About() {
             </tr>
           </thead>
           <tbody>
-            <tr><td>Sensor Reading</td><td>Completed</td><td>All sensors tested and providing accurate readings.</td></tr>
-            <tr><td>API Data Transmission</td><td>Completed</td><td>Data is being sent to the cloud with timestamps.</td></tr>
-            <tr><td>Database Integration</td><td>Completed</td><td>Data is organized and queryable in the cloud database.</td></tr>
-            <tr><td>SD Card Data Logging</td><td>Pending</td><td>Waiting for hardware delivery to begin implementation.</td></tr>
-            <tr><td>Web App Integration</td><td>In Progress</td><td>Focus on real-time data display and chart rendering.</td></tr>
-            <tr><td>Documentation</td><td>In Progress</td><td>Creating user manuals, API documentation, and technical specs.</td></tr>
-            <tr><td>AI Integration (Claude API)</td><td>Planned</td><td>Exploring API capabilities and potential use cases.</td></tr>
+            <tr><td>Sensor Reading</td><td>Completed</td><td>All sensors tested and operational</td></tr>
+            <tr><td>API Data Transmission</td><td>Completed</td><td>All APIs tested and operational</td></tr>
+            <tr><td>Database Integration</td><td>Completed</td><td>Database set up and tested</td></tr>
+            <tr><td>Web App Integration</td><td>Completed</td><td>Web app tested and operational</td></tr>
+            <tr><td>AI Integration (Claude API)</td><td>Completed</td><td>AI integration tested and operational</td></tr>
+            <tr><td>SD Card Data Logging</td><td>Completed</td><td>SD Card Data Logging tested and operational</td></tr>
+            <tr><td>Documentation</td><td>In Final Stage</td><td>User manual and technical documentation</td></tr>
           </tbody>
         </table>
       </section>
@@ -114,35 +129,82 @@ function About() {
       <hr />
 
       <section className={styles.codebaseSection}>
-        <h2>Explore the Codebase</h2>
-        <p>The project codebase is organized into the following key directories:</p>
+        <h2>📂 Explore the Codebase</h2>
+        <p>You can browse the project source code in the following directories:</p>
         <ul>
-          <li><strong><a href="./codebase/cloud-api/">API Backend</a></strong> – Handles data reception, processing, and interaction with the database.</li>
-          <li><strong><a href="./codebase/iot-firmware/">IoT Firmware</a></strong> – Microcontroller and sensor code.</li>
-          <li><strong><a href="./codebase/web-app/">Web Application</a></strong> – User interface for monitoring and analytics.</li>
+          <li>
+            <strong>
+              <a href="https://github.com/Sivothajan/weather-man/tree/master/codebase/cloud-api" target="_blank" rel="noopener noreferrer">API Backend</a>
+            </strong>{' '}
+            – Handles data processing and cloud integration.
+          </li>
+          <li>
+            <strong>
+              <a href="https://github.com/Sivothajan/weather-man/tree/master/codebase/iot-firmware" target="_blank" rel="noopener noreferrer">IoT Firmware</a>
+            </strong>{' '}
+            – Microcontroller and sensor code.
+          </li>
+          <li>
+            <strong>
+              <a href="https://github.com/Sivothajan/weather-man/tree/master/codebase/web-app" target="_blank" rel="noopener noreferrer">Web Application</a>
+            </strong>{' '}
+            – User interface for monitoring and analytics.
+          </li>
         </ul>
-        <p><a href="./codebase/"><strong>View Full Codebase on GitHub</strong></a></p>
+        <p>
+          <a href="https://github.com/Sivothajan/weather-man/tree/master/codebase" target="_blank" rel="noopener noreferrer">
+            <strong>View Full Codebase on GitHub</strong>
+          </a>
+        </p>
       </section>
 
       <hr />
 
       <section className={styles.gallerySection}>
-        <h2>Project Gallery</h2>
+        <h2>📸 Project Gallery</h2>
         <h3>Components Overview</h3>
-        <div className={styles.galleryGrid}>
-          <div className={styles.galleryItem}>
-            <h4>Sensor Array & Microcontroller</h4>
-            <img src="../../assets/scratch.jpg" alt="Sensor Array & Microcontroller" />
-          </div>
-          <div className={styles.galleryItem}>
-            <h4>Local LCD Display</h4>
-            <img src="../../assets/top-view.jpg" alt="Local LCD Display" />
-          </div>
-          <div className={styles.galleryItem}>
-            <h4>Communication Module (ESP8266)</h4>
-            <img src="../../assets/side-view.jpg" alt="Communication Module (ESP8266)" />
-          </div>
-        </div>
+        <table>
+          <thead>
+            <tr>
+              <th>Scratch</th>
+              <th>Top View</th>
+              <th>Side View</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img src={scratch} alt="Scratch" className={styles.galleryImg} />
+              </td>
+              <td>
+                <img src={topView} alt="Top View" className={styles.galleryImg} />
+              </td>
+              <td>
+                <img src={sideView} alt="Side View" className={styles.galleryImg} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>Testing the Components (Overview)</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Top View</th>
+              <th>Side View</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <img src={testingTopView} alt="Testing Top View" className={styles.galleryImg} />
+              </td>
+              <td>
+                <img src={testingSideView} alt="Testing Side View" className={styles.galleryImg} />
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </section>
     </div>
   );
