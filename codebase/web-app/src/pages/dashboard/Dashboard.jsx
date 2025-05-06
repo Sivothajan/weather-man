@@ -86,20 +86,25 @@ function Dashboard() {
     } else if (totalSeconds < 3600) {
       const minutes = Math.floor(totalSeconds / 60);
       const seconds = totalSeconds % 60;
-      return `${minutes} minute${minutes !== 1 ? "s" : ""}` +
-        (seconds > 0 ? ` ${seconds} second${seconds !== 1 ? "s" : ""}` : "");
+      return (
+        `${minutes} minute${minutes !== 1 ? "s" : ""}` +
+        (seconds > 0 ? ` ${seconds} second${seconds !== 1 ? "s" : ""}` : "")
+      );
     } else {
       const hours = Math.floor(totalSeconds / 3600);
       const minutes = Math.floor((totalSeconds % 3600) / 60);
       const seconds = totalSeconds % 60;
       let result = `${hours} hour${hours !== 1 ? "s" : ""}`;
-      if (minutes > 0) result += ` ${minutes} minute${minutes !== 1 ? "s" : ""}`;
-      if (seconds > 0) result += ` ${seconds} second${seconds !== 1 ? "s" : ""}`;
+      if (minutes > 0)
+        result += ` ${minutes} minute${minutes !== 1 ? "s" : ""}`;
+      if (seconds > 0)
+        result += ` ${seconds} second${seconds !== 1 ? "s" : ""}`;
       return result;
     }
   }
 
-  const refreshMs = Number(import.meta.env.VITE_WEATHER_REFRESH_INTERVAL) || 60000;
+  const refreshMs =
+    Number(import.meta.env.VITE_WEATHER_REFRESH_INTERVAL) || 60000;
 
   return (
     <div className={styles.container}>
