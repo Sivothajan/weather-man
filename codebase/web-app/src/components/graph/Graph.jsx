@@ -66,11 +66,12 @@ const graphConfigs = [
     yTitle: "Rain Raw",
   },
   {
-    label: "Fire",
+    label: "Fire (Detected: 1, Not Detected: 0)",
     key: "fire",
     borderColor: "rgba(255, 0, 0, 1)",
     backgroundColor: "rgba(255, 0, 0, 0.2)",
-    yTitle: "Fire",
+    yTitle: "Fire Detection",
+    isBoolean: true,
   },
 ];
 
@@ -94,7 +95,11 @@ const Graph = ({ csvData }) => {
             datasets: [
               {
                 label: config.label,
-                data: csvData.map((item) => parseFloat(item[config.key])),
+                data: csvData.map((item) => 
+                  config.isBoolean 
+                    ? item[config.key] ? 1 : 0 
+                    : parseFloat(item[config.key])
+                ),
                 borderColor: config.borderColor,
                 backgroundColor: config.backgroundColor,
                 tension: 0.1,
@@ -118,6 +123,7 @@ const Graph = ({ csvData }) => {
                   display: true,
                   text: config.yTitle,
                 },
+                ...(config.isBoolean && { min: 0, max: 1, ticks: { stepSize: 1 } }),
               },
             },
             plugins: {

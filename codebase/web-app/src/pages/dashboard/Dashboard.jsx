@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Graph from "../../components/graph/Graph";
 import Advice from "../../components/advice/Advice";
 import styles from "./Dashboard.module.css";
@@ -141,6 +142,7 @@ const fetchData = async () => {
 };
 
 function Dashboard() {
+  const navigate = useNavigate();
   const [weatherData, setWeatherData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -197,8 +199,8 @@ function Dashboard() {
 
   return (
     <div className={styles.container}>
+            <button className={styles.homeButton} onClick={() => navigate("/")}>Home</button>
       <h1 className={styles.heading}>Dashboard</h1>
-
       <div className={styles.overview}>
         <div className={styles.overviewCard}>
           <div className={styles.cardHeader}>

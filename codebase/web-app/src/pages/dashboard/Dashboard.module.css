@@ -1,12 +1,12 @@
 .container {
   padding: 20px;
   margin: 20px auto;
-  max-width: 1200px; /* Increased max-width */
+  max-width: 1200px;
 }
 
 .heading {
-  font-size: 2.5em;
-  color: #2c3e50; /* Darker heading */
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: #2c3e50;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -18,7 +18,10 @@
   margin-bottom: 20px;
 }
 
-.card {
+/* Reusable card styles */
+.card,
+.overviewCard,
+.graphCard {
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -43,22 +46,11 @@
   margin-bottom: 30px;
   display: grid;
   gap: 20px;
-}
-
-.overviewCard {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  grid-template-columns: 1fr;
 }
 
 .graphSection {
   margin-top: 30px;
-}
-
-.graphCard {
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .error {
@@ -73,7 +65,29 @@
   border-radius: 4px;
 }
 
-/* Responsive Design */
+/* Button */
+.homeButton {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 18px 40px;
+  font-size: 1.2em;
+  font-weight: bolder;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: background 0.2s;
+  display: block;
+  margin: 0 0 24px auto;
+}
+
+.homeButton:hover,
+.homeButton:focus-visible {
+  background-color: #0056b3;
+  outline: none;
+}
+
+/* Responsiveness */
 
 @media (max-width: 768px) {
   .container {
@@ -81,33 +95,14 @@
     margin: 15px auto;
   }
 
-  .heading {
-    font-size: 2em;
-  }
-
-  .cardGrid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (min-width: 769px) {
-  .cardGrid {
-    grid-template-columns: 1fr;
-  }
-  .overview {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
+  .homeButton {
+    font-size: 0.95em;
+    padding: 12px 16px;
   }
 }
 
 @media (min-width: 1024px) {
-  .cardGrid {
-    grid-template-columns: 1fr;
-  }
   .overview {
-    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
   }
 }

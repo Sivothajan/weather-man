@@ -6,10 +6,14 @@ import topView from "/images/top-view.jpg";
 import sideView from "/images/side-view.jpg";
 import testingTopView from "/images/testing-top-view.jpg";
 import testingSideView from "/images/testing-side-view.jpg";
+import { useNavigate } from "react-router-dom";
 
 function About() {
+  const navigate = useNavigate();
+  
   return (
     <div className={styles.container}>
+      <button className={styles.dashboardButton} onClick={() => navigate("/dashboard")}>Dashboard</button>
       <h1 className={styles.heading}>
         The Weather Man – IoT-Based Smart Weather Monitoring System
       </h1>
@@ -44,13 +48,13 @@ function About() {
 
       <section className={styles.teamSection}>
         <h2>
-          Team Members <sub>(Ordered by ascending Student IDs)</sub>
+          Team Members
         </h2>
         <table>
           <thead>
             <tr>
               <th>Name</th>
-              <th>Student ID</th>
+              <th>Student ID <span style={{ fontSize: "0.8em" }}>(Ordered by ascending)</span></th>
             </tr>
           </thead>
           <tbody>
