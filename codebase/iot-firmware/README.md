@@ -12,3 +12,12 @@
 1. Open the Arduino IDE.
 2. Go to **Sketch > Include Library > Manage Libraries...**
 3. Search for each library name and click **Install** (if not built-in).
+
+### IoT Firmware Environment Variables
+
+In the `config.h` file for the IoT firmware:
+
+- `ssid` — WiFi network name
+- `password` — WiFi password
+- `apiHost` — Cloud API host URL
+- `apiPath` — Cloud API endpoint path

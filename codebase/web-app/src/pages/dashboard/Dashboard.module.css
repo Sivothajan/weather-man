@@ -44,9 +44,8 @@
 
 .overview {
   margin-bottom: 30px;
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr;
+  display: flex;
+  justify-content: center;
 }
 
 .graphSection {
@@ -85,6 +84,13 @@
 .homeButton:focus-visible {
   background-color: #0056b3;
   outline: none;
+}
+
+.overviewText {
+  font-size: 1.1rem;
+  color: rgba(0, 0, 0, 0.900);
+  margin-bottom: 10px;
+  line-height: 1.6;
 }
 
 /* Responsiveness */

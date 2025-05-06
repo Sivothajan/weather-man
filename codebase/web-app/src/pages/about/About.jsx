@@ -10,10 +10,15 @@ import { useNavigate } from "react-router-dom";
 
 function About() {
   const navigate = useNavigate();
-  
+
   return (
     <div className={styles.container}>
-      <button className={styles.dashboardButton} onClick={() => navigate("/dashboard")}>Dashboard</button>
+      <button
+        className={styles.dashboardButton}
+        onClick={() => navigate("/dashboard")}
+      >
+        Dashboard
+      </button>
       <h1 className={styles.heading}>
         The Weather Man – IoT-Based Smart Weather Monitoring System
       </h1>
@@ -47,14 +52,17 @@ function About() {
       <hr />
 
       <section className={styles.teamSection}>
-        <h2>
-          Team Members
-        </h2>
+        <h2>Team Members</h2>
         <table>
           <thead>
             <tr>
               <th>Name</th>
-              <th>Student ID <span style={{ fontSize: "0.8em" }}>(Ordered by ascending)</span></th>
+              <th>
+                Student ID{" "}
+                <span style={{ fontSize: "0.8em" }}>
+                  (Ordered by ascending)
+                </span>
+              </th>
             </tr>
           </thead>
           <tbody>

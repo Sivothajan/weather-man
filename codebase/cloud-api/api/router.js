@@ -68,7 +68,7 @@ app.get("/farming-advice", async (req, res) => {
     res.status(200).json(farmingAdvice);
   } catch (error) {
     console.error("Error in farming advice handler:", error);
-    res.status(500).json({ message: "Error processing request." });
+    res.status(500).json(error);
   }
 });
 

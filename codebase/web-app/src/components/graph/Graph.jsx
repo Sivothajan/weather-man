@@ -52,11 +52,12 @@ const graphConfigs = [
     yTitle: "Soil Raw",
   },
   {
-    label: "Rain (mm)",
+    label: "Rain (Raining: 1, Not Raining: 0)",
     key: "rain",
     borderColor: "rgba(153, 102, 255, 1)",
     backgroundColor: "rgba(153, 102, 255, 0.2)",
-    yTitle: "Rain (mm)",
+    yTitle: "Rain Detection",
+    isBoolean: true,
   },
   {
     label: "Rain Raw",
@@ -75,30 +76,32 @@ const graphConfigs = [
   },
 ];
 
-const Graph = ({ csvData }) => {
+const Graph = ({ jsonData }) => {
   const [labels, setLabels] = useState([]);
 
   useEffect(() => {
-    if (csvData && csvData.length > 0) {
+    if (jsonData && jsonData.length > 0) {
       setLabels(
-        csvData.map((item) => new Date(item.timestamp).toLocaleTimeString()),
+        jsonData.map((item) => new Date(item.timestamp).toLocaleTimeString()),
       );
     }
-  }, [csvData]);
+  }, [jsonData]);
 
   return (
     <div className={styles.graphContainer}>
-      {csvData && csvData.length > 0 ? (
+      {jsonData && jsonData.length > 0 ? (
         graphConfigs.map((config) => {
           const data = {
             labels,
             datasets: [
               {
                 label: config.label,
-                data: csvData.map((item) => 
-                  config.isBoolean 
-                    ? item[config.key] ? 1 : 0 
-                    : parseFloat(item[config.key])
+                data: jsonData.map((item) =>
+                  config.isBoolean
+                    ? item[config.key]
+                      ? 1
+                      : 0
+                    : parseFloat(item[config.key]),
                 ),
                 borderColor: config.borderColor,
                 backgroundColor: config.backgroundColor,
@@ -123,7 +126,23 @@ const Graph = ({ csvData }) => {
                   display: true,
                   text: config.yTitle,
                 },
-                ...(config.isBoolean && { min: 0, max: 1, ticks: { stepSize: 1 } }),
+                ...(config.isBoolean && {
+                  min: 0,
+                  max: 1,
+                  ticks: {
+                    stepSize: 1,
+                    callback: function (value) {
+                      if (config.key === "rain") {
+                        return value === 0 ? "0 (Not Raining)" : "1 (Raining)";
+                      } else if (config.key === "fire") {
+                        return value === 0
+                          ? "0 (Not Detected)"
+                          : "1 (Detected)";
+                      }
+                      return value;
+                    },
+                  },
+                }),
               },
             },
             plugins: {

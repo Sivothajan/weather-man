@@ -11,20 +11,28 @@ function Advice() {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch("/farming-advice");
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/farming-advice`,
+        );
         if (!res.ok) throw new Error("Failed to fetch advice");
         const data = await res.json();
-        let adviceText = "";
-        if (Array.isArray(data.content) && data.content[0]?.text) {
-          adviceText = data.content[0].text;
-        } else if (typeof data.content === "string") {
-          adviceText = data.content;
-        } else {
-          adviceText = "No advice available.";
+
+        // Handle success response
+        if (data.type === "message" && data.content) {
+          setAdvice(data.content);
         }
-        setAdvice(adviceText);
+        // Handle error response from the API
+        else if (data.type === "error" && data.error) {
+          setError(data.error.message || "Error getting farming advice.");
+        }
+        // Handle unexpected response format
+        else {
+          console.warn("Unexpected response format:", data);
+          setError("Received unexpected data format from server.");
+        }
       } catch (err) {
-        setError("Could not load advice.");
+        console.error("Error fetching farming advice:", err);
+        setError("Could not load advice. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -40,7 +48,12 @@ function Advice() {
       <div className={styles.cardContent}>
         {loading && <p>Loading advice...</p>}
         {error && <p className={styles.error}>{error}</p>}
-        {!loading && !error && <p className={styles.adviceText}>{advice}</p>}
+        {!loading && !error && (
+          <div
+            className={styles.adviceText}
+            dangerouslySetInnerHTML={{ __html: advice }}
+          />
+        )}
       </div>
     </div>
   );
