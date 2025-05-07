@@ -22,11 +22,11 @@ The Claude integration provides two main functionalities:
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `ANTHROPIC_API_KEY` | Your Anthropic API key | Required |
-| `LOCATION` | Default location for contextual advice | "Sri Lanka" |
-| `API_URL` | Base URL for action endpoints | Required for `takeIoTAction.js` |
+| Variable            | Description                            | Default                         |
+| ------------------- | -------------------------------------- | ------------------------------- |
+| `ANTHROPIC_API_KEY` | Your Anthropic API key                 | Required                        |
+| `LOCATION`          | Default location for contextual advice | "Sri Lanka"                     |
+| `API_URL`           | Base URL for action endpoints          | Required for `takeIoTAction.js` |
 
 ## API Functions
 
@@ -69,14 +69,14 @@ Or on error:
 #### Example Usage
 
 ```javascript
-import { getFarmingAdvice } from './claude/getFarmingAdvice.js';
+import { getFarmingAdvice } from "./claude/getFarmingAdvice.js";
 
 const data = {
   temperature: 28.5,
   humidity: 65,
   soil_moisture: 0.42,
   rainfall: false,
-  timestamp: new Date().toISOString()
+  timestamp: new Date().toISOString(),
 };
 
 const advice = await getFarmingAdvice(data);
@@ -100,6 +100,7 @@ Analyzes environmental data and returns a simple action recommendation.
 #### Returns
 
 A string with one of these values:
+
 - `"watering"` - Soil needs irrigation
 - `"call"` - Farmer attention needed
 - `"null"` - No action needed
@@ -107,7 +108,7 @@ A string with one of these values:
 #### Example Usage
 
 ```javascript
-import { takeIoTAction } from './claude/takeIoTAction.js';
+import { takeIoTAction } from "./claude/takeIoTAction.js";
 
 const data = {
   temperature: 32,
@@ -115,7 +116,7 @@ const data = {
   soil_moisture: 0.2,
   rain: 0,
   timestamp: new Date().toISOString(),
-  location: "Central Province"
+  location: "Central Province",
 };
 
 const action = await takeIoTAction(data);
@@ -126,6 +127,7 @@ const action = await takeIoTAction(data);
 ### Farming Advice Format
 
 The farming advice output is formatted as HTML organized into four sections:
+
 1. **Crop Recommendations** - Suitable crops for current conditions
 2. **Irrigation Needs** - Watering guidance based on conditions
 3. **Pest Risks** - Potential pest threats and mitigation
@@ -134,6 +136,7 @@ The farming advice output is formatted as HTML organized into four sections:
 ### Action Determination Process
 
 The action recommendation process:
+
 1. Fetches additional context (weather & news)
 2. Combines sensor data with context
 3. Uses Claude AI to determine appropriate action

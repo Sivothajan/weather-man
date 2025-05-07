@@ -28,6 +28,7 @@ After each test, Sinon restores all stubs to avoid interference between tests.
 **Purpose**: Tests the health/status endpoint of the API.
 
 **Test Cases**:
+
 - Verifies that the endpoint returns HTTP 200 status
 - Confirms the response includes the correct message indicating the API is working
 - Checks that the proper `x-robots-tag` header is set to prevent search engine indexing
@@ -37,6 +38,7 @@ After each test, Sinon restores all stubs to avoid interference between tests.
 **Purpose**: Tests the endpoint that retrieves a specified number of records from the database.
 
 **Test Cases**:
+
 - Validates that non-numeric parameters return HTTP 400 status
 - Ensures that request for zero or negative numbers returns HTTP 400 status
 - Confirms that valid requests return the correct data structure with HTTP 200 status
@@ -46,6 +48,7 @@ After each test, Sinon restores all stubs to avoid interference between tests.
 **Purpose**: Tests the AI-powered farming advice endpoint.
 
 **Test Cases**:
+
 - Verifies that database errors result in HTTP 500 status
 - Confirms that empty datasets lead to appropriate HTTP 500 status
 - Ensures successful requests return AI-generated farming advice with HTTP 200 status
@@ -56,6 +59,7 @@ After each test, Sinon restores all stubs to avoid interference between tests.
 **Purpose**: Tests the IoT action recommendation endpoint.
 
 **Test Cases**:
+
 - Verifies database query failures return appropriate HTTP 500 status with error message
 - Ensures empty datasets are properly handled with HTTP 500 status
 - Confirms successful action recommendations return HTTP 200 status with proper message
@@ -67,6 +71,7 @@ After each test, Sinon restores all stubs to avoid interference between tests.
 **Purpose**: Tests the data ingestion endpoint used by IoT devices to submit sensor data.
 
 **Test Cases**:
+
 - Confirms successful data addition returns HTTP 201 status with confirmation message
 - Verifies database insertion failures are properly reported with HTTP 500 status
 - Ensures exception handling works correctly for unexpected errors
@@ -76,6 +81,7 @@ After each test, Sinon restores all stubs to avoid interference between tests.
 **Purpose**: Tests the CORS preflight response handling.
 
 **Test Cases**:
+
 - Confirms OPTIONS requests get appropriate status code (200 or 204)
 - Verifies CORS headers are correctly set with `access-control-allow-origin: *`
 
@@ -114,6 +120,7 @@ When adding functionality to the API:
 ## Note on Test Coverage
 
 These tests cover:
+
 - Input validation
 - Error handling
 - Success paths
@@ -121,6 +128,7 @@ These tests cover:
 - Response format validation
 
 For comprehensive testing, consider adding:
+
 - More edge cases
 - Performance tests
 - Integration tests with actual services

@@ -196,8 +196,8 @@ function About() {
         <p className={styles.note}>
           <strong>Note:</strong>
           <br />- <strong>Available</strong>: Component is on hand
-          <br />- <strong>Defective</strong>: Component is on hand
-          but not functional (component is defective)
+          <br />- <strong>Defective</strong>: Component is on hand but not
+          functional (component is defective)
           <br />- <strong>Pending</strong>: Component has been ordered and is
           awaiting delivery or installation/assembly
         </p>
