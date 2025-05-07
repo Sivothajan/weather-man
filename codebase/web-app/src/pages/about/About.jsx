@@ -174,17 +174,17 @@ function About() {
             <tr>
               <td>DHT11</td>
               <td>Temperature and Humidity sensor</td>
-              <td>Available (Defective)</td>
+              <td>Defective</td>
             </tr>
             <tr>
               <td>LCD Display (16x2)</td>
               <td>Displays weather data</td>
-              <td>Available (Defective)</td>
+              <td>Defective</td>
             </tr>
             <tr>
               <td>ESP8266 (ESP-01)</td>
               <td>Wi-Fi communication</td>
-              <td>Available (Defective)</td>
+              <td>Defective</td>
             </tr>
             <tr>
               <td>Weather Station Production Case</td>
@@ -196,7 +196,7 @@ function About() {
         <p className={styles.note}>
           <strong>Note:</strong>
           <br />- <strong>Available</strong>: Component is on hand
-          <br />- <strong>Available (Defective)</strong>: Component is on hand
+          <br />- <strong>Defective</strong>: Component is on hand
           but not functional (component is defective)
           <br />- <strong>Pending</strong>: Component has been ordered and is
           awaiting delivery or installation/assembly
