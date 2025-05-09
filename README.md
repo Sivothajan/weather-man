@@ -111,3 +111,19 @@ You can browse the project source code in the following directories:
 |                  Top View                  |                  Side View                   |
 | :----------------------------------------: | :------------------------------------------: |
 | ![Top View](./assets/testing-top-view.jpg) | ![Side View](./assets/testing-side-view.jpg) |
+
+---
+
+### 📄 Additional Project Resources
+
+#### 1. [Overview (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.96gwfav4t7xc)
+
+#### 2. [Project Idea and Objectives (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.g92esw981gz9)
+
+#### 3. [Technologies and Tools Used (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.6gdcqmf810ir)
+
+#### 4. [Key Milestones (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.352kmqro7dcw)
+
+#### 5. [Next Steps in the Project (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.82fjv0w53kl6)
+
+#### 6. [Team Member Contributions (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.hy0auzrr64b2)
