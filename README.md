@@ -81,7 +81,7 @@ Figure 1: Weather Man System Overview
 | Database Integration        | Completed | Database set up and tested                   |
 | Web App Integration         | Completed | Web app tested and operational               |
 | AI Integration (Claude API) | Completed | AI integration tested and operational        |
-| SD Card Data Logging        | Completed | SD Card Datab Logging tested and operational |
+| SD Card Data Logging        | Completed | SD Card Data  Logging tested and operational |
 | Documentation               | Completed | User manual and technical documentation      |
 
 ---
