@@ -74,15 +74,15 @@ Figure 1: Weather Man System Overview
 - AI integration (Claude API): **Completed**
 - SD card data logging: **Completed**
 
-| Feature                     | Status    | Notes                                        |
-| --------------------------- | --------- | -------------------------------------------- |
-| Sensor Reading              | Completed | All sensors tested and operational           |
-| API Data Transmission       | Completed | All APIs tested and operational              |
-| Database Integration        | Completed | Database set up and tested                   |
-| Web App Integration         | Completed | Web app tested and operational               |
-| AI Integration (Claude API) | Completed | AI integration tested and operational        |
-| SD Card Data Logging        | Completed | SD Card Data  Logging tested and operational |
-| Documentation               | Completed | User manual and technical documentation      |
+| Feature                     | Status    | Notes                                       |
+| --------------------------- | --------- | ------------------------------------------- |
+| Sensor Reading              | Completed | All sensors tested and operational          |
+| API Data Transmission       | Completed | All APIs tested and operational             |
+| Database Integration        | Completed | Database set up and tested                  |
+| Web App Integration         | Completed | Web app tested and operational              |
+| AI Integration (Claude API) | Completed | AI integration tested and operational       |
+| SD Card Data Logging        | Completed | SD Card Data Logging tested and operational |
+| Documentation               | Completed | User manual and technical documentation     |
 
 ---
 

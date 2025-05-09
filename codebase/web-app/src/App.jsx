@@ -3,17 +3,17 @@ import "./App.css";
 import About from "./pages/about/About";
 import Error404 from "./errors/Error404";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Actions from "./pages/actions/Actions";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<About />} />
-        <Route path="/*" element={<Error404 />} />
-
         <Route path="/about" element={<About />} />
-
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/take-action/:actionId" element={<Actions />} />
+        <Route path="/*" element={<Error404 />} />
       </Routes>
     </BrowserRouter>
   );

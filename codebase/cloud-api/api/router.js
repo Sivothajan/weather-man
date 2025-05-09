@@ -118,14 +118,14 @@ app.post("/data/add", async (req, res) => {
   const timestamp = getTime();
 
   const data = {
-    "temperature": temperature,
-    "humidity": humidity,
-    "soil_moisture": soil_moisture,
-    "soil_raw": soil_raw,
-    "rain": rain,
-    "rain_raw": rain_raw,
-    "fire": fire,
-    "timestamp": timestamp
+    temperature: temperature,
+    humidity: humidity,
+    soil_moisture: soil_moisture,
+    soil_raw: soil_raw,
+    rain: rain,
+    rain_raw: rain_raw,
+    fire: fire,
+    timestamp: timestamp,
   };
 
   try {

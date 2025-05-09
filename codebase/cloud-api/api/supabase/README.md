@@ -3,6 +3,7 @@
 This folder contains the core components for integrating the Weather Station system with Supabase, a PostgreSQL-based serverless database service.
 
 ## Table of Contents
+
 - [Database Schema](#database-schema)
 - [API Modules](#api-modules)
 - [Environment Setup](#environment-setup)
@@ -51,6 +52,7 @@ CREATE TABLE IF NOT EXISTS weather_data (
 This module provides functionality to add new weather data records to the Supabase database.
 
 **Main Export:**
+
 - `addDataToDb(data)`: Asynchronous function that inserts a new weather data record.
   - Parameters:
     - `data` (Object): An object containing weather station measurements
@@ -58,24 +60,25 @@ This module provides functionality to add new weather data records to the Supaba
     - Promise that resolves to `{ success: true }` on success or `{ success: false, error }` on failure
 
 **Example:**
+
 ```javascript
-import { addDataToDb } from './supabase/addToDb.js';
+import { addDataToDb } from "./supabase/addToDb.js";
 
 // Insert weather data
 const result = await addDataToDb({
   temperature: 25.4,
-  humidity: 65.2, 
+  humidity: 65.2,
   soil_moisture: 42.1,
   soil_raw: 580,
   rain: false,
   rain_raw: 120,
-  fire: false
+  fire: false,
 });
 
 if (result.success) {
-  console.log('Weather data added successfully');
+  console.log("Weather data added successfully");
 } else {
-  console.error('Failed to add weather data:', result.error);
+  console.error("Failed to add weather data:", result.error);
 }
 ```
 
@@ -84,6 +87,7 @@ if (result.success) {
 This module provides functionality to retrieve weather data records from the Supabase database.
 
 **Main Export:**
+
 - `getDataFromDb(limit)`: Asynchronous function that fetches weather data records.
   - Parameters:
     - `limit` (Number, optional): Maximum number of records to return (default: 10)
@@ -91,16 +95,17 @@ This module provides functionality to retrieve weather data records from the Sup
     - Promise that resolves to `{ success: true, data }` on success or `{ success: false, error }` on failure
 
 **Example:**
+
 ```javascript
-import { getDataFromDb } from './supabase/getDataFromDb.js';
+import { getDataFromDb } from "./supabase/getDataFromDb.js";
 
 // Get the latest 20 weather records
 const result = await getDataFromDb(20);
 
 if (result.success) {
-  console.log('Weather data records:', result.data);
+  console.log("Weather data records:", result.data);
 } else {
-  console.error('Failed to retrieve weather data:', result.error);
+  console.error("Failed to retrieve weather data:", result.error);
 }
 ```
 
@@ -108,11 +113,11 @@ if (result.success) {
 
 The Supabase integration requires the following environment variables:
 
-| Variable | Description |
-|----------|-------------|
-| `SUPABASE_URL` | The URL of your Supabase project |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The anonymous key for your Supabase project |
-| `SUPABASE_TABLE` | The name of the table (default: "weather_data") |
+| Variable                        | Description                                     |
+| ------------------------------- | ----------------------------------------------- |
+| `SUPABASE_URL`                  | The URL of your Supabase project                |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | The anonymous key for your Supabase project     |
+| `SUPABASE_TABLE`                | The name of the table (default: "weather_data") |
 
 Create a `.env` file in the project root with these variables:
 
