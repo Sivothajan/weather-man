@@ -1,36 +1,15 @@
 # Weather Station: How It Works
 
-This document provides a detailed explanation of how the Arduino Weather Station system operates, from sensor data acquisition to cloud API integration.
+This document provides a detailed step-by-step explanation of how the Arduino Weather Station system operates, from sensor data acquisition to cloud API integration.
 
 ## System Overview
 
-The weather station is a sophisticated IoT device built using an Arduino Mega 2560 and NodeMCU that:
+The weather station is an Arduino-based IoT device that:
 
 - Collects environmental data (temperature, humidity, soil moisture, rain, fire detection)
-- Displays information on an OLED display
+- Displays information on an LCD screen
 - Logs data to an SD card
-- Transmits data to a cloud API via WiFi
-
-## Hardware Components
-
-- Arduino Mega 2560 (Main controller)
-- NodeMCU V3 (WiFi communication)
-- DHT11 Temperature & Humidity Sensor
-- Soil Moisture Sensor
-- Rain Sensor
-- Fire Detection Sensor
-- SSD1306 OLED Display
-- SD Card Module
-
-## Pin Configuration
-
-- DHT11: Pin 2
-- Soil Moisture: Pin A0
-- Rain Sensor: Pin A1
-- Fire Sensor: Pin 6
-- SD Card CS: Pin 10
-- OLED Display: I2C (SDA/SCL)
-- NodeMCU Communication: Serial1 (Mega) to D6/D5 (NodeMCU)
+- Transmits data to a cloud API
 
 ## Hardware Architecture
 
@@ -38,7 +17,7 @@ The weather station is a sophisticated IoT device built using an Arduino Mega 25
 
 _Note: If the image above doesn't display correctly, please check the assets folder for the System Architecture Diagram._
 
-## Firmware Operation
+## Firmware Operation Sequence
 
 ### 1. Initialization Phase
 
@@ -153,107 +132,52 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 4. Send the actual HTTP request and JSON data
 5. Close connection with `AT+CIPCLOSE`
 
-## Sensor Processing
+## Data Processing Details
 
-- Soil Moisture: Converted to 0-100% (0% dry, 100% wet)
-- Rain: Binary detection below 500 threshold
-- Fire: Active-low digital signal
-
-## Communication Protocol
-
-### Arduino to NodeMCU
-
-- Serial communication at 9600 baud
-- JSON string format
-- Newline termination
-
-### NodeMCU to Cloud
-
-- HTTPS POST requests
-- JSON content type
-- Secure connection (SSL/TLS)
-
-## Error Handling & Display
-
-- Sensor errors default to safe values (25°C, 50% RH)
-- Failed operations logged to Serial
-- System continues with degraded functionality
-- OLED shows all sensor readings in real-time
-
-## Timing Example
-
-Here's a detailed breakdown of a typical 10-second operation cycle:
+### Soil Moisture Calculation
 
 ```
-0.0s - 0.5s:  Sensor Data Collection
-               - DHT11 read (0.25s)
-               - Soil moisture read (0.05s)
-               - Rain sensor read (0.05s)
-               - Fire sensor read (0.05s)
-
-0.5s - 1.0s:  Data Processing
-               - Convert raw values
-               - Apply thresholds
-               - Format data
-
-1.0s - 3.0s:  Display Sequence
-               - Screen 1: Temperature & Humidity (0.7s)
-               - Screen 2: Soil & Rain Data (0.7s)
-               - Screen 3: Fire Status (0.6s)
-
-3.0s - 4.0s:  SD Card Operations
-               - Open file (0.3s)
-               - Write data (0.4s)
-               - Close file (0.3s)
-
-4.0s - 5.5s:  WiFi Communication
-               - Format JSON (0.2s)
-               - Establish connection (0.5s)
-               - Send data (0.5s)
-               - Receive response (0.3s)
-
-5.5s - 10.0s: Idle/Wait Period
-               - System delay (4.5s)
-               - Allows for timing variations
-               - Ensures consistent 10s cycle
+soil = map(soilRaw, 1023, 0, 0, 100)
 ```
 
-This timing may vary slightly based on:
+- The raw analog value is inversely proportional to moisture
+- 1023 (dry) maps to 0%
+- 0 (wet) maps to 100%
 
-- Network conditions
-- SD card write speed
-- Sensor response times
-- System load
+### Rain Detection Logic
 
-Total Cycle: 10 seconds (5.5s active operations + 4.5s delay)
-
-## System Requirements & Configuration
-
-### Power & Performance
-
-- 5V DC power supply (500mA minimum)
-- 10-second update cycle
-- Real-time display updates
-
-### Configuration
-
-System configured via `config.h`:
-
-```cpp
-const char* ssid = "your_wifi_ssid";
-const char* password = "your_wifi_password";
-const char* apiHost = "your.api.host";
-const char* apiPath = "/api/endpoint";
+```
+bool rain = rainRaw < 500
 ```
 
-### Diagnostics
+- The rain sensor returns lower values when water is detected
+- Values below 500 indicate rain presence
 
-Monitor system via:
+### Fire Detection
 
-- OLED display
-- Serial console
-- SD card logs
-- API responses
+```
+bool fireDetected = digitalRead(FIRE_PIN) == LOW
+```
+
+- The fire sensor module outputs LOW when fire/flame is detected
+- Normal state (no fire) is HIGH
+
+## Troubleshooting and Diagnostics
+
+The system provides multiple feedback channels to help diagnose issues:
+
+1. **LCD Display**: Shows real-time sensor readings and status
+2. **Serial Console**: Outputs all data for debugging
+3. **SD Card Log**: Maintains historical data records
+4. **API Response**: Can be monitored via serial monitor
+
+## Configuration
+
+All customizable parameters are stored in `config.h`:
+
+- WiFi credentials (SSID and password)
+- API server host and path
+- Sensor thresholds and calibration values (if applicable)
 
 ## Sensor Limitations
 

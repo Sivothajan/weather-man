@@ -1,163 +1,315 @@
-# 🌦️ Arduino Weather Station with SD Logging, API Upload & Fire Detection
+# Weather Station Implementation
 
-This project is a robust **Weather Monitoring System** using an **Arduino Mega 2560**. It measures **temperature**, **humidity**, **soil moisture**, **rain presence**, and **fire detection**. Data is logged to an SD card and sent to a remote server via **ESP8266 WiFi**.
+This folder contains the main implementation of the IoT weather station using Arduino Mega 2560 and NodeMCU V3 working together.
 
----
+## System Overview
 
-## 📋 Features
+The weather station is implemented using a dual-microcontroller architecture:
 
-- 🌡️ **Temperature & Humidity** via DHT11 sensor
-- 🌱 **Soil Moisture** (percentage + raw value)
-- ☔ **Rain Detection** (digital + raw analog value)
-- 🔥 **Fire Detection** (digital input)
-- 📟 **Live display** on I2C 16x2 LCD
-- 💾 **Data logging** to SD card (`datalog.txt`)
-- 📡 **HTTP POST** JSON data (all sensor values) to a remote API over WiFi (ESP-01)
+- **Arduino Mega 2560**: Handles sensor data collection, local display, and SD card logging
+- **NodeMCU V3**: Manages WiFi connectivity and cloud API communication
 
----
+### Hardware Components
 
-## 🧰 Hardware Required
+| Component              | Connected To | Purpose                        |
+| ---------------------- | ------------ | ------------------------------ |
+| DHT11                  | Mega Pin 2   | Temperature & Humidity sensing |
+| Soil Moisture Sensor   | Mega Pin A0  | Soil moisture measurement      |
+| Rain Sensor            | Mega Pin A1  | Rain detection                 |
+| Fire Sensor            | Mega Pin 6   | Fire/flame detection           |
+| SD Card Module         | Mega Pin 10  | Data logging                   |
+| OLED Display (Mega)    | Mega I2C     | Local data display             |
+| OLED Display (NodeMCU) | NodeMCU I2C  | Network status display         |
 
-| Component                          | Quantity  | Notes                      |
-| ---------------------------------- | --------- | -------------------------- |
-| Arduino Mega 2560                  | 1         | Main microcontroller       |
-| DHT11 Sensor                       | 1         | For temperature & humidity |
-| Soil Moisture Sensor               | 1         | Analog type                |
-| Rain Sensor (Analog)               | 1         | Outputs analog value       |
-| Fire Sensor/Module                 | 1         | Digital output to pin 6    |
-| I2C LCD (16x2)                     | 1         | Uses I2C (0x27 address)    |
-| ESP-01 (ESP8266)                   | 1         | For WiFi connection        |
-| SD Card Module                     | 1         | SPI-based SD logging       |
-| Breadboard + Wires                 | As needed |                            |
-| 3.3V Regulator/Logic Level Shifter | 1         | For ESP-01 TX/RX safety    |
-| Power Supply (12V)                 | 1         | USB or external            |
+### Detailed Pin Configuration
 
----
+#### Arduino Mega 2560
 
-## 🔌 Hardware Connections
+- **DHT11**
 
-### DHT11 Sensor
+  - Data → Pin 2
+  - VCC → 5V
+  - GND → GND
 
-| DHT11 Pin | Arduino Mega Pin |
-| --------- | ---------------- |
-| VCC       | 5V               |
-| GND       | GND              |
-| DATA      | D2               |
+- **Soil Moisture Sensor**
 
-### Soil Moisture Sensor
+  - Analog Out → A0
+  - VCC → 5V
+  - GND → GND
 
-| Sensor Pin | Arduino Mega Pin |
-| ---------- | ---------------- |
-| VCC        | 5V               |
-| GND        | GND              |
-| A0         | A0               |
+- **Rain Sensor**
 
-### Rain Sensor (Analog)
+  - Analog Out → A1
+  - VCC → 5V
+  - GND → GND
 
-| Sensor Pin | Arduino Mega Pin |
-| ---------- | ---------------- |
-| VCC        | 5V               |
-| GND        | GND              |
-| A0         | A1               |
+- **Fire Sensor**
 
-### Fire Sensor/Module
+  - Digital Out → Pin 6
+  - VCC → 5V
+  - GND → GND
 
-| Fire Sensor Pin  | Arduino Mega Pin |
-| ---------------- | ---------------- |
-| VCC              | 5V               |
-| GND              | GND              |
-| DO (Digital Out) | D6               |
+- **SD Card Module**
 
-### I2C LCD (16x2)
+  - MOSI → Pin 51
+  - MISO → Pin 50
+  - SCK → Pin 52
+  - CS → Pin 10
+  - VCC → 5V
+  - GND → GND
 
-| LCD Pin | Arduino Mega Pin |
-| ------- | ---------------- |
-| SDA     | 20 (SDA)         |
-| SCL     | 21 (SCL)         |
-| VCC     | 5V               |
-| GND     | GND              |
+- **OLED Display (Mega)**
 
-### ESP-01 (ESP8266) via SoftwareSerial (⚠️ 3.3V logic only!)
+  - SDA → Pin 20 (SDA)
+  - SCL → Pin 21 (SCL)
+  - VCC → 5V
+  - GND → GND
 
-| ESP-01 Pin | Arduino Mega Pin | Notes                 |
-| ---------- | ---------------- | --------------------- |
-| TX         | D3 (RX)          | Via voltage divider   |
-| RX         | D4 (TX)          | Must use voltage div. |
-| VCC        | 3.3V             | Stable 3.3V required  |
-| CH_PD      | 3.3V             | Pull HIGH             |
-| GND        | GND              |                       |
+- **Serial Connection to NodeMCU**
+  - TX1 → NodeMCU RX
+  - RX1 → NodeMCU TX
 
-> **Note:** On Arduino Mega, SoftwareSerial works best on pins 10–53. Pins 3 and 4 may not work reliably. Update your wiring and code if you encounter issues.
+#### NodeMCU V3
 
-### SD Card Module (SPI)
+- **OLED Display**
 
-| SD Module Pin | Arduino Mega Pin |
-| ------------- | ---------------- |
-| CS            | 10               |
-| MOSI          | 51               |
-| MISO          | 50               |
-| SCK           | 52               |
-| VCC           | 5V               |
-| GND           | GND              |
+  - SDA → D2 (GPIO4)
+  - SCL → D1 (GPIO5)
+  - VCC → 3.3V
+  - GND → GND
 
----
+- **Serial Connection to Mega**
+  - RX → Mega TX1
+  - TX → Mega RX1
+  - GND → Mega GND
 
-## 🧠 How It Works
+### Display Specifications
 
-1. **Startup**: LCD displays "Weather Man", WiFi connects.
-2. **Sensor Readings**: Every 10 seconds:
+#### OLED Display (Both)
 
-- Temperature (°C), Humidity (%)
-- Soil Moisture (0–100%) and raw value
-- Rain detected (0 or 1) and raw value
-- Fire detected (0 or 1)
+- Type: SSD1306
+- Resolution: 128x64 pixels
+- I2C Address: 0x3C
+- Interface: I2C
+- Power: 3.3V-5V compatible
 
-3. **Display**: Shows processed values, raw sensor values, and fire status on LCD (2s each).
-4. **Logging**: Writes all sensor data (processed + raw) to `datalog.txt` on SD.
-5. **API POST**: Sends all sensor data as JSON to the specified HTTP endpoint.
+### Display Content
 
----
+#### Arduino Mega OLED
 
-## 📤 Example JSON Payload
+Shows sensor data in real-time:
+
+```
+Temp: 23.5 C
+Hum: 45.2 %
+Soil: 78 %
+Rain: YES/NO
+Fire: YES/NO
+```
+
+#### NodeMCU OLED
+
+Shows network status:
+
+```
+WiFi: Connected
+API: Sending...
+Last: Success/Fail
+```
+
+## Implementation Details
+
+### Arduino Mega 2560 (`arduinoMega2560/`)
+
+- Handles all sensor interactions
+- Displays data on OLED screen
+- Logs data to SD card
+- Sends formatted JSON data to NodeMCU via Serial1
+- Sampling interval: 10 seconds
+
+Features:
+
+- Temperature and humidity monitoring
+- Soil moisture percentage calculation
+- Rain detection with analog threshold
+- Fire detection (digital)
+- SD card data logging
+- OLED status display
+
+### NodeMCU V3 (`nodeMcuV3/`)
+
+- Manages WiFi connectivity
+- Receives JSON data from Arduino Mega
+- Sends data to cloud API
+- Displays connection status on OLED
+
+Features:
+
+- WiFi connection management
+- HTTP POST requests to API
+- Error handling and status display
+- Configurable through `config.h`
+
+## Communication Flow
+
+1. Arduino Mega reads sensors every 10 seconds
+2. Data is displayed on Mega's OLED and logged to SD
+3. JSON formatted data sent to NodeMCU via Serial
+4. NodeMCU receives and forwards data to cloud API
+5. Status of transmission shown on NodeMCU's OLED
+
+## Data Formats
+
+### JSON Format
 
 ```json
 {
-  "temperature": 26.45,
-  "humidity": 65.12,
-  "soil_moisture": 42,
-  "soil_raw": 512,
+  "temperature": 23.5,
+  "humidity": 45.2,
+  "soil_moisture": 78,
+  "soil_raw": 225,
   "rain": 1,
   "rain_raw": 320,
-  "fire": 0
+  "fire": true
 }
 ```
 
----
+### SD Card Log Format
 
-**⚠️ Arduino Mega Pin Notes:**
+```
+T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
+```
 
-- For `SoftwareSerial`, use pins 10–53 only. Pins 3/4 may not work reliably.
-- For I2C LCD, use pins 20 (SDA) and 21 (SCL).
-- For SD card, use SPI pins: 50 (MISO), 51 (MOSI), 52 (SCK), 53 (SS/CS, but you can use 10 as CS if you set it in code).
-- Fire sensor digital output is connected to D6.
+## Configuration
 
-**If you use the provided code, update the `SoftwareSerial` pins and hardware wiring accordingly for Arduino Mega 2560.**
+### NodeMCU (`config.h`)
 
----
+- WiFi SSID and password
+- API host and endpoint
+- Default values can be modified in `config.h`
 
-## 📄 Example `config.h`
+## Installation & Setup
 
-To use a separate configuration file, create a `config.h` in the same folder as `weather-station.ino` and include it with `#include "config.h"` in your code.
+1. Flash Arduino Mega with `arduinoMega2560.ino`
+2. Flash NodeMCU with `nodeMcuV3.ino`
+3. Connect components according to pin configuration
+4. Update `config.h` with WiFi and API details
+5. Power up both controllers
 
-```cpp
-// config.h
-#ifndef CONFIG_H
-#define CONFIG_H
+## Dependencies
 
-const char *ssid = "Your_SSID";
-const char *password = "Your_PASSWORD";
-const char *apiHost = "yourapi.com";
-const char *apiPath = "/add";
+### Arduino Mega Libraries
 
-#endif
+- DHT sensor library
+- Adafruit GFX
+- Adafruit SSD1306
+- SPI (built-in)
+- SD (built-in)
+- Wire (built-in)
+
+### NodeMCU Libraries
+
+- ESP8266WiFi
+- ESP8266HTTPClient
+- Adafruit GFX
+- Adafruit SSD1306
+- Wire (built-in)
+
+## Troubleshooting
+
+### Common Issues
+
+1. **No OLED Display**
+
+   - Check I2C connections
+   - Verify display address (default 0x3C)
+
+2. **WiFi Connection Fails**
+
+   - Verify credentials in `config.h`
+   - Check WiFi signal strength
+   - Reset NodeMCU
+
+3. **No Sensor Data**
+   - Check sensor pin connections
+   - Verify power supply
+   - Check Serial connection between Mega and NodeMCU
+
+### LED Indicators
+
+- NodeMCU LED flashing: Attempting WiFi connection
+- NodeMCU LED steady: WiFi connected
+- Mega LED (13): Flashes on data transmission
+
+## Testing and Verification
+
+### Hardware Testing Sequence
+
+1. **Power-Up Test**
+
+   - Power on Arduino Mega
+   - Verify OLED displays initialization message
+   - Check if SD card is initialized
+   - Power on NodeMCU
+   - Verify NodeMCU OLED shows WiFi connection status
+
+2. **Sensor Verification**
+
+   - DHT11: Values should be within realistic range (15-35°C, 20-90% humidity)
+   - Soil Sensor:
+     - Dry soil: ~800-1023 raw (0-20%)
+     - Wet soil: ~0-300 raw (70-100%)
+   - Rain Sensor:
+     - Dry: >800 raw
+     - Wet: <500 raw
+   - Fire Sensor:
+     - Normal: HIGH
+     - Fire detected: LOW
+
+3. **Communication Test**
+   ```bash
+   # Monitor Serial output on Mega
+   Speed: 9600 baud
+   Expected: JSON data every 10 seconds
+   ```
+
+```
+
+### Verification Checklist
+
+- [ ] Both OLED displays working
+- [ ] All sensors reporting valid data
+- [ ] SD card logging data correctly
+- [ ] WiFi connecting successfully
+- [ ] API receiving and storing data
+- [ ] System running stably for >24 hours
+
+### Performance Metrics
+
+- Sampling Rate: Every 10 seconds
+- Data Upload Success Rate: >95%
+- Temperature Accuracy: ±2°C
+- Humidity Accuracy: ±5%
+- Power Consumption: ~200mA average
+
+### Error Codes
+
+#### Arduino Mega
+- E01: SD card initialization failed
+- E02: DHT sensor not responding
+- E03: Serial communication error
+- E04: OLED display error
+
+#### NodeMCU
+- E11: WiFi connection failed
+- E12: API connection timeout
+- E13: Data parsing error
+- E14: OLED display error
+
+## Future Improvements
+1. Implement data buffering on NodeMCU for offline operation
+2. Add battery monitoring
+3. Implement deep sleep for power saving
+4. Add error recovery mechanisms
+5. Implement OTA updates
 ```

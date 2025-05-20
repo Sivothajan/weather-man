@@ -115,16 +115,31 @@ function About() {
       <section className={styles.progressSection}>
         <h2>Current Progress</h2>
         <p>
-          <strong>PS:</strong> If you want to see the progress as of April 30,
-          2025, please check the{" "}
+          <strong>PS:</strong> If you want to see the previous milestone from
+          April 30, 2025, please check the{" "}
           <a
             href="https://github.com/Sivothajan/weather-man/tree/31057a6575f7ccb06b0e44e5aa5a5fb1c9c69691"
             target="_blank"
             rel="noopener noreferrer"
           >
-            As of April 30, 2025 GitHub Repo
+            April 30, 2025 GitHub Repo
           </a>
         </p>
+
+        <h3>📅 Recent Updates (as of May 21, 2025)</h3>
+        <ul>
+          <li>
+            Replaced ESP8266 (ESP-01) with NodeMCU V3 for improved Wi-Fi
+            connectivity
+          </li>
+          <li>
+            Upgraded from LCD to OLED display for better visibility and power
+            efficiency
+          </li>
+          <li>Enhanced data logging capabilities with SD card integration</li>
+          <li>Implemented robust error handling in the IoT firmware</li>
+          <li>Improved cloud API response times and reliability</li>
+        </ul>
 
         <h3>🔧 Hardware Setup</h3>
         <table>
@@ -139,6 +154,11 @@ function About() {
             <tr>
               <td>Arduino Mega 2560</td>
               <td>Main controller</td>
+              <td>Available</td>
+            </tr>
+            <tr>
+              <td>NodeMCU V3</td>
+              <td>Wi-Fi communication</td>
               <td>Available</td>
             </tr>
             <tr>
@@ -172,18 +192,13 @@ function About() {
               <td>Available</td>
             </tr>
             <tr>
+              <td>OLED Display</td>
+              <td>Displays weather data</td>
+              <td>Available</td>
+            </tr>
+            <tr>
               <td>DHT11</td>
               <td>Temperature and Humidity sensor</td>
-              <td>Defective</td>
-            </tr>
-            <tr>
-              <td>LCD Display (16x2)</td>
-              <td>Displays weather data</td>
-              <td>Defective</td>
-            </tr>
-            <tr>
-              <td>ESP8266 (ESP-01)</td>
-              <td>Wi-Fi communication</td>
               <td>Defective</td>
             </tr>
             <tr>
@@ -266,6 +281,48 @@ function About() {
               <td>Documentation</td>
               <td>Completed</td>
               <td>User manual and technical documentation</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <hr />
+
+      <section className={styles.techStackSection}>
+        <h2>🛠️ Technology Stack</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Layer</th>
+              <th>Technologies</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Hardware</td>
+              <td>Arduino Mega 2560, NodeMCU V3, Environmental Sensors</td>
+              <td>Data collection and initial processing</td>
+            </tr>
+            <tr>
+              <td>Firmware</td>
+              <td>Arduino C++, ESP8266 Framework</td>
+              <td>Sensor interfacing and data transmission</td>
+            </tr>
+            <tr>
+              <td>Cloud Backend</td>
+              <td>Node.js, Express, Supabase, Claude AI</td>
+              <td>Data processing, storage, and analysis</td>
+            </tr>
+            <tr>
+              <td>Frontend</td>
+              <td>React, Vite, Chart.js</td>
+              <td>User interface and data visualization</td>
+            </tr>
+            <tr>
+              <td>DevOps</td>
+              <td>Git, Vercel, GitHub Actions</td>
+              <td>Deployment and continuous integration</td>
             </tr>
           </tbody>
         </table>
