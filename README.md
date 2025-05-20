@@ -105,17 +105,17 @@ The system's modular architecture makes it ideal for:
 
 ##### Arduino Mega 2560 Version Components
 
-| Component            | Description            | Purpose                   |
-| -------------------- | ---------------------- | ------------------------- |
-| Arduino Mega 2560    | Main controller        | Core processing           |
-| NodeMCU V3 (ESP8266) | WiFi module            | Wireless connectivity     |
-| DHT11 Sensor         | Temperature & humidity | Environmental monitoring  |
-| Soil Moisture Sensor | Analog type            | Soil condition monitoring |
-| Rain Sensor          | Analog output          | Rainfall detection        |
-| Fire Sensor/Module   | Digital output         | Fire/flame detection      |
-| OLED Display (16x2)  | I2C interface          | Data visualization        |
-| SD Card Module       | SPI interface          | Data logging              |
-| Power Supply (12V)   | External adapter       | System power              |
+| Component             | Description            | Purpose                   |
+| --------------------- | ---------------------- | ------------------------- |
+| Arduino Mega 2560     | Main controller        | Core processing           |
+| NodeMCU V3 (ESP8266)  | WiFi module            | Wireless connectivity     |
+| DHT11 Sensor          | Temperature & humidity | Environmental monitoring  |
+| Soil Moisture Sensor  | Analog type            | Soil condition monitoring |
+| Rain Sensor           | Analog output          | Rainfall detection        |
+| Fire Sensor/Module    | Digital output         | Fire/flame detection      |
+| OLED Display (128x64) | I2C interface          | Data visualization        |
+| SD Card Module        | SPI interface          | Data logging              |
+| Power Supply (12V)    | External adapter       | System power              |
 
 > **Note:**
 >
@@ -306,6 +306,33 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 
 ---
 
+### 🔍 Component Details
+
+#### Cloud API (`/codebase/cloud-api`)
+
+- **Claude AI Integration**: Smart analysis of weather data for farming advice and automated actions
+- **Notification System**: Real-time alerts via ntfy for critical weather conditions
+- **Database Operations**: Supabase integration for data storage and retrieval
+- **API Testing**: Comprehensive test suite for API endpoints
+
+#### IoT Firmware (`/codebase/iot-firmware`)
+
+- **Hardware Testing**: Individual component test suites for reliability
+- **Weather Station Variants**:
+  - Arduino Mega 2560: Robust implementation with external modules
+  - NodeMCU V3: Compact, single-board solution
+- **Data Collection**: 10-second sampling cycle with error handling
+- **Local Storage**: SD card and SPIFFS implementations
+
+#### Web Application (`/codebase/web-app`)
+
+- **React + Vite**: Modern, fast web application
+- **Real-time Updates**: Live weather data visualization
+- **Responsive Design**: Mobile-friendly interface
+- **Error Handling**: Robust error boundaries and fallbacks
+
+---
+
 ### 📂 Explore the Codebase
 
 You can browse the project source code in the following directories:
@@ -315,6 +342,34 @@ You can browse the project source code in the following directories:
 - [Web Application](./codebase/web-app/) – User interface for monitoring and analytics.
 
 [**View Full Codebase on GitHub**](./codebase/)
+
+---
+
+### 📁 Project Structure
+
+```
+weather-man/
+├── assets/                      # Project images and diagrams
+├── codebase/
+│   ├── cloud-api/              # Backend API implementation
+│   │   ├── api/
+│   │   │   ├── claude/        # AI integration with Claude
+│   │   │   ├── ntfy/          # Notification system
+│   │   │   ├── supabase/      # Database operations
+│   │   │   └── utils/         # Utility functions
+│   │   └── test/              # API tests
+│   ├── iot-firmware/          # Hardware firmware code
+│   │   ├── test/             # Hardware component tests
+│   │   └── weather-station/   # Main station implementations
+│   │       ├── arduinoMega2560/
+│   │       └── nodeMcuV3/
+│   └── web-app/               # Frontend React application
+│       ├── public/
+│       └── src/
+│           ├── components/    # Reusable UI components
+│           ├── errors/        # Error handling
+│           └── pages/         # Application pages
+```
 
 ---
 
@@ -331,19 +386,3 @@ You can browse the project source code in the following directories:
 |                  Top View                  |                  Side View                   |
 | :----------------------------------------: | :------------------------------------------: |
 | ![Top View](./assets/testing-top-view.jpg) | ![Side View](./assets/testing-side-view.jpg) |
-
----
-
-### 📄 Additional Project Resources
-
-#### 1. [Overview (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.96gwfav4t7xc)
-
-#### 2. [Project Idea and Objectives (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.g92esw981gz9)
-
-#### 3. [Technologies and Tools Used (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.6gdcqmf810ir)
-
-#### 4. [Key Milestones (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.352kmqro7dcw)
-
-#### 5. [Next Steps in the Project (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.82fjv0w53kl6)
-
-#### 6. [Team Member Contributions (PDF)](https://docs.google.com/document/u/0/export?format=pdf&id=1iq8a5iBKrTTMB7sQPUKWmBIXU97_SgjVhMe2k1tvRsc&token=AC4w5VhDhTSrDsiAhWQA620Af3dMpXk3Gg%3A1746645959466&includes_info_params=true&cros_files=false&tab=t.hy0auzrr64b2)
