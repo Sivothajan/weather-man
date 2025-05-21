@@ -37,11 +37,14 @@ void setup() {
     while (1);
   }
 
+  // Set contrast to half (value between 0 and 255)
+  setContrast(128);  // Half contrast (you can adjust this to any value between 0 and 255)
+
   display.clearDisplay();
-  display.setTextSize(1);
+  display.setTextSize(3);
   display.setTextColor(SSD1306_WHITE);
   display.setCursor(0, 0);
-  display.println("Mega Started");
+  display.println("Mega\nStarted");
   display.display();
 
   delay(2000);
@@ -106,13 +109,20 @@ void displayData(float temp, float humid, int soil, bool rain, bool fire) {
 
 String buildJson(float temp, float humid, int soil, int soilRaw, bool rain, int rainRaw, bool fire) {
   String json = "{";
-  json += "\"temperature\":" + String(temp, 2) + ",";
-  json += "\"humidity\":" + String(humid, 2) + ",";
-  json += "\"soil_moisture\":" + String(soil) + ",";
-  json += "\"soil_raw\":" + String(soilRaw) + ",";
-  json += "\"rain\":" + String(rain ? 1 : 0) + ",";
-  json += "\"rain_raw\":" + String(rainRaw) + ",";
-  json += "\"fire\":" + String(fire ? "true" : "false");
+  json += "\"temperature\":" + String(temp, 2) + ","; 
+  json += "\"humidity\":" + String(humid, 2) + ","; 
+  json += "\"soil_moisture\":" + String(soil) + ","; 
+  json += "\"soil_raw\":" + String(soilRaw) + ","; 
+  json += "\"rain\":" + String(rain ? 1 : 0) + ","; 
+  json += "\"rain_raw\":" + String(rainRaw) + ","; 
+  json += "\"fire\":" + String(fire ? "true" : "false"); 
   json += "}";
   return json;
+}
+
+// Function to set the contrast of the OLED display
+void setContrast(uint8_t contrast_value) {
+  // Send the contrast command (0x81) followed by the contrast value (0-255)
+  display.ssd1306_command(0x81);  // Contrast control command
+  display.ssd1306_command(contrast_value);  // Set contrast value
 }
