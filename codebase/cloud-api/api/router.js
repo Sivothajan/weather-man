@@ -19,6 +19,21 @@ app.use(
 
 app.use(json());
 
+app.get("/", (req, res) => {
+  res.set("X-Robots-Tag", "noindex, nofollow");
+  res.status(200).json({
+    message: "Welcome to the Weather Man API 🌦️",
+    available_endpoints: {
+      "GET /api/check": "Check if the API is running",
+      "GET /api/get/:number": "Fetch latest :number entries from the database",
+      "GET /farming-advice": "Get AI-powered farming advice based on latest data",
+      "GET /take-action": "Take IoT action based on current conditions",
+      "POST /data/add": "Add new weather and sensor data to the database",
+      "OPTIONS *": "CORS preflight support for all routes"
+    }
+  });
+});
+
 app.get("/api/check", (req, res) => {
   res.set("X-Robots-Tag", "noindex, nofollow");
   res.status(200).json({
