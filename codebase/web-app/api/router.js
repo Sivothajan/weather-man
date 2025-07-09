@@ -1,5 +1,6 @@
 import express, { json } from "express";
 import cors from "cors";
+import dotenv from "dotenv";
 
 import { getTime } from "./utils/getTime.js";
 import { addDataToDb } from "./supabase/addToDb.js";
@@ -7,6 +8,7 @@ import { getDataFromDb } from "./supabase/getDataFromDb.js";
 import { getFarmingAdvice } from "./claude/getFarmingAdvice.js";
 import { takeIoTAction } from "./claude/takeIoTAction.js";
 
+dotenv.config();
 const app = express();
 
 app.use(
