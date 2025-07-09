@@ -23,7 +23,7 @@ _Note: If the image above doesn't display correctly, please check the assets fol
 
 When the Arduino is powered on or reset, the following initialization sequence occurs:
 
-```
+```text
 setup() {
   1. Initialize Serial communication (9600 baud)
   2. Initialize ESP8266 Serial communication (9600 baud)
@@ -96,7 +96,7 @@ The LCD cycles through three different information screens, each displayed for 2
 
 ### SD Card Log Format
 
-```
+```json
 T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 ```
 
@@ -134,8 +134,8 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 
 ### Soil Moisture Calculation
 
-```
-soil = map(soilRaw, 1023, 0, 0, 100)
+```js
+soil = map(soilRaw, 1023, 0, 0, 100);
 ```
 
 - The raw analog value is inversely proportional to moisture
@@ -144,7 +144,7 @@ soil = map(soilRaw, 1023, 0, 0, 100)
 
 ### Rain Detection Logic
 
-```
+```js
 bool rain = rainRaw < 500
 ```
 
@@ -153,7 +153,7 @@ bool rain = rainRaw < 500
 
 ### Fire Detection
 
-```
+```js
 bool fireDetected = digitalRead(FIRE_PIN) == LOW
 ```
 

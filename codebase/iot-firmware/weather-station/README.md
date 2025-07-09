@@ -92,7 +92,7 @@ The weather station is implemented using a dual-microcontroller architecture:
 
 Shows sensor data in real-time:
 
-```
+```json
 Temp: 23.5 C
 Hum: 45.2 %
 Soil: 78 %
@@ -104,7 +104,7 @@ Fire: YES/NO
 
 Shows network status:
 
-```
+```json
 WiFi: Connected
 API: Sending...
 Last: Success/Fail
@@ -169,7 +169,7 @@ Features:
 
 ### SD Card Log Format
 
-```
+```json
 T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
 ```
 
@@ -256,13 +256,12 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
      - Fire detected: LOW
 
 3. **Communication Test**
+
    ```bash
    # Monitor Serial output on Mega
    Speed: 9600 baud
    Expected: JSON data every 10 seconds
    ```
-
-```
 
 ### Verification Checklist
 
@@ -284,21 +283,23 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
 ### Error Codes
 
 #### Arduino Mega
+
 - E01: SD card initialization failed
 - E02: DHT sensor not responding
 - E03: Serial communication error
 - E04: OLED display error
 
 #### NodeMCU
+
 - E11: WiFi connection failed
 - E12: API connection timeout
 - E13: Data parsing error
 - E14: OLED display error
 
 ## Future Improvements
+
 1. Implement data buffering on NodeMCU for offline operation
 2. Add battery monitoring
 3. Implement deep sleep for power saving
 4. Add error recovery mechanisms
 5. Implement OTA updates
-```

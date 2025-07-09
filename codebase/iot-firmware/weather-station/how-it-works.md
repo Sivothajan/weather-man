@@ -44,7 +44,7 @@ _Note: If the image above doesn't display correctly, please check the assets fol
 
 When the Arduino is powered on or reset, the following initialization sequence occurs:
 
-```
+```text
 setup() {
   1. Initialize Serial communication (9600 baud)
   2. Initialize ESP8266 Serial communication (9600 baud)
@@ -117,7 +117,7 @@ The LCD cycles through three different information screens, each displayed for 2
 
 ### SD Card Log Format
 
-```
+```json
 T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 ```
 
@@ -182,7 +182,7 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 
 Here's a detailed breakdown of a typical 10-second operation cycle:
 
-```
+```test
 0.0s - 0.5s:  Sensor Data Collection
                - DHT11 read (0.25s)
                - Soil moisture read (0.05s)
