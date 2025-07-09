@@ -19,7 +19,7 @@ app.use(
 
 app.use(json());
 
-app.get("/", (req, res) => {
+app.get("/api/", (req, res) => {
   res.set("X-Robots-Tag", "noindex, nofollow");
   res.status(200).json({
     message: "Welcome to the Weather Man API 🌦️",
@@ -59,7 +59,7 @@ app.get("/api/get/:number", async (req, res) => {
   res.status(200).json(data);
 });
 
-app.get("/farming-advice", async (req, res) => {
+app.get("/api/farming-advice", async (req, res) => {
   res.set("X-Robots-Tag", "noindex, nofollow");
   const location = process.env.LOCATION || "Unknown Location";
   const dbData = await getDataFromDb(1);
@@ -88,7 +88,7 @@ app.get("/farming-advice", async (req, res) => {
   }
 });
 
-app.get("/take-action", async (req, res) => {
+app.get("/api/take-action", async (req, res) => {
   res.set("X-Robots-Tag", "noindex, nofollow");
   const location = process.env.LOCATION || "Unknown Location";
   const dbData = await getDataFromDb(1);
@@ -121,7 +121,7 @@ app.get("/take-action", async (req, res) => {
   }
 });
 
-app.post("/data/add", async (req, res) => {
+app.post("/api/data/add", async (req, res) => {
   const {
     temperature,
     humidity,
@@ -160,6 +160,10 @@ app.post("/data/add", async (req, res) => {
     console.error("Error in add handler:", error);
     res.status(500).json({ message: "Error processing request." });
   }
+});
+
+app.all("*", (req, res) => {
+  res.status(404).send("Route not found");
 });
 
 app.options("*", cors());
