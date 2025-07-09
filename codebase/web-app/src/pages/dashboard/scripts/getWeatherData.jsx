@@ -3,7 +3,7 @@ const DATA_SIZE = import.meta.env.VITE_DATA_SIZE || 10; // Default to 10 if not 
 
 export const getWeatherData = async () => {
   try {
-    const response = await fetch(`${API_URL}/api/get/${DATA_SIZE}`);
+    const response = await fetch(`/api/get/${DATA_SIZE}`);
     if (!response.ok) {
       throw new Error("Network response was not ok");
     }
