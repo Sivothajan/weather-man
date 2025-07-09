@@ -44,14 +44,14 @@
   ],
   "license": "GPL-3.0",
   "scripts": {
-    "prettier": "npx prettier . --write",
-    "prettier-check": "npx prettier . --check"
+    "format": "npx prettier . --write",
+    "format:check": "npx prettier . --check"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sivothajan/weather-man.git"
   },
   "devDependencies": {
-    "prettier": "3.5.3"
+    "prettier": "3.6.2"
   }
 }

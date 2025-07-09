@@ -1,22 +1,22 @@
-## The Weather Man – IoT-Based Smart Weather Monitoring System
+# The Weather Man – IoT-Based Smart Weather Monitoring System
 
 ![Scratch](./assets/System-Architecture-Diagram.png)
 Figure 1: Weather Man System Overview
 
 ---
 
-### Description
+## Description
 
 **The Weather Man** is an IoT-based smart weather monitoring system available in two implementations:
 
-#### 1. NodeMCU V3 Version
+### 1. NodeMCU V3 Version
 
 - All-in-one solution with built-in WiFi
 - SPIFFS-based local data logging
 - 3.3V logic level throughout
 - Compact and power-efficient design
 
-#### 2. Arduino Mega 2560 Version
+### 2. Arduino Mega 2560 Version
 
 - Robust solution with external WiFi module
 - **Display**: OLED 128x64 for detailed visualization
@@ -39,9 +39,9 @@ The system's modular architecture makes it ideal for:
 - **Agricultural**: Monitoring soil conditions and environmental factors
 - **Research**: Long-term environmental data collection and analysis
 
-#### Technical Specifications
+## Technical Specifications
 
-##### NodeMCU V3 Implementation
+### NodeMCU V3 Implementation
 
 - **Controller**: ESP8266 with built-in WiFi
 - **Storage**: SPIFFS file system
@@ -49,7 +49,7 @@ The system's modular architecture makes it ideal for:
 - **Measurement Interval**: 10-second cycle
 - **Data Format**: JSON over HTTP POST
 
-##### Arduino Mega 2560 Implementation
+### Arduino Mega 2560 Implementation
 
 - **Controller**: ATmega2560 + ESP8266 WiFi
 - **Display**: OLED 128x64 (I2C interface)
@@ -69,7 +69,7 @@ The system's modular architecture makes it ideal for:
 
 ---
 
-### Team Members <sub>(Ordered by ascending Student IDs)</sub>
+### Team Members _(Ordered by ascending Student IDs)_
 
 | Name        | Student ID |
 | ----------- | ---------- |
@@ -154,7 +154,7 @@ The system's modular architecture makes it ideal for:
 
 #### Implementation-Specific Details
 
-##### NodeMCU V3 Version
+### NodeMCU V3 Version Specifications
 
 - **Storage**: SPIFFS file system for local logging
 - **WiFi**: Built-in ESP8266 WiFi module
@@ -162,7 +162,7 @@ The system's modular architecture makes it ideal for:
 - **ADC**: Single analog input (A0) available
 - **Logic**: 3.3V throughout, no level shifting needed
 
-##### Arduino Mega Version
+### Arduino Mega Version Specifications
 
 - **Storage**: SD card for robust data logging
 - **WiFi**: External ESP8266 module via UART
@@ -209,7 +209,6 @@ The system provides multiple diagnostic channels:
 ##### Operation Sequence
 
 1. **Initialization**
-
    - Serial communication (9600 baud)
    - ESP8266 WiFi module setup
    - DHT sensor initialization
@@ -228,13 +227,13 @@ The system provides multiple diagnostic channels:
 
 ##### Data Formats
 
-1. **SD Card Log Format**
+### 1. **SD Card Log Format**
 
-```
+```json
 T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 ```
 
-2. **API JSON Format**
+### 2. **API JSON Format**
 
 ```json
 {
@@ -248,15 +247,15 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 }
 ```
 
-##### Data Formats and Storage
+## Data Formats and Storage
 
-1. **SD Card Logging Format**
+### 1. **SD Card Logging Format**
 
-```
+```json
 T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 ```
 
-2. **API JSON Format**
+### 2. **API JSON Format of Arudino**
 
 ```json
 {
@@ -270,20 +269,17 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 }
 ```
 
-##### OLED Display Sequence (10s cycle)
+#### OLED Display Sequence (10s cycle)
 
 1. **Primary Display** (2s)
-
    - Line 1: Temperature and Humidity
    - Line 2: Soil Moisture % and Rain Status
 
 2. **Raw Values** (2s)
-
    - Line 1: Raw Soil Moisture
    - Line 2: Raw Rain Sensor
 
 3. **Status Display** (2s)
-
    - Line 1: Fire Detection Status
    - Line 2: System Status
 
@@ -347,7 +343,7 @@ You can browse the project source code in the following directories:
 
 ### 📁 Project Structure
 
-```
+```text
 weather-man/
 ├── assets/                      # Project images and diagrams
 ├── codebase/

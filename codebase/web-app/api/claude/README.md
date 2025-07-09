@@ -41,9 +41,9 @@ Generates detailed farming advice based on environmental data.
 - `temperature` (Number): Temperature in °C
 - `humidity` (Number): Relative humidity percentage
 - `soil_moisture` (Number): Soil moisture reading
-- `rainfall` (Boolean/Number): 0/false = not raining, 1/true = raining
+- `rain` (Number): Rain measurement in mm
 - `timestamp` (String): Time of data collection
-- `location` (String, optional): Location override
+- `location` (String): Location of the sensor
 
 #### Returns
 
@@ -86,18 +86,7 @@ const advice = await getFarmingAdvice(data);
 
 Analyzes environmental data and returns a simple action recommendation.
 
-#### Parameters
-
-`data` object with the following properties:
-
-- `temperature` (Number): Temperature in °C
-- `humidity` (Number): Relative humidity percentage
-- `soil_moisture` (Number): Soil moisture reading
-- `rain` (Number): Rain measurement in mm
-- `timestamp` (String): Time of data collection
-- `location` (String): Location of the sensor
-
-#### Returns
+#### Returns (takeIoTAction)
 
 A string with one of these values:
 
@@ -105,7 +94,7 @@ A string with one of these values:
 - `"call"` - Farmer attention needed
 - `"null"` - No action needed
 
-#### Example Usage
+#### Example Usage (takeIoTAction)
 
 ```javascript
 import { takeIoTAction } from "./claude/takeIoTAction.js";

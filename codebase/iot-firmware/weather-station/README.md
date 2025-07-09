@@ -26,31 +26,26 @@ The weather station is implemented using a dual-microcontroller architecture:
 #### Arduino Mega 2560
 
 - **DHT11**
-
   - Data → Pin 2
   - VCC → 5V
   - GND → GND
 
 - **Soil Moisture Sensor**
-
   - Analog Out → A0
   - VCC → 5V
   - GND → GND
 
 - **Rain Sensor**
-
   - Analog Out → A1
   - VCC → 5V
   - GND → GND
 
 - **Fire Sensor**
-
   - Digital Out → Pin 6
   - VCC → 5V
   - GND → GND
 
 - **SD Card Module**
-
   - MOSI → Pin 51
   - MISO → Pin 50
   - SCK → Pin 52
@@ -59,7 +54,6 @@ The weather station is implemented using a dual-microcontroller architecture:
   - GND → GND
 
 - **OLED Display (Mega)**
-
   - SDA → Pin 20 (SDA)
   - SCL → Pin 21 (SCL)
   - VCC → 5V
@@ -72,7 +66,6 @@ The weather station is implemented using a dual-microcontroller architecture:
 #### NodeMCU V3
 
 - **OLED Display**
-
   - SDA → D2 (GPIO4)
   - SCL → D1 (GPIO5)
   - VCC → 3.3V
@@ -220,12 +213,10 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
 ### Common Issues
 
 1. **No OLED Display**
-
    - Check I2C connections
    - Verify display address (default 0x3C)
 
 2. **WiFi Connection Fails**
-
    - Verify credentials in `config.h`
    - Check WiFi signal strength
    - Reset NodeMCU
@@ -246,7 +237,6 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
 ### Hardware Testing Sequence
 
 1. **Power-Up Test**
-
    - Power on Arduino Mega
    - Verify OLED displays initialization message
    - Check if SD card is initialized
@@ -254,7 +244,6 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:1
    - Verify NodeMCU OLED shows WiFi connection status
 
 2. **Sensor Verification**
-
    - DHT11: Values should be within realistic range (15-35°C, 20-90% humidity)
    - Soil Sensor:
      - Dry soil: ~800-1023 raw (0-20%)

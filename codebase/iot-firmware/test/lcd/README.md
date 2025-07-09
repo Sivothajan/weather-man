@@ -1,4 +1,4 @@
-## Required Library
+# Required Library
 
 | Library Name | Installation (Arduino IDE Library Manager) | Link                                                              |
 | ------------ | ------------------------------------------ | ----------------------------------------------------------------- |

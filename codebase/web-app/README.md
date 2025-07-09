@@ -1,8 +1,8 @@
-## Running, Building, and Linting the Project
+# Running, Building, and Linting the Project
 
 This section explains how to run, build, and lint the project, as well as the main website URLs.
 
-### Getting Started
+## Getting Started
 
 1. **Install dependencies**:
 
@@ -26,10 +26,12 @@ This section explains how to run, build, and lint the project, as well as the ma
 
    The production-ready files will be output to the `dist/` directory.
 
-4. **Lint the codebase**:
+4. **Lint the codebase**
+
    ```bash
    npm run lint
    ```
+
    This uses ESLint to check for code quality and style issues.
 
 ### Environment Variables

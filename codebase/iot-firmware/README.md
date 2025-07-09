@@ -41,8 +41,9 @@ This project monitors environmental conditions using an Arduino Mega and sends s
 
 ## 🔄 Data Flow
 
-1. Mega reads all sensors every 10 seconds.
-2. Builds a JSON payload like:
+### 1. Mega reads all sensors every 10 seconds
+
+### 2. Builds a JSON payload like
 
 ```json
 {
@@ -56,9 +57,11 @@ This project monitors environmental conditions using an Arduino Mega and sends s
 }
 ```
 
-3. Sends this JSON via `Serial1.println(...)` to NodeMCU.
-4. NodeMCU sends HTTP POST to `http://<apiHost><apiPath>`.
-5. OLED displays connection and status messages.
+### 3. Sends this JSON via `Serial1.println(...)` to NodeMCU
+
+### 4. NodeMCU sends HTTP POST to `http://<apiHost><apiPath>`
+
+### 5. OLED displays connection and status messages
 
 ---
 

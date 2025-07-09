@@ -58,12 +58,10 @@ Once initialization is complete, the system enters an endless loop that executes
 The LCD cycles through three different information screens, each displayed for 2 seconds:
 
 1. **Processed Values Screen**
-
    - Temperature and humidity on the top row
    - Soil moisture percentage and rain status on the bottom row
 
 2. **Raw Values Screen**
-
    - Raw soil moisture reading on the top row
    - Raw rain sensor reading on the bottom row
 

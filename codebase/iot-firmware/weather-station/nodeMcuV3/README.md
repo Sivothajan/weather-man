@@ -75,7 +75,6 @@ const char *apiPath = "/add";
 1. Connect to WiFi
 2. Listen to Serial1 for JSON input from Mega
 3. When JSON received:
-
    - Validate format
    - Optionally log to SPIFFS
    - Send HTTP POST to remote server

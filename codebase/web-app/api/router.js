@@ -26,11 +26,12 @@ app.get("/", (req, res) => {
     available_endpoints: {
       "GET /api/check": "Check if the API is running",
       "GET /api/get/:number": "Fetch latest :number entries from the database",
-      "GET /farming-advice": "Get AI-powered farming advice based on latest data",
+      "GET /farming-advice":
+        "Get AI-powered farming advice based on latest data",
       "GET /take-action": "Take IoT action based on current conditions",
       "POST /data/add": "Add new weather and sensor data to the database",
-      "OPTIONS *": "CORS preflight support for all routes"
-    }
+      "OPTIONS *": "CORS preflight support for all routes",
+    },
   });
 });
 

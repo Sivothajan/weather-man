@@ -7,7 +7,6 @@ This folder contains the core components for integrating the Weather Station sys
 - [Database Schema](#database-schema)
 - [API Modules](#api-modules)
 - [Environment Setup](#environment-setup)
-- [Usage Examples](#usage-examples)
 
 ## Database Schema
 
@@ -121,7 +120,7 @@ The Supabase integration requires the following environment variables:
 
 Create a `.env` file in the project root with these variables:
 
-```
+```bash
 SUPABASE_URL=https://your-project-id.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
 SUPABASE_TABLE=weather_data
