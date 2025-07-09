@@ -164,10 +164,8 @@ app.post("/api/data/add", async (req, res) => {
   }
 });
 
-app.all("*", (req, res) => {
+app.all("(.*)", (req, res) => {
   res.status(404).send("Route not found");
 });
-
-app.options("*", cors());
 
 export default app;
