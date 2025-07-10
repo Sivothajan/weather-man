@@ -12,13 +12,7 @@ import { takeIoTAction } from "./claude/takeIoTAction.js";
 dotenv.config();
 const app = express();
 
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-  }),
-);
+app.use(cors());
 
 app.use(json());
 
