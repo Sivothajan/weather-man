@@ -22,7 +22,7 @@ app.use(
 
 app.use(json());
 
-app.get("/api/", (req, res) => {
+app.get("/api", (req, res) => {
   res.set("X-Robots-Tag", "noindex, nofollow");
   res.status(200).json({
     message: "Welcome to the Weather Man API 🌦️",
