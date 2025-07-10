@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import dotenv from "dotenv";
+import { process } from 'node:process';
 
 dotenv.config();
 
