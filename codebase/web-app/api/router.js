@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { process } from 'node:process';
+import process from 'node:process';
 
 import { getTime } from "./utils/getTime.js";
 import { addDataToDb } from "./supabase/addToDb.js";
