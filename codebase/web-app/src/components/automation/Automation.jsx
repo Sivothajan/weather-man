@@ -1,12 +1,9 @@
-import React from "react";
 import styles from "./Automation.module.css";
-
-const API_URL = "https://API_URL"; // Replace with API URL
 
 function Automation() {
   const handleWatering = async () => {
     try {
-      const response = await fetch(`${API_URL}/action/watering`, {
+      const response = await fetch(`/api/action/watering`, {
         method: "POST",
       });
       if (response.ok) {
@@ -23,7 +20,7 @@ function Automation() {
 
   const handleCall = async () => {
     try {
-      const response = await fetch(`${API_URL}/action/call`, {
+      const response = await fetch(`/api/action/call`, {
         method: "POST",
       });
       if (response.ok) {

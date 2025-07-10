@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import process from 'node:process';
-import { Buffer } from 'node:buffer';
+import process from "node:process";
+import { Buffer } from "node:buffer";
 
 dotenv.config();
 

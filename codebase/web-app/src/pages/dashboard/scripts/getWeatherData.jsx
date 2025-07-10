@@ -1,4 +1,3 @@
-const API_URL = import.meta.env.VITE_API_URL;
 const DATA_SIZE = import.meta.env.VITE_DATA_SIZE || 10; // Default to 10 if not set
 
 export const getWeatherData = async () => {

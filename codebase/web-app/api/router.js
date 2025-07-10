@@ -1,7 +1,7 @@
 import express, { json } from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import process from 'node:process';
+import process from "node:process";
 
 import { getTime } from "./utils/getTime.js";
 import { addDataToDb } from "./supabase/addToDb.js";
@@ -159,6 +159,6 @@ app.post("/api/data/add", async (req, res) => {
   }
 });
 
-app.options('*', cors());
+app.options("*", cors());
 
 export default app;

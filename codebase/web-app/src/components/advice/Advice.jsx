@@ -113,9 +113,7 @@ function Advice() {
       setLoading(true);
       setError("");
       try {
-        const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/farming-advice`,
-        );
+        const res = await fetch(`/api/farming-advice`);
         if (!res.ok) throw new Error("Failed to fetch advice");
         const data = await res.json();
 
@@ -139,9 +137,9 @@ function Advice() {
           updateRetryData(newRetryCount);
 
           // Check if exceeded retry limit
-          if (newRetryCount >= 5) {
+          if (retryCount >= 5) {
             setError(
-              `Exceeded 5 attempts to get advice. Please try again tomorrow. (${newRetryCount} attempts)`,
+              `Exceeded 5 attempts to get advice. Please try again tomorrow. (${retryCount} attempts)`,
             );
           }
         }
