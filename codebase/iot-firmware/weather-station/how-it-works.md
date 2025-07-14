@@ -238,10 +238,18 @@ Total Cycle: 10 seconds (5.5s active operations + 4.5s delay)
 System configured via `config.h`:
 
 ```cpp
-const char* ssid = "your_wifi_ssid";
+#ifndef CONFIG_H
+#define CONFIG_H
+
+// WiFi Configuration
+const char* ssid     = "your_wifi_ssid";
 const char* password = "your_wifi_password";
-const char* apiHost = "your.api.host";
-const char* apiPath = "/api/endpoint";
+
+// API Configuration
+const char* apiHost  = "your.api.host";
+const char* apiPath  = "/api/endpoint";
+
+#endif // CONFIG_H
 ```
 
 ### Diagnostics

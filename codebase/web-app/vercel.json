@@ -24,6 +24,18 @@
       "destination": "/api/router"
     },
     {
+      "source": "/post/data/add",
+      "destination": "/api/router"
+    },
+    {
+      "source": "/take-action",
+      "destination": "/api/router"
+    },
+    {
+      "source": "/farming-advice",
+      "destination": "/api/router"
+    },
+    {
       "source": "/favicon.ico",
       "destination": "/favicon/favicon.ico"
     },
