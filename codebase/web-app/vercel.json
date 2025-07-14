@@ -16,74 +16,11 @@
           "value": "Content-Type"
         }
       ]
-    },
-    {
-      "source": "/post/data/add",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
-        }
-      ]
-    },
-    {
-      "source": "/take-action",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
-        }
-      ]
-    },
-    {
-      "source": "/farming-advice",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
-        }
-      ]
     }
   ],
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/router"
-    },
-    {
-      "source": "/post/data/add",
-      "destination": "/api/router"
-    },
-    {
-      "source": "/take-action",
-      "destination": "/api/router"
-    },
-    {
-      "source": "/farming-advice",
       "destination": "/api/router"
     },
     {
