@@ -28,10 +28,6 @@
       "destination": "/api/router"
     },
     {
-      "source": "/data/add/(.*)",
-      "destination": "/api/router"
-    },
-    {
       "source": "/favicon.ico",
       "destination": "/favicon/favicon.ico"
     },

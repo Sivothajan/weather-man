@@ -159,6 +159,47 @@ app.post("/api/data/add", async (req, res) => {
   }
 });
 
+app.post("/data/add", async (req, res) => {
+  const {
+    temperature,
+    humidity,
+    soil_moisture,
+    soil_raw,
+    rain,
+    rain_raw,
+    fire,
+  } = req.body;
+  const timestamp = getTime();
+
+  const data = {
+    temperature: temperature,
+    humidity: humidity,
+    soil_moisture: soil_moisture,
+    soil_raw: soil_raw,
+    rain: rain,
+    rain_raw: rain_raw,
+    fire: fire,
+    timestamp: timestamp,
+  };
+
+  try {
+    const result = await addDataToDb(data, timestamp);
+    if (result.success) {
+      res.status(201).json({
+        message: "API Status Response: Data is Added to the Database!",
+      });
+    } else {
+      res.status(500).json({
+        message: "API Status Response: An Error Occurred!",
+        error: result.error,
+      });
+    }
+  } catch (error) {
+    console.error("Error in add handler:", error);
+    res.status(500).json({ message: "Error processing request." });
+  }
+});
+
 app.options("*", cors());
 
 export default app;
