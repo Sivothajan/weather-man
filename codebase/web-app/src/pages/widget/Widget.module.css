@@ -344,6 +344,69 @@
   font-size: 2rem;
 }
 
+/* Dashboard Navigation Button */
+.dashboardButton {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.8rem 1.5rem;
+  border-radius: 2rem;
+  color: white;
+  text-decoration: none;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.dashboardButton:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: translateX(-50%) translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dashboardIcon {
+  font-size: 1.2rem;
+}
+
+/* Adjust button position in fullscreen mode */
+.fullscreenMode .dashboardButton {
+  bottom: 1.5rem;
+}
+
+/* Responsive adjustments for the dashboard button */
+@media (max-width: 768px) {
+  .dashboardButton {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    bottom: 1.5rem;
+  }
+  
+  .dashboardIcon {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboardButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    bottom: 1rem;
+  }
+  
+  .dashboardIcon {
+    font-size: 1rem;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .widgetContainer {

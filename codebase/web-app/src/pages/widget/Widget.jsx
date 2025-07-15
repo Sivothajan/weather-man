@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -237,6 +238,11 @@ function Widget({ isFullscreen }) {
       <div className={styles.timestamp}>
         Last updated: {new Date(weatherData.timestamp).toLocaleString()}
       </div>
+
+      <Link to="/dashboard" className={styles.dashboardButton}>
+        <span className={styles.dashboardIcon}>📊</span>
+        View Full Dashboard
+      </Link>
     </div>
   );
 }
