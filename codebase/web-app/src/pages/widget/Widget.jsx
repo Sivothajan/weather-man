@@ -235,14 +235,15 @@ function Widget({ isFullscreen }) {
         <Line options={chartOptions} data={chartData} />
       </div>
 
-      <div className={styles.timestamp}>
-        Last updated: {new Date(weatherData.timestamp).toLocaleString()}
+      <div className={styles.footerSection}>
+        <div className={styles.timestamp}>
+          Last updated: {new Date(weatherData.timestamp).toLocaleString()}
+        </div>
+        <Link to="/dashboard" className={styles.dashboardButton}>
+          <span className={styles.dashboardIcon}>📊</span>
+          View Dashboard
+        </Link>
       </div>
-
-      <Link to="/dashboard" className={styles.dashboardButton}>
-        <span className={styles.dashboardIcon}>📊</span>
-        View Full Dashboard
-      </Link>
     </div>
   );
 }
