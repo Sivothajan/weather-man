@@ -85,7 +85,7 @@ function Widget({ isFullscreen }) {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 5000); // Update every 5 seconds
+    const interval = setInterval(fetchData, 500);
     return () => clearInterval(interval);
   }, [fetchData]);
 
@@ -161,7 +161,7 @@ function Widget({ isFullscreen }) {
       className={`${styles.widgetContainer} ${getWeatherClass()} ${isFullscreen ? styles.fullscreenMode : ""}`}
     >
       <div className={styles.currentWeather}>
-        {!isFullscreen && <h1>Current Weather</h1>}
+        <h1>Current Weather</h1>
         <div className={styles.weatherGrid}>
           <div className={styles.weatherCard}>
             <i className={styles.temperatureIcon}></i>
@@ -186,22 +186,18 @@ function Widget({ isFullscreen }) {
         </div>
       </div>
 
-      {!isFullscreen && (
-        <>
-          <div className={styles.chartSection}>
-            <Line options={chartOptions} data={chartData} />
-          </div>
+      <div className={styles.chartSection}>
+        <Line options={chartOptions} data={chartData} />
+      </div>
 
-          <div className={styles.adviceSection}>
-            <h2>Farming Insights</h2>
-            <p>{farmingAdvice}</p>
-          </div>
+      <div className={styles.adviceSection}>
+        <h2>Farming Insights</h2>
+        <p>{farmingAdvice}</p>
+      </div>
 
-          <div className={styles.timestamp}>
-            Last updated: {new Date(weatherData.timestamp).toLocaleString()}
-          </div>
-        </>
-      )}
+      <div className={styles.timestamp}>
+        Last updated: {new Date(weatherData.timestamp).toLocaleString()}
+      </div>
     </div>
   );
 }

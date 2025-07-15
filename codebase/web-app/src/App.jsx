@@ -4,13 +4,13 @@ import About from "./pages/about/About";
 import Error404 from "./errors/Error404";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Actions from "./pages/actions/Actions";
-import WeatherPage from "./pages/weather/WeatherPage";
+import Widge from "./pages/widget/Widget";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<WeatherPage />} />
+        <Route path="/" element={<Widge isFullscreen={true} />} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/take-action/:actionId" element={<Actions />} />

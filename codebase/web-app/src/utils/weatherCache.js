@@ -1,5 +1,5 @@
-const CACHE_KEY = "farming_advice_cache";
-const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+const CACHE_KEY = "weather_man_cache";
+const CACHE_DURATION = 500;
 
 export const weatherCache = {
   set: (data) => {
