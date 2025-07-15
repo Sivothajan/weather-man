@@ -1,58 +1,12 @@
 import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-} from "chart.js";
 import { weatherCache } from "../../utils/weatherCache";
-import { Line } from "react-chartjs-2";
 import styles from "./Widget.module.css";
-
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Filler,
-  Legend,
-);
 
 function Widget({ isFullscreen }) {
   const [weatherData, setWeatherData] = useState(null);
-  const [historicalData, setHistoricalData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
-  // Filter data to get entries 5 minutes apart
-  const filterDataByInterval = (data, minutesInterval) => {
-    if (!data || data.length === 0) return [];
-
-    const filtered = [];
-    let lastTimestamp = null;
-
-    for (const entry of data.reverse()) {
-      const currentTime = new Date(entry.timestamp);
-
-      if (
-        !lastTimestamp ||
-        currentTime - lastTimestamp >= minutesInterval * 60 * 1000
-      ) {
-        filtered.push(entry);
-        lastTimestamp = currentTime;
-      }
-    }
-
-    return filtered.slice(0, 24).reverse(); // Keep only last 24 entries
-  };
 
   const fetchData = useCallback(async () => {
     try {
@@ -60,7 +14,6 @@ function Widget({ isFullscreen }) {
       if (weatherCache.isValid()) {
         const cachedData = weatherCache.get();
         setWeatherData(cachedData.current);
-        setHistoricalData(filterDataByInterval(cachedData.historical, 5));
         setLoading(false);
         return;
       }
@@ -69,22 +22,15 @@ function Widget({ isFullscreen }) {
       const currentResponse = await fetch("/api/get/1");
       const currentData = await currentResponse.json();
 
-      // Fetch more data than needed to ensure we have enough after filtering
-      const historicalResponse = await fetch("/api/get/10");
-      const historicalData = await historicalResponse.json();
-
       if (currentData.success && currentData.data.length > 0) {
         const current = currentData.data[0];
-        const historical = filterDataByInterval(historicalData.data, 5);
 
         // Update state
         setWeatherData(current);
-        setHistoricalData(historical);
 
         // Cache the data
         weatherCache.set({
           current,
-          historical,
         });
       } else {
         throw new Error("No data available");
@@ -118,49 +64,6 @@ function Widget({ isFullscreen }) {
       </div>
     );
   }
-
-  const chartData = {
-    labels: historicalData
-      .map((entry) => {
-        const date = new Date(entry.timestamp);
-        return date.toLocaleTimeString();
-      })
-      .reverse(),
-    datasets: [
-      {
-        fill: true,
-        label: "Temperature (°C)",
-        data: historicalData.map((entry) => entry.temperature).reverse(),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-      },
-      {
-        fill: true,
-        label: "Humidity (%)",
-        data: historicalData.map((entry) => entry.humidity).reverse(),
-        borderColor: "rgb(53, 162, 235)",
-        backgroundColor: "rgba(53, 162, 235, 0.2)",
-      },
-    ],
-  };
-
-  const chartOptions = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Weather Trends",
-      },
-    },
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
 
   const getWeatherClass = () => {
     if (!weatherData) return "";
@@ -223,10 +126,6 @@ function Widget({ isFullscreen }) {
             <p>Rain</p>
           </div>
         </div>
-      </div>
-
-      <div className={styles.chartSection}>
-        <Line options={chartOptions} data={chartData} />
       </div>
 
       <div className={styles.footerSection}>
