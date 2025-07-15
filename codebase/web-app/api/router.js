@@ -225,6 +225,6 @@ app.post("/data/add", async (req, res) => {
   }
 });
 
-app.options("*", cors());
+app.options("/.*/", cors());
 
 export default app;
