@@ -70,17 +70,12 @@ function Widget({ isFullscreen }) {
       const currentData = await currentResponse.json();
 
       // Fetch more data than needed to ensure we have enough after filtering
-      const historicalResponse = await fetch("/api/get/100"); // Fetch more to ensure we have enough after filtering
+      const historicalResponse = await fetch("/api/get/10");
       const historicalData = await historicalResponse.json();
-
-      // Fetch farming advice
-      const adviceResponse = await fetch("/api/farming-advice");
-      const adviceData = await adviceResponse.json();
 
       if (currentData.success && currentData.data.length > 0) {
         const current = currentData.data[0];
         const historical = filterDataByInterval(historicalData.data, 5);
-        const advice = adviceData.advice;
 
         // Update state
         setWeatherData(current);
@@ -90,7 +85,6 @@ function Widget({ isFullscreen }) {
         weatherCache.set({
           current,
           historical,
-          advice,
         });
       } else {
         throw new Error("No data available");
