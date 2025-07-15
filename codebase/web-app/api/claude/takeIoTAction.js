@@ -21,6 +21,9 @@ const fetchWeather = async (location) => {
 
 const fetchNews = async (location) => {
   // TODO: Replace with actual news API call
+  if (!location) {
+    throw new Error("Location is required for fetching news");
+  }
   return {
     headlines: [
       "Local farmers report good harvests",

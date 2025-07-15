@@ -148,7 +148,7 @@ app.post("/api/data/add", async (req, res) => {
       await sendNotification(
         "Rain Alert!",
         `Rain detected: ${data.rain_raw} raw at ${data.timestamp} - device ID: weather-man-1`,
-      )
+      );
     }
     if (data.fire) {
       await sendNotification(
@@ -201,7 +201,7 @@ app.post("/data/add", async (req, res) => {
       sendNotification(
         "Rain Alert ",
         `Rain detected: ${data.rain_raw} raw at ${data.timestamp} - device ID: weather-man-1`,
-      )
+      );
     }
     if (data.fire) {
       sendNotification(
