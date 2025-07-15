@@ -375,50 +375,70 @@
 
 /* Fullscreen Mode */
 .fullscreenMode {
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 1rem;
-  height: 100vh;
-  padding: 1rem;
-}
-
-.fullscreenMode .currentWeather {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 100vh;
+  padding: 2rem;
+  overflow: hidden;
+}
+
+.fullscreenMode .currentWeather {
+  width: 100%;
+  max-width: 1400px;
 }
 
 .fullscreenMode .weatherGrid {
-  max-width: 1200px;
-  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
 .fullscreenMode .weatherCard {
-  transform: scale(1.2);
-  transition: transform 0.3s ease;
+  transform: none;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-width: 0; /* Prevent grid item overflow */
 }
 
-.fullscreenMode .chartSection {
-  position: fixed;
-  bottom: 1rem;
-  left: 1rem;
-  right: 1rem;
-  height: 200px;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(10px);
-  border-radius: 1rem;
-  opacity: 0;
-  transform: translateY(100%);
-  transition: all 0.3s ease;
+.fullscreenMode .weatherCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
 }
 
-.fullscreenMode:hover .chartSection {
-  opacity: 1;
-  transform: translateY(0);
+@media (min-width: 1024px) {
+  .fullscreenMode .weatherGrid {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
-.fullscreenMode .adviceSection,
-.fullscreenMode .timestamp {
-  display: none;
+@media (max-width: 768px) {
+  .fullscreenMode {
+    padding: 1rem;
+  }
+  
+  .fullscreenMode .weatherGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .fullscreenMode .weatherGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .fullscreenMode .weatherCard {
+    transform: none;
+  }
 }
