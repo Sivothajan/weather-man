@@ -5,9 +5,12 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  transition: background 1s ease-in-out;
+  transition: all 0.5s ease-in-out;
   position: relative;
   overflow: hidden;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Weather-based themes */
@@ -247,11 +250,14 @@
 .weatherCard {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 1rem;
   padding: 1.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   overflow: hidden;
+  will-change: transform, opacity;
+  transform: translateZ(0);
 }
 
 .weatherCard:hover {
@@ -365,4 +371,54 @@
   .weatherCard {
     padding: 1rem;
   }
+}
+
+/* Fullscreen Mode */
+.fullscreenMode {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 1rem;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.fullscreenMode .currentWeather {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fullscreenMode .weatherGrid {
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.fullscreenMode .weatherCard {
+  transform: scale(1.2);
+  transition: transform 0.3s ease;
+}
+
+.fullscreenMode .chartSection {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  height: 200px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.3s ease;
+}
+
+.fullscreenMode:hover .chartSection {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fullscreenMode .adviceSection,
+.fullscreenMode .timestamp {
+  display: none;
 }
