@@ -34,7 +34,7 @@ function WeatherPage() {
         </div>
       </nav>
 
-      <main
+      <div
         className={`${styles.mainContent} ${isFullscreen ? styles.fullscreen : ""}`}
       >
         {isFullscreen && (
@@ -49,18 +49,7 @@ function WeatherPage() {
         <div className={styles.widgetWrapper}>
           <Widget isFullscreen={isFullscreen} />
         </div>
-
-        <footer className={styles.footer}>
-          <div className={styles.footerContent}>
-            <p>© 2025 WeatherMan - Smart Weather Monitoring</p>
-            <div className={styles.footerLinks}>
-              <a href="/about">About</a>
-              <a href="/contact">Contact</a>
-              <a href="/privacy">Privacy</a>
-            </div>
-          </div>
-        </footer>
-      </main>
+      </div>
     </div>
   );
 }
