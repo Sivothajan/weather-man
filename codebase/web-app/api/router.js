@@ -8,6 +8,7 @@ import { addDataToDb } from "./supabase/addToDb.js";
 import { getDataFromDb } from "./supabase/getDataFromDb.js";
 import { getFarmingAdvice } from "./claude/getFarmingAdvice.js";
 import { takeIoTAction } from "./claude/takeIoTAction.js";
+import { sendNotification } from "./ntfy/ntfy.js";
 
 dotenv.config();
 const app = express();
@@ -143,6 +144,18 @@ app.post("/api/data/add", async (req, res) => {
 
   try {
     const result = await addDataToDb(data, timestamp);
+    if (data.rain) {
+      await sendNotification(
+        "Rain Alert ⚠️",
+        `Rain detected: ${data.rain_raw} raw at ${data.timestamp} - device ID: weather-man-1`,
+      )
+    }
+    if (data.fire) {
+      await sendNotification(
+        "Fire Alert ⚠️",
+        `Fire detected at ${data.timestamp}. Immediate action required! - device ID: weather-man-1`,
+      );
+    }
     if (result.success) {
       res.status(201).json({
         message: "API Status Response: Data is Added to the Database!",
@@ -184,6 +197,18 @@ app.post("/data/add", async (req, res) => {
 
   try {
     const result = await addDataToDb(data, timestamp);
+    if (data.rain) {
+      sendNotification(
+        "Rain Alert ⚠️",
+        `Rain detected: ${data.rain_raw} raw at ${data.timestamp} - device ID: weather-man-1`,
+      )
+    }
+    if (data.fire) {
+      sendNotification(
+        "Fire Alert ⚠️",
+        `Fire detected at ${data.timestamp}. Immediate action required! - device ID: weather-man-1`,
+      );
+    }
     if (result.success) {
       res.status(201).json({
         message: "API Status Response: Data is Added to the Database!",
