@@ -146,13 +146,13 @@ app.post("/api/data/add", async (req, res) => {
     const result = await addDataToDb(data, timestamp);
     if (data.rain) {
       await sendNotification(
-        "Rain Alert ⚠️",
+        "Rain Alert!",
         `Rain detected: ${data.rain_raw} raw at ${data.timestamp} - device ID: weather-man-1`,
       )
     }
     if (data.fire) {
       await sendNotification(
-        "Fire Alert ⚠️",
+        "Fire Alert!",
         `Fire detected at ${data.timestamp}. Immediate action required! - device ID: weather-man-1`,
       );
     }
@@ -199,13 +199,13 @@ app.post("/data/add", async (req, res) => {
     const result = await addDataToDb(data, timestamp);
     if (data.rain) {
       sendNotification(
-        "Rain Alert ⚠️",
+        "Rain Alert ",
         `Rain detected: ${data.rain_raw} raw at ${data.timestamp} - device ID: weather-man-1`,
       )
     }
     if (data.fire) {
       sendNotification(
-        "Fire Alert ⚠️",
+        "Fire Alert ",
         `Fire detected at ${data.timestamp}. Immediate action required! - device ID: weather-man-1`,
       );
     }
