@@ -1,4 +1,4 @@
-const CACHE_KEY = "weatherman_cache";
+const CACHE_KEY = "farming_advice_cache";
 const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
 export const weatherCache = {
