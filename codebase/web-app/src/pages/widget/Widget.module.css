@@ -1,0 +1,368 @@
+.widgetContainer {
+  min-height: 100vh;
+  padding: 2rem;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: background 1s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Weather-based themes */
+.normalWeather {
+  background: linear-gradient(135deg, #1e2a3a 0%, #2d3a4a 100%);
+}
+
+.rainyWeather {
+  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+  animation: rainEffect 8s linear infinite;
+}
+
+.rainyWeather::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: -100%;
+  left: 0;
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 15%,
+    rgba(255, 255, 255, 0.1) 15%,
+    rgba(255, 255, 255, 0.1) 20%
+  );
+  animation: rain 0.8s linear infinite;
+  z-index: 1;
+}
+
+.hotWeather {
+  background: linear-gradient(135deg, #e65c00 0%, #f9d423 100%);
+}
+
+.hotWeather::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% -20%,
+    rgba(255, 255, 255, 0.3),
+    transparent 60%
+  );
+  animation: sunRays 4s ease-in-out infinite;
+  z-index: 1;
+}
+
+.coldWeather {
+  background: linear-gradient(135deg, #2980b9 0%, #6dd5fa 100%);
+}
+
+.coldWeather::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 120%;
+  background: radial-gradient(
+    circle at 50% 120%,
+    rgba(255, 255, 255, 0.8) 0%,
+    transparent 40%
+  );
+  animation: frost 3s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* Weather Animations */
+@keyframes rainEffect {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes rain {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes sunRays {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes frost {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(-2%) scale(1.02);
+    opacity: 0.5;
+  }
+}
+
+@keyframes snowfall {
+  0% {
+    background-position: 0 0;
+    opacity: 0.8;
+  }
+  100% {
+    background-position: 0 100vh;
+    opacity: 0.3;
+  }
+}
+
+/* Add snowflakes for cold weather */
+.coldWeather::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-image: radial-gradient(
+    circle at center,
+    white 1px,
+    transparent 1px
+  );
+  background-size: 30px 30px;
+  animation: snowfall 10s linear infinite;
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Enhance weather cards for each weather type */
+.rainyWeather .weatherCard {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(15px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hotWeather .weatherCard {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 15px rgba(230, 92, 0, 0.2),
+    inset 0 0 20px rgba(255, 166, 0, 0.1);
+}
+
+.coldWeather .weatherCard {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 4px 15px rgba(41, 128, 185, 0.2),
+    inset 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+/* Ensure content stays above weather effects */
+.currentWeather,
+.weatherGrid,
+.chartSection,
+.adviceSection {
+  position: relative;
+  z-index: 3;
+}
+
+/* Make icons dynamic based on weather */
+.rainyWeather .rainIcon::before {
+  animation: dropBounce 1s ease-in infinite;
+}
+
+.hotWeather .temperatureIcon::before {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.coldWeather .temperatureIcon::before {
+  animation: shiver 0.5s ease-in-out infinite;
+}
+
+@keyframes dropBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shiver {
+  0%,
+  100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+.currentWeather {
+  text-align: center;
+}
+
+.currentWeather h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: 300;
+  color: #ffffff;
+}
+
+.weatherGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.weatherCard {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.weatherCard:hover {
+  transform: translateY(-5px);
+}
+
+.weatherCard h2 {
+  font-size: 2rem;
+  margin: 1rem 0;
+  font-weight: 500;
+}
+
+.weatherCard p {
+  color: #cccccc;
+  font-size: 1rem;
+}
+
+.chartSection {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  height: 400px;
+}
+
+.adviceSection {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.adviceSection h2 {
+  color: #ffffff;
+  margin-bottom: 1rem;
+  font-weight: 300;
+}
+
+.adviceSection p {
+  color: #cccccc;
+  line-height: 1.6;
+}
+
+.timestamp {
+  text-align: center;
+  color: #cccccc;
+  font-size: 0.9rem;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  color: #ffffff;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  color: #ff6b6b;
+}
+
+/* Weather Icons */
+.temperatureIcon::before {
+  content: "🌡️";
+  font-size: 2rem;
+}
+
+.humidityIcon::before {
+  content: "💧";
+  font-size: 2rem;
+}
+
+.soilIcon::before {
+  content: "🌱";
+  font-size: 2rem;
+}
+
+.rainIcon::before {
+  content: "☔";
+  font-size: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .widgetContainer {
+    padding: 1rem;
+  }
+
+  .currentWeather h1 {
+    font-size: 2rem;
+  }
+
+  .weatherGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .chartSection {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .weatherGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .weatherCard {
+    padding: 1rem;
+  }
+}
