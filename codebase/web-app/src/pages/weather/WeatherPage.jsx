@@ -37,6 +37,15 @@ function WeatherPage() {
       <main
         className={`${styles.mainContent} ${isFullscreen ? styles.fullscreen : ""}`}
       >
+        {isFullscreen && (
+          <button
+            className={styles.exitFullscreen}
+            onClick={toggleFullscreen}
+            aria-label="Exit fullscreen"
+          >
+            ✕
+          </button>
+        )}
         <div className={styles.widgetWrapper}>
           <Widget isFullscreen={isFullscreen} />
         </div>
