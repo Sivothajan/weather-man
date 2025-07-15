@@ -28,7 +28,6 @@ ChartJS.register(
 function Widget({ isFullscreen }) {
   const [weatherData, setWeatherData] = useState(null);
   const [historicalData, setHistoricalData] = useState([]);
-  const [farmingAdvice, setFarmingAdvice] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -61,7 +60,6 @@ function Widget({ isFullscreen }) {
         const cachedData = weatherCache.get();
         setWeatherData(cachedData.current);
         setHistoricalData(filterDataByInterval(cachedData.historical, 5));
-        setFarmingAdvice(cachedData.advice);
         setLoading(false);
         return;
       }
@@ -86,7 +84,6 @@ function Widget({ isFullscreen }) {
         // Update state
         setWeatherData(current);
         setHistoricalData(historical);
-        setFarmingAdvice(advice);
 
         // Cache the data
         weatherCache.set({
@@ -235,11 +232,6 @@ function Widget({ isFullscreen }) {
 
       <div className={styles.chartSection}>
         <Line options={chartOptions} data={chartData} />
-      </div>
-
-      <div className={styles.adviceSection}>
-        <h2>Farming Insights</h2>
-        <p>{farmingAdvice}</p>
       </div>
 
       <div className={styles.timestamp}>

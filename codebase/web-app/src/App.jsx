@@ -10,7 +10,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Widget isFullscreen={true} />} />
+        <Route path="/" element={<Widget isFullscreen={false} />} />
         <Route path="/about" element={<About />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/take-action/:actionId" element={<Actions />} />
