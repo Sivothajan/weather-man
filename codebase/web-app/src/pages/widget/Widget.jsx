@@ -32,13 +32,35 @@ function Widget({ isFullscreen }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Filter data to get entries 5 minutes apart
+  const filterDataByInterval = (data, minutesInterval) => {
+    if (!data || data.length === 0) return [];
+
+    const filtered = [];
+    let lastTimestamp = null;
+
+    for (const entry of data.reverse()) {
+      const currentTime = new Date(entry.timestamp);
+
+      if (
+        !lastTimestamp ||
+        currentTime - lastTimestamp >= minutesInterval * 60 * 1000
+      ) {
+        filtered.push(entry);
+        lastTimestamp = currentTime;
+      }
+    }
+
+    return filtered.slice(0, 24).reverse(); // Keep only last 24 entries
+  };
+
   const fetchData = useCallback(async () => {
     try {
       // Check cache first
       if (weatherCache.isValid()) {
         const cachedData = weatherCache.get();
         setWeatherData(cachedData.current);
-        setHistoricalData(cachedData.historical);
+        setHistoricalData(filterDataByInterval(cachedData.historical, 5));
         setFarmingAdvice(cachedData.advice);
         setLoading(false);
         return;
@@ -48,8 +70,8 @@ function Widget({ isFullscreen }) {
       const currentResponse = await fetch("/api/get/1");
       const currentData = await currentResponse.json();
 
-      // Fetch historical data
-      const historicalResponse = await fetch("/api/get/24"); // Last 24 entries
+      // Fetch more data than needed to ensure we have enough after filtering
+      const historicalResponse = await fetch("/api/get/100"); // Fetch more to ensure we have enough after filtering
       const historicalData = await historicalResponse.json();
 
       // Fetch farming advice
@@ -58,7 +80,7 @@ function Widget({ isFullscreen }) {
 
       if (currentData.success && currentData.data.length > 0) {
         const current = currentData.data[0];
-        const historical = historicalData.data;
+        const historical = filterDataByInterval(historicalData.data, 5);
         const advice = adviceData.advice;
 
         // Update state
@@ -85,7 +107,7 @@ function Widget({ isFullscreen }) {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 500);
+    const interval = setInterval(fetchData, 5000); // Update every 5 seconds
     return () => clearInterval(interval);
   }, [fetchData]);
 
@@ -156,9 +178,34 @@ function Widget({ isFullscreen }) {
     return styles.normalWeather;
   };
 
+  const getFullscreenStyles = () => {
+    if (!isFullscreen) return {};
+
+    const screenWidth = window.innerWidth;
+    const screenHeight = window.innerHeight;
+
+    // Calculate optimal scaling based on screen dimensions
+    const scale = Math.min(
+      screenWidth / 1200, // Base width
+      screenHeight / 800, // Base height
+    );
+
+    return {
+      transform: `scale(${scale})`,
+      transformOrigin: "center center",
+      margin: "auto",
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    };
+  };
+
   return (
     <div
       className={`${styles.widgetContainer} ${getWeatherClass()} ${isFullscreen ? styles.fullscreenMode : ""}`}
+      style={getFullscreenStyles()}
     >
       <div className={styles.currentWeather}>
         <h1>Current Weather</h1>

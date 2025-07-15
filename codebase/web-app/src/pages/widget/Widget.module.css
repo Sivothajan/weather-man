@@ -375,34 +375,39 @@
 
 /* Fullscreen Mode */
 .fullscreenMode {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  height: 100vh;
-  padding: 1rem;
+  padding: 0;
+  margin: 0;
   overflow: hidden;
-  max-height: -webkit-fill-available; /* Fix for iOS */
+  max-height: 100vh;
+  z-index: 1000;
 }
 
 .fullscreenMode .currentWeather {
   width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
 .fullscreenMode .weatherGrid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-  padding: 1rem;
+  gap: 2rem;
   width: 100%;
-  height: auto;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
 }
 
 .fullscreenMode .weatherCard {
@@ -411,79 +416,68 @@
   -webkit-backdrop-filter: blur(15px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  padding: 2rem;
+  padding: 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   aspect-ratio: 1;
-  min-height: 200px;
+  transition: transform 0.3s ease;
+}
+
+.fullscreenMode .weatherCard:hover {
+  transform: translateY(-5px) scale(1.02);
 }
 
 .fullscreenMode .weatherCard h2 {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 4vw, 3rem);
   margin: 1rem 0;
+  text-align: center;
 }
 
 .fullscreenMode .weatherCard p {
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  text-align: center;
 }
 
 .fullscreenMode .weatherCard i::before {
-  font-size: 2.5rem;
+  font-size: clamp(2rem, 4vw, 3rem);
 }
 
-/* Hide sections in fullscreen */
-.fullscreenMode .chartSection,
-.fullscreenMode .adviceSection,
-.fullscreenMode .timestamp {
-  display: none !important;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .fullscreenMode {
-    padding: 0.5rem;
-  }
-
-  .fullscreenMode .currentWeather {
-    justify-content: flex-start;
-    padding-top: 2rem;
-  }
-
+/* Responsive adjustments for fullscreen */
+@media (max-width: 1200px) {
   .fullscreenMode .weatherGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 0.5rem;
+    gap: 1.5rem;
+    padding: 0 1.5rem;
   }
 
   .fullscreenMode .weatherCard {
-    padding: 1rem;
-    min-height: 150px;
+    padding: 2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .fullscreenMode .weatherGrid {
+    gap: 1rem;
+    padding: 0 1rem;
   }
 
-  .fullscreenMode .weatherCard h2 {
-    font-size: 1.8rem;
-  }
-
-  .fullscreenMode .weatherCard p {
-    font-size: 1rem;
-  }
-
-  .fullscreenMode .weatherCard i::before {
-    font-size: 2rem;
+  .fullscreenMode .weatherCard {
+    padding: 1.5rem;
   }
 }
 
 @media (max-width: 480px) {
   .fullscreenMode .weatherGrid {
     grid-template-columns: 1fr;
-    max-width: 300px;
-    margin: 0 auto;
+    max-width: 400px;
+    gap: 1rem;
+    padding: 0 1rem;
   }
 
   .fullscreenMode .weatherCard {
     aspect-ratio: auto;
+    padding: 1.25rem;
     min-height: 120px;
   }
 }
