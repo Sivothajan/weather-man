@@ -3,6 +3,7 @@
   background: #121212;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .navbar {
@@ -101,11 +102,7 @@
 .mainContent.fullscreen .adviceSection,
 .mainContent.fullscreen .currentWeather h1,
 .mainContent.fullscreen .chartSection {
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform: translateY(20px);
-  visibility: hidden;
+  display: none !important;
 }
 
 .mainContent.fullscreen:hover .navbar {
@@ -125,12 +122,17 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90%;
-  max-width: 1200px;
+  max-width: 1400px;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 3rem;
   padding: 2rem;
   z-index: 100;
+}
+
+/* Ensure cards don't collapse */
+.mainContent.fullscreen .weatherGrid > * {
+  min-width: 0;
 }
 
 @media (min-width: 1024px) {
@@ -193,13 +195,14 @@
   -webkit-backdrop-filter: blur(10px);
   padding: 1.5rem 2rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   width: 100%;
-  transition:
-    opacity 0.3s ease,
-    transform 0.3s ease;
-  will-change: opacity, transform;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform, opacity;
 }
 
 .footerContent {
@@ -280,16 +283,16 @@
 /* Responsive Design */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .footer {
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   .footerContent {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     text-align: center;
     padding: 0.5rem;
   }
@@ -302,6 +305,31 @@
 
   .footerLinks a {
     font-size: 0.9rem;
+  }
+
+  .mainContent.fullscreen .weatherGrid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1rem;
+    width: 95%;
+  }
+
+  .mainContent.fullscreen .weatherCard {
+    transform: scale(1);
+    padding: 1.5rem;
+  }
+
+  .mainContent.fullscreen .weatherCard h2 {
+    font-size: 2rem;
+    margin: 1rem 0;
+  }
+
+  .mainContent.fullscreen .weatherCard i::before {
+    font-size: 2rem;
+  }
+
+  .dashboardButton {
+    display: none; /* Hide dashboard button on mobile */
   }
 }
 
