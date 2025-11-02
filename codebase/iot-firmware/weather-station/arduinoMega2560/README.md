@@ -111,7 +111,7 @@ Create a `config.h` file (for the **NodeMCU**) like:
 const char *ssid = "Your_SSID";
 const char *password = "Your_PASSWORD";
 const char *apiHost = "yourapi.com";
-const char *apiPath = "/add";
+const char *apiPath = "/api/data/add"; // This is the default path for data posting
 
 #endif
 ```

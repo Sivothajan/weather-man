@@ -1,0 +1,8 @@
+:root {
+  --font-baloo-thambi-2: 'Baloo Thambi 2', cursive;
+}
+
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

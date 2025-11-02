@@ -9,14 +9,14 @@ Figure 1: Weather Man System Overview
 
 **The Weather Man** is an IoT-based smart weather monitoring system available in two implementations:
 
-### 1. NodeMCU V3 Version
+### 1. NodeMCU V3 Module
 
 - All-in-one solution with built-in WiFi
 - SPIFFS-based local data logging
 - 3.3V logic level throughout
 - Compact and power-efficient design
 
-### 2. Arduino Mega 2560 Version
+### 2. Arduino Mega 2560 Module
 
 - Robust solution with external WiFi module
 - **Display**: OLED 128x64 for detailed visualization
@@ -24,7 +24,7 @@ Figure 1: Weather Man System Overview
 - 5V logic level with level shifting
 - Extensive I/O capabilities
 
-Both versions collect:
+Both Modules collect:
 
 - Temperature and humidity (DHT11)
 - Soil moisture (capacitive sensor)
@@ -62,10 +62,10 @@ The system's modular architecture makes it ideal for:
 
 ### Project Links
 
-- [Project Web-App](https://wm.sivothajan.me/)
-- [Project API](https://wm.api.sivothajan.me/)
-- [Project Documentation](https://gh.sivothajan.me/weather-man/)
-- [Project Update Post on TheCN ePortfolio](https://www.thecn.com/SS4922/section/showcase/681252d15bc51c0abd08d563)
+- [Project Embeded Codebase](https://gh.sivothajan.dev/weather-man/tree/master/codebase/iot-firmware/)
+- [Project Web-App](https://weather-man-app.vercel.app/)
+- [Project API](https://weather-man-app.vercel.app/api/)
+- [Project Documentation](https://gh.sivothajan.dev/weather-man#)
 
 ---
 
@@ -85,10 +85,6 @@ The system's modular architecture makes it ideal for:
 | Sivothayan  | S/21/513   |
 
 ---
-
-### Current Progress
-
-#### PS: For earlier versions, check the [April 30, 2025 GitHub Repo](https://github.com/Sivothajan/weather-man/tree/31057a6575f7ccb06b0e44e5aa5a5fb1c9c69691)
 
 #### 🔧 Hardware Setup
 
@@ -304,14 +300,14 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 
 ### 🔍 Component Details
 
-#### Cloud API (`/codebase/cloud-api`)
+#### API Endpoints (`/codebase/web-app/api/`)
 
-- **Claude AI Integration**: Smart analysis of weather data for farming advice and automated actions
+- **AI Integration**: Smart analysis of weather data for crop recommentation and automated action recomentations
+- **Data Ingestion**: Receives and processes data from IoT devices
 - **Notification System**: Real-time alerts via ntfy for critical weather conditions
 - **Database Operations**: Supabase integration for data storage and retrieval
-- **API Testing**: Comprehensive test suite for API endpoints
 
-#### IoT Firmware (`/codebase/iot-firmware`)
+#### IoT Firmware (`/codebase/iot-firmware/`)
 
 - **Hardware Testing**: Individual component test suites for reliability
 - **Weather Station Variants**:
@@ -320,9 +316,10 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 - **Data Collection**: 10-second sampling cycle with error handling
 - **Local Storage**: SD card and SPIFFS implementations
 
-#### Web Application (`/codebase/web-app`)
+#### Web Application (`/codebase/web-app/`)
 
-- **React + Vite**: Modern, fast web application
+- **Dashboard**: Comprehensive weather data visualization
+- **Historical Data**: Graphs and trends over time
 - **Real-time Updates**: Live weather data visualization
 - **Responsive Design**: Mobile-friendly interface
 - **Error Handling**: Robust error boundaries and fallbacks
@@ -333,9 +330,9 @@ T:23.50, H:45.20, Soil:78, SoilRaw:225, Rain:1, RainRaw:320, Fire:0
 
 You can browse the project source code in the following directories:
 
-- [API Backend](./codebase/cloud-api/) – Handles data processing and cloud integration.
 - [IoT Firmware](./codebase/iot-firmware/) – Microcontroller and sensor code.
 - [Web Application](./codebase/web-app/) – User interface for monitoring and analytics.
+- [API Backend](./codebase/web-app/app/api/) – Handles data processing and cloud integration.
 
 [**View Full Codebase on GitHub**](./codebase/)
 
@@ -346,38 +343,29 @@ You can browse the project source code in the following directories:
 ```text
 weather-man/
 ├── assets/                      # Project images and diagrams
-├── codebase/
-│   ├── cloud-api/              # Backend API implementation
-│   │   ├── api/
-│   │   │   ├── claude/        # AI integration with Claude
-│   │   │   ├── ntfy/          # Notification system
-│   │   │   ├── supabase/      # Database operations
-│   │   │   └── utils/         # Utility functions
-│   │   └── test/              # API tests
+├── codebase/                 # Main source code
 │   ├── iot-firmware/          # Hardware firmware code
 │   │   ├── test/             # Hardware component tests
 │   │   └── weather-station/   # Main station implementations
 │   │       ├── arduinoMega2560/
 │   │       └── nodeMcuV3/
-│   └── web-app/               # Frontend React application
-│       ├── public/
-│       └── src/
-│           ├── components/    # Reusable UI components
-│           ├── errors/        # Error handling
-│           └── pages/         # Application pages
+│   └── web-app/               # Next.js Web Application
+│       ├── app/               # Frontend application code + Backend API routes
+│       │   └── api/           # API routes
+│       └── public/            # Public assets
 ```
 
 ---
 
 ### 📸 Project Gallery
 
-#### Components Overview
+### Final Prototype
 
-|             Scratch              |              Top View              |              Side View               |
-| :------------------------------: | :--------------------------------: | :----------------------------------: |
-| ![Scratch](./assets/scratch.jpg) | ![Top View](./assets/top-view.jpg) | ![Side View](./assets/side-view.jpg) |
+|                 Top View                 |                 Side View                  |
+| :--------------------------------------: | :----------------------------------------: |
+| ![Top View](./assets/final-top-view.jpg) | ![Side View](./assets/final-side-view.jpg) |
 
-#### Testing the Components (Overview)
+### Development/ Testing phase
 
 |                  Top View                  |                  Side View                   |
 | :----------------------------------------: | :------------------------------------------: |

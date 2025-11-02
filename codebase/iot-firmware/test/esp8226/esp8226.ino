@@ -1,21 +1,22 @@
 /**
  * @file esp8226.ino
  * @brief ESP8266 Weather Station Test Firmware
- * 
+ *
  * This firmware implements a basic test for the Weather Station project.
  * It connects to WiFi and makes HTTPS requests to the Weather Man API.
- * 
+ *
  * Features:
  * - WiFi connectivity with retry mechanism
  * - Secure HTTPS connection (certificate verification disabled for testing)
  * - Basic GET request to test API connectivity
- * 
+ *
  * @note This is a test implementation. Production code should implement proper
  *       security measures and certificate verification.
  */
 
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
+
 #include "config.test.h"
 
 // Replace with your network credentials if config.test.h is not used
@@ -32,7 +33,7 @@ WiFiClientSecure client;
 
 /**
  * @brief Initial setup function that runs once at startup
- * 
+ *
  * This function:
  * 1. Initializes serial communication
  * 2. Connects to WiFi network
@@ -72,9 +73,8 @@ void setup() {
   }
 
   Serial.println("Connected. Sending GET request...");
-  client.print(String("GET ") + path + " HTTP/1.1\r\n" +
-               "Host: " + host + "\r\n" +
-               "User-Agent: ESP8266\r\n" +
+  client.print(String("GET ") + path + " HTTP/1.1\r\n" + "Host: " + host +
+               "\r\n" + "User-Agent: ESP8266\r\n" +
                "Connection: close\r\n\r\n");
 
   // Read headers
@@ -92,7 +92,7 @@ void setup() {
 
 /**
  * @brief Main program loop
- * 
+ *
  * Currently empty as this is a test implementation that only
  * performs a single request at startup.
  */

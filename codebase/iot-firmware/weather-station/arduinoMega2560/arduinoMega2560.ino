@@ -1,9 +1,9 @@
-#include <DHT.h>
-#include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-#include <SPI.h>
+#include <DHT.h>
 #include <SD.h>
+#include <SPI.h>
+#include <Wire.h>
 
 #define DHTPIN 2
 #define DHTTYPE DHT11
@@ -38,7 +38,8 @@ void setup() {
   }
 
   // Set contrast to half (value between 0 and 255)
-  setContrast(128);  // Half contrast (you can adjust this to any value between 0 and 255)
+  setContrast(128);  // Half contrast (you can adjust this to any value between
+                     // 0 and 255)
 
   display.clearDisplay();
   display.setTextSize(3);
@@ -56,10 +57,10 @@ void loop() {
 
   // Fix NaN values with default readings
   if (isnan(temp)) {
-    temp = 25.0;      // default temperature
+    temp = 25.0;  // default temperature
   }
   if (isnan(humid)) {
-    humid = 50.0;     // default humidity
+    humid = 50.0;  // default humidity
   }
 
   int soilRaw = analogRead(SOIL_PIN);
@@ -72,23 +73,32 @@ void loop() {
   logData(temp, humid, soil, soilRaw, rain, rainRaw, fireDetected);
   displayData(temp, humid, soil, rain, fireDetected);
 
-  String json = buildJson(temp, humid, soil, soilRaw, rain, rainRaw, fireDetected);
+  String json =
+      buildJson(temp, humid, soil, soilRaw, rain, rainRaw, fireDetected);
   Serial1.println(json);
   Serial.println(json);  // Debug
 
   delay(10000);
 }
 
-void logData(float temp, float humid, int soil, int soilRaw, bool rain, int rainRaw, bool fire) {
+void logData(float temp, float humid, int soil, int soilRaw, bool rain,
+             int rainRaw, bool fire) {
   logFile = SD.open("datalog.txt", FILE_WRITE);
   if (logFile) {
-    logFile.print("T:"); logFile.print(temp);
-    logFile.print(", H:"); logFile.print(humid);
-    logFile.print(", Soil:"); logFile.print(soil);
-    logFile.print(", SoilRaw:"); logFile.print(soilRaw);
-    logFile.print(", Rain:"); logFile.print(rain ? "1" : "0");
-    logFile.print(", RainRaw:"); logFile.print(rainRaw);
-    logFile.print(", Fire:"); logFile.println(fire ? "1" : "0");
+    logFile.print("T:");
+    logFile.print(temp);
+    logFile.print(", H:");
+    logFile.print(humid);
+    logFile.print(", Soil:");
+    logFile.print(soil);
+    logFile.print(", SoilRaw:");
+    logFile.print(soilRaw);
+    logFile.print(", Rain:");
+    logFile.print(rain ? "1" : "0");
+    logFile.print(", RainRaw:");
+    logFile.print(rainRaw);
+    logFile.print(", Fire:");
+    logFile.println(fire ? "1" : "0");
     logFile.close();
   } else {
     Serial.println("SD log failed");
@@ -99,23 +109,32 @@ void displayData(float temp, float humid, int soil, bool rain, bool fire) {
   display.clearDisplay();
   display.setCursor(0, 0);
   display.setTextSize(1);
-  display.print("Temp: "); display.print(temp); display.println(" C");
-  display.print("Hum: "); display.print(humid); display.println(" %");
-  display.print("Soil: "); display.print(soil); display.println(" %");
-  display.print("Rain: "); display.println(rain ? "YES" : "NO");
-  display.print("Fire: "); display.println(fire ? "YES" : "NO");
+  display.print("Temp: ");
+  display.print(temp);
+  display.println(" C");
+  display.print("Hum: ");
+  display.print(humid);
+  display.println(" %");
+  display.print("Soil: ");
+  display.print(soil);
+  display.println(" %");
+  display.print("Rain: ");
+  display.println(rain ? "YES" : "NO");
+  display.print("Fire: ");
+  display.println(fire ? "YES" : "NO");
   display.display();
 }
 
-String buildJson(float temp, float humid, int soil, int soilRaw, bool rain, int rainRaw, bool fire) {
+String buildJson(float temp, float humid, int soil, int soilRaw, bool rain,
+                 int rainRaw, bool fire) {
   String json = "{";
-  json += "\"temperature\":" + String(temp, 2) + ","; 
-  json += "\"humidity\":" + String(humid, 2) + ","; 
-  json += "\"soil_moisture\":" + String(soil) + ","; 
-  json += "\"soil_raw\":" + String(soilRaw) + ","; 
-  json += "\"rain\":" + String(rain ? 1 : 0) + ","; 
-  json += "\"rain_raw\":" + String(rainRaw) + ","; 
-  json += "\"fire\":" + String(fire ? "true" : "false"); 
+  json += "\"temperature\":" + String(temp, 2) + ",";
+  json += "\"humidity\":" + String(humid, 2) + ",";
+  json += "\"soil_moisture\":" + String(soil) + ",";
+  json += "\"soil_raw\":" + String(soilRaw) + ",";
+  json += "\"rain\":" + String(rain ? 1 : 0) + ",";
+  json += "\"rain_raw\":" + String(rainRaw) + ",";
+  json += "\"fire\":" + String(fire ? "true" : "false");
   json += "}";
   return json;
 }
@@ -123,6 +142,6 @@ String buildJson(float temp, float humid, int soil, int soilRaw, bool rain, int 
 // Function to set the contrast of the OLED display
 void setContrast(uint8_t contrast_value) {
   // Send the contrast command (0x81) followed by the contrast value (0-255)
-  display.ssd1306_command(0x81);  // Contrast control command
+  display.ssd1306_command(0x81);            // Contrast control command
   display.ssd1306_command(contrast_value);  // Set contrast value
 }

@@ -3,8 +3,8 @@
   "short_name": "Weather-Man",
   "description": "A web app that provides web-based IoT weather station data.",
   "lang": "en-US",
-  "start_url": "https://wm.sivothajan.me/",
-  "id": "https://wm.sivothajan.me/",
+  "start_url": "/",
+  "id": "/",
   "icons": [
     {
       "src": "/favicon/android-chrome-192x192.webp",

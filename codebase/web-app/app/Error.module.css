@@ -1,0 +1,67 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  min-height: 80vh;
+  font-family: var(--font-baloo-thambi-2);
+}
+
+.errorCode {
+  font-size: 3em;
+  color: #dc3545;
+  margin-bottom: 10px;
+}
+
+.errorMessage {
+  font-size: 2em;
+  color: #6c757d;
+  margin-bottom: 20px;
+}
+
+/* Small screens (up to 576px) */
+@media (max-width: 576px) {
+  .errorCode {
+    font-size: 2.5em;
+  }
+
+  .errorMessage {
+    font-size: 1em;
+    padding: 0 15px;
+  }
+}
+
+/* Medium screens (577px to 768px) */
+@media (min-width: 577px) and (max-width: 768px) {
+  .errorCode {
+    font-size: 3.5em;
+  }
+
+  .errorMessage {
+    font-size: 1.1em;
+  }
+}
+
+/* Large screens (769px to 992px) */
+@media (min-width: 769px) and (max-width: 992px) {
+  .errorCode {
+    font-size: 4em;
+  }
+
+  .errorMessage {
+    font-size: 1.2em;
+  }
+}
+
+/* Extra-large screens (993px and up) */
+@media (min-width: 993px) {
+  .errorCode {
+    font-size: 4.5em;
+  }
+
+  .errorMessage {
+    font-size: 1.3em;
+  }
+}

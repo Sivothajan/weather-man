@@ -1,39 +1,8 @@
 {
-  "headers": [
+  "crons": [
     {
-      "source": "/api/(.*)",
-      "headers": [
-        {
-          "key": "Access-Control-Allow-Methods",
-          "value": "GET,POST,OPTIONS"
-        },
-        {
-          "key": "Access-Control-Allow-Origin",
-          "value": "*"
-        },
-        {
-          "key": "Access-Control-Allow-Headers",
-          "value": "Content-Type"
-        }
-      ]
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/router"
-    },
-    {
-      "source": "/data/add",
-      "destination": "/api/router"
-    },
-    {
-      "source": "/favicon.ico",
-      "destination": "/favicon/favicon.ico"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "path": "/api/actions/dynamic",
+      "schedule": "*/30 * * * *"
     }
   ]
 }

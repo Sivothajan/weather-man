@@ -13,7 +13,8 @@ DHT dht(DHTPIN, DHTTYPE);
 LiquidCrystal_I2C lcd(0x27, 16, 2);  // LCD: 16 columns, 2 rows
 
 void printSerialHeader() {
-  Serial.println("Temp(C),Humidity(%),SoilRaw,SoilStatus,RainRaw,RainStatus,FireStatus");
+  Serial.println(
+      "Temp(C),Humidity(%),SoilRaw,SoilStatus,RainRaw,RainStatus,FireStatus");
 }
 
 void setup() {
@@ -44,8 +45,10 @@ void loop() {
   int soilRaw = analogRead(SOIL_PIN);
   int soilMoisture = map(soilRaw, 1023, 0, 0, 100);
   String soilStatus = "Normal";
-  if (soilRaw < 500) soilStatus = "Wet";
-  else if (soilRaw > 700) soilStatus = "Dry";
+  if (soilRaw < 500)
+    soilStatus = "Wet";
+  else if (soilRaw > 700)
+    soilStatus = "Dry";
 
   // --- Rain Sensor ---
   int rainRaw = analogRead(RAIN_PIN);
@@ -83,11 +86,17 @@ void loop() {
   delay(1500);
 
   // --- Serial Output (CSV) ---
-  Serial.print(tempStr); Serial.print(",");
-  Serial.print(humidStr); Serial.print(",");
-  Serial.print(soilRaw); Serial.print(",");
-  Serial.print(soilStatus); Serial.print(",");
-  Serial.print(rainRaw); Serial.print(",");
-  Serial.print(rainStatus); Serial.print(",");
+  Serial.print(tempStr);
+  Serial.print(",");
+  Serial.print(humidStr);
+  Serial.print(",");
+  Serial.print(soilRaw);
+  Serial.print(",");
+  Serial.print(soilStatus);
+  Serial.print(",");
+  Serial.print(rainRaw);
+  Serial.print(",");
+  Serial.print(rainStatus);
+  Serial.print(",");
   Serial.println(fireStatus);
 }

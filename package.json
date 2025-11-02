@@ -44,8 +44,19 @@
   ],
   "license": "GPL-3.0",
   "scripts": {
-    "format": "npx prettier . --write",
-    "format:check": "npx prettier . --check"
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "prettier": {
+    "printWidth": 80,
+    "tabWidth": 2,
+    "useTabs": false,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5",
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "endOfLine": "auto"
   },
   "repository": {
     "type": "git",
