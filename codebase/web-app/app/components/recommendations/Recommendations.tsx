@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import styles from '@/app/components/recommendations/Recommentations.module.css';
+import styles from '@/app/components/recommendations/Recommendations.module.css';
 
 const Recommendations = () => {
-  const [advice, setAdvice] = useState('');
+  const [recommendation, setRecommendation] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [retryCount, setRetryCount] = useState(0);
 
-  const ADVICE_CACHE_KEY = 'farming_advice_cache';
-  const RETRY_CACHE_KEY = 'farming_advice_retry';
+  const ADVICE_CACHE_KEY = 'farming_recommendation_cache';
+  const RETRY_CACHE_KEY = 'farming_recommendation_retry';
 
   const getCache = () => {
     try {
@@ -16,7 +16,7 @@ const Recommendations = () => {
       if (!cacheData) return null;
       return JSON.parse(cacheData);
     } catch (err) {
-      console.error('Error reading advice from cache:', err);
+      console.error('Error reading recommendation from cache:', err);
       return null;
     }
   };
@@ -36,7 +36,7 @@ const Recommendations = () => {
       };
       localStorage.setItem(ADVICE_CACHE_KEY, JSON.stringify(cacheData));
     } catch (err) {
-      console.error('Error storing advice in cache:', err);
+      console.error('Error storing recommendation in cache:', err);
     }
   };
 
@@ -100,22 +100,22 @@ const Recommendations = () => {
   };
 
   useEffect(() => {
-    async function fetchAdvice() {
+    async function fetchRecommendation() {
       const cache = getCache();
       const retryData = getRetryData();
       const resetRetry = shouldResetRetryCount(retryData.lastAttempt);
       const currentRetryCount = resetRetry ? 0 : retryData.count;
 
       if (isCacheValid(cache) && !cache.isError) {
-        setAdvice(cache.data);
+        setRecommendation(cache.data);
         setLoading(false);
         return;
       }
 
       if (!resetRetry && currentRetryCount >= 5 && cache?.isError) {
-        setAdvice('');
+        setRecommendation('');
         setError(
-          `Exceeded 5 attempts to get advice. Please try again tomorrow. (${currentRetryCount} attempts)`
+          `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${currentRetryCount} attempts)`
         );
         setLoading(false);
         return;
@@ -124,17 +124,17 @@ const Recommendations = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch(`/api/farming-advice`);
-        if (!res.ok) throw new Error('Failed to fetch advice');
+        const res = await fetch(`/api/actions/recommendations`);
+        if (!res.ok) throw new Error('Failed to fetch recommendation');
         const data = await res.json();
 
         if (data.type === 'message' && data.content) {
-          setAdvice(data.content);
+          setRecommendation(data.content);
           setCache(data.content, false);
           updateRetryData(0);
         } else if (data.type === 'error' && data.error) {
           const errorMsg =
-            data.error.message || 'Error getting farming advice.';
+            data.error.message || 'Error getting farming recommendation.';
           setError(errorMsg);
           setCache(errorMsg, true);
           const newRetryCount = currentRetryCount + 1;
@@ -143,7 +143,7 @@ const Recommendations = () => {
 
           if (retryCount >= 5) {
             setError(
-              `Exceeded 5 attempts to get advice. Please try again tomorrow. (${retryCount} attempts)`
+              `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${retryCount} attempts)`
             );
           }
         } else {
@@ -157,13 +157,14 @@ const Recommendations = () => {
 
           if (newRetryCount >= 5) {
             setError(
-              `Exceeded 5 attempts to get advice. Please try again tomorrow. (${newRetryCount} attempts)`
+              `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${newRetryCount} attempts)`
             );
           }
         }
       } catch (err) {
-        console.error('Error fetching farming advice:', err);
-        const errorMsg = 'Could not load advice. Please try again later.';
+        console.error('Error fetching farming recommendation:', err);
+        const errorMsg =
+          'Could not load recommendation. Please try again later.';
         setError(errorMsg);
         setCache(errorMsg, true);
         const newRetryCount = currentRetryCount + 1;
@@ -172,28 +173,28 @@ const Recommendations = () => {
 
         if (newRetryCount >= 5) {
           setError(
-            `Exceeded 5 attempts to get advice. Please try again tomorrow. (${newRetryCount} attempts)`
+            `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${newRetryCount} attempts)`
           );
         }
       } finally {
         setLoading(false);
       }
     }
-    fetchAdvice();
+    fetchRecommendation();
   }, []);
 
   return (
     <div className={styles.overviewCard}>
       <div className={styles.cardHeader}>
-        <h2>Farming Advice</h2>
+        <h2>Farming Recommendation</h2>
       </div>
       <div className={styles.cardContent}>
-        {loading && <p>Loading advice...</p>}
+        {loading && <p>Loading recommendation...</p>}
         {error && <p className={styles.error}>{error}</p>}
         {!loading && !error && (
           <div
-            className={styles.adviceText}
-            dangerouslySetInnerHTML={{ __html: advice }}
+            className={styles.recommendationText}
+            dangerouslySetInnerHTML={{ __html: recommendation }}
           />
         )}
       </div>

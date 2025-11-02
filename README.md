@@ -333,6 +333,7 @@ You can browse the project source code in the following directories:
 - [IoT Firmware](./codebase/iot-firmware/) – Microcontroller and sensor code.
 - [Web Application](./codebase/web-app/) – User interface for monitoring and analytics.
 - [API Backend](./codebase/web-app/app/api/) – Handles data processing and cloud integration.
+- [Database Schema](./codebase/database/) – Supabase database definitions and setup.
 
 [**View Full Codebase on GitHub**](./codebase/)
 
@@ -349,10 +350,11 @@ weather-man/
 │   │   └── weather-station/   # Main station implementations
 │   │       ├── arduinoMega2560/
 │   │       └── nodeMcuV3/
-│   └── web-app/               # Next.js Web Application
-│       ├── app/               # Frontend application code + Backend API routes
-│       │   └── api/           # API routes
-│       └── public/            # Public assets
+│   ├── web-app/               # Next.js Web Application
+│   │   ├── app/               # Frontend application code + Backend API routes
+│   │   │   └── api/           # API routes
+│   │   └── public/            # Public assets
+│   └── database               # Database schema and setup
 ```
 
 ---
