@@ -1,4 +1,5 @@
 #include <DHT.h>
+
 #include <LiquidCrystal_I2C.h>
 
 // ----- Pins -----
@@ -10,11 +11,11 @@
 
 // ----- Objects -----
 DHT dht(DHTPIN, DHTTYPE);
-LiquidCrystal_I2C lcd(0x27, 16, 2);  // LCD: 16 columns, 2 rows
+LiquidCrystal_I2C lcd(0x27, 16, 2); // LCD: 16 columns, 2 rows
 
 void printSerialHeader() {
   Serial.println(
-      "Temp(C),Humidity(%),SoilRaw,SoilStatus,RainRaw,RainStatus,FireStatus");
+    "Temp(C),Humidity(%),SoilRaw,SoilStatus,RainRaw,RainStatus,FireStatus");
 }
 
 void setup() {

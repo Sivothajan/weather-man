@@ -1,33 +1,43 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import DOMPurify from 'dompurify';
 import styles from '@/app/components/recommendations/Recommendations.module.css';
+
+interface CacheData {
+  data: string;
+  timestamp: number;
+  isError: boolean;
+}
+
+interface RetryData {
+  count: number;
+  lastAttempt: number;
+  lastReset: number;
+}
 
 const Recommendations = () => {
   const [recommendation, setRecommendation] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [retryCount, setRetryCount] = useState(0);
 
   const ADVICE_CACHE_KEY = 'farming_recommendation_cache';
   const RETRY_CACHE_KEY = 'farming_recommendation_retry';
+  const RATE_LIMIT_MAX = 5;
+  const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+  const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
 
-  const getCache = () => {
+  const getCache = useCallback((): CacheData | null => {
     try {
       const cacheData = localStorage.getItem(ADVICE_CACHE_KEY);
       if (!cacheData) return null;
       return JSON.parse(cacheData);
     } catch (err) {
-      console.error('Error reading recommendation from cache:', err);
+      console.error('Error reading recommendation cache:', err);
+      localStorage.removeItem(ADVICE_CACHE_KEY);
       return null;
     }
-  };
+  }, []);
 
-  interface CacheData {
-    data: string;
-    timestamp: number;
-    isError: boolean;
-  }
-
-  const setCache = (data: string, isError: boolean = false): void => {
+  const setCache = useCallback((data: string, isError = false): void => {
     try {
       const cacheData: CacheData = {
         data,
@@ -38,150 +48,123 @@ const Recommendations = () => {
     } catch (err) {
       console.error('Error storing recommendation in cache:', err);
     }
-  };
+  }, []);
 
-  const getRetryData = () => {
+  const isCacheValid = useCallback(
+    (cache: CacheData | null): boolean => {
+      if (!cache || !cache.data || !cache.timestamp) return false;
+      return Date.now() - cache.timestamp < CACHE_TTL_MS;
+    },
+    [CACHE_TTL_MS]
+  );
+
+  const getRetryData = useCallback((): RetryData => {
     try {
       const retryData = localStorage.getItem(RETRY_CACHE_KEY);
-      if (!retryData) return { count: 0, lastAttempt: null };
+      if (!retryData)
+        return { count: 0, lastAttempt: 0, lastReset: Date.now() };
       return JSON.parse(retryData);
     } catch (err) {
       console.error('Error reading retry data from cache:', err);
-      return { count: 0, lastAttempt: null };
+      localStorage.removeItem(RETRY_CACHE_KEY);
+      return { count: 0, lastAttempt: 0, lastReset: Date.now() };
     }
-  };
+  }, []);
 
-  interface RetryData {
-    count: number;
-    lastAttempt: number;
-  }
+  const updateRetryData = useCallback(
+    (count: number, reset = false): void => {
+      try {
+        const now = Date.now();
+        const existing = getRetryData();
+        const retryData: RetryData = {
+          count: reset ? 0 : count,
+          lastAttempt: now,
+          lastReset: reset ? now : existing.lastReset,
+        };
+        localStorage.setItem(RETRY_CACHE_KEY, JSON.stringify(retryData));
+      } catch (err) {
+        console.error('Error updating retry data in cache:', err);
+      }
+    },
+    [getRetryData]
+  );
 
-  const updateRetryData = (count: number): void => {
-    try {
-      const retryData: RetryData = {
-        count,
-        lastAttempt: Date.now(),
-      };
-      localStorage.setItem(RETRY_CACHE_KEY, JSON.stringify(retryData));
-    } catch (err) {
-      console.error('Error updating retry data in cache:', err);
-    }
-  };
-
-  interface CacheValidation {
-    timestamp?: number;
-    data?: string;
-    isError?: boolean;
-  }
-
-  const isCacheValid = (cache: CacheValidation | null): boolean => {
-    if (!cache || !cache.timestamp) return false;
-    const oneDayMs: number = 24 * 60 * 60 * 1000;
-    return Date.now() - cache.timestamp < oneDayMs;
-  };
-
-  interface DateComparison {
-    lastAttemptTime: number | null;
-  }
-
-  const shouldResetRetryCount = (
-    lastAttemptTime: DateComparison['lastAttemptTime']
-  ): boolean => {
-    if (!lastAttemptTime) return true;
-
-    const lastAttemptDate = new Date(lastAttemptTime);
-    const currentDate = new Date();
-
-    return (
-      lastAttemptDate.getDate() !== currentDate.getDate() ||
-      lastAttemptDate.getMonth() !== currentDate.getMonth() ||
-      lastAttemptDate.getFullYear() !== currentDate.getFullYear()
-    );
-  };
+  const isRateLimited = useCallback(
+    (retryData: RetryData): boolean => {
+      const now = Date.now();
+      const resetNeeded = now - retryData.lastReset > ONE_DAY_MS;
+      if (resetNeeded) {
+        updateRetryData(0, true);
+        return false;
+      }
+      return retryData.count >= RATE_LIMIT_MAX;
+    },
+    [updateRetryData, ONE_DAY_MS]
+  );
 
   useEffect(() => {
     async function fetchRecommendation() {
+      setLoading(true);
+      setError('');
+
       const cache = getCache();
       const retryData = getRetryData();
-      const resetRetry = shouldResetRetryCount(retryData.lastAttempt);
-      const currentRetryCount = resetRetry ? 0 : retryData.count;
 
-      if (isCacheValid(cache) && !cache.isError) {
+      if (cache && isCacheValid(cache) && !cache.isError) {
         setRecommendation(cache.data);
         setLoading(false);
         return;
       }
 
-      if (!resetRetry && currentRetryCount >= 5 && cache?.isError) {
-        setRecommendation('');
-        setError(
-          `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${currentRetryCount} attempts)`
-        );
+      if (isRateLimited(retryData)) {
+        if (cache?.data) {
+          setRecommendation(cache.data);
+          setError(`Daily limit reached. Showing last known recommendation.`);
+        } else {
+          setError(
+            `Exceeded ${RATE_LIMIT_MAX} attempts today. Please try again tomorrow.`
+          );
+        }
         setLoading(false);
         return;
       }
 
-      setLoading(true);
-      setError('');
       try {
         const res = await fetch(`/api/actions/recommendations`);
         if (!res.ok) throw new Error('Failed to fetch recommendation');
         const data = await res.json();
 
         if (data.type === 'message' && data.content) {
-          setRecommendation(data.content);
-          setCache(data.content, false);
-          updateRetryData(0);
-        } else if (data.type === 'error' && data.error) {
-          const errorMsg =
-            data.error.message || 'Error getting farming recommendation.';
-          setError(errorMsg);
-          setCache(errorMsg, true);
-          const newRetryCount = currentRetryCount + 1;
-          setRetryCount(newRetryCount);
-          updateRetryData(newRetryCount);
-
-          if (retryCount >= 5) {
-            setError(
-              `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${retryCount} attempts)`
-            );
-          }
+          const sanitized = DOMPurify.sanitize(data.content);
+          setRecommendation(sanitized);
+          setCache(sanitized, false);
+          updateRetryData(0, true); // success → reset retry count
         } else {
-          console.warn('Unexpected response format:', data);
-          const errorMsg = 'Received unexpected data format from server.';
-          setError(errorMsg);
-          setCache(errorMsg, true);
-          const newRetryCount = currentRetryCount + 1;
-          setRetryCount(newRetryCount);
-          updateRetryData(newRetryCount);
-
-          if (newRetryCount >= 5) {
-            setError(
-              `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${newRetryCount} attempts)`
-            );
-          }
+          const msg =
+            data.error?.message || 'Error getting farming recommendation.';
+          throw new Error(msg);
         }
-      } catch (err) {
-        console.error('Error fetching farming recommendation:', err);
+      } catch (err: unknown) {
+        console.error('Error fetching recommendation:', err);
         const errorMsg =
-          'Could not load recommendation. Please try again later.';
+          err instanceof Error ? err.message : 'Could not load recommendation.';
         setError(errorMsg);
         setCache(errorMsg, true);
-        const newRetryCount = currentRetryCount + 1;
-        setRetryCount(newRetryCount);
-        updateRetryData(newRetryCount);
-
-        if (newRetryCount >= 5) {
-          setError(
-            `Exceeded 5 attempts to get recommendation. Please try again tomorrow. (${newRetryCount} attempts)`
-          );
-        }
+        updateRetryData(retryData.count + 1);
       } finally {
         setLoading(false);
       }
     }
+
     fetchRecommendation();
-  }, []);
+  }, [
+    getCache,
+    getRetryData,
+    isCacheValid,
+    isRateLimited,
+    setCache,
+    updateRetryData,
+  ]);
 
   return (
     <div className={styles.overviewCard}>

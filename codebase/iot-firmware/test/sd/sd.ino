@@ -1,4 +1,5 @@
 #include <SD.h>
+
 #include <SPI.h>
 
 #define SD_CS 10
@@ -8,7 +9,7 @@ File testFile;
 void setup() {
   Serial.begin(9600);
   while (!Serial) {
-    ;  // Wait for Serial
+    ; // Wait for Serial
   }
 
   Serial.println("Initializing SD card...");

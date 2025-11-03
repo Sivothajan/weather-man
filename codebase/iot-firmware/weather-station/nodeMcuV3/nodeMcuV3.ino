@@ -1,15 +1,17 @@
 #include <ESP8266HTTPClient.h>
+
 #include <ESP8266WiFi.h>
+
 #include <SoftwareSerial.h>
 
 #define D6 12
 #define D5 14
 
-SoftwareSerial megaSerial(D6, D5);  // RX, TX
+SoftwareSerial megaSerial(D6, D5); // RX, TX
 
-// Put the WiFi and server details in config.h or define here
+// Put the WiFi and server details in config.h
 #include "config.h"
-// Example:
+ // Example:
 // const char* ssid = "yourSSID";
 // const char* password = "yourPASS";
 // const char* apiHost = "your.api.host";
@@ -35,7 +37,7 @@ void setup() {
 
 void loop() {
   while (megaSerial.available()) {
-    char inChar = (char)megaSerial.read();
+    char inChar = (char) megaSerial.read();
     if (inChar == '\n') {
       stringComplete = true;
       break;
@@ -61,6 +63,8 @@ void loop() {
       }
     } else {
       Serial.println("Invalid or partial JSON.");
+      // Inform Mega it's invalid/partial so Mega can queue or retry if desired
+      megaSerial.println("NACK");
     }
 
     inputString = "";
@@ -71,11 +75,13 @@ void loop() {
 bool sendToServer(String json) {
   if (WiFi.status() != WL_CONNECTED) {
     Serial.println("WiFi not connected!");
+    // Inform Mega we couldn't send
+    megaSerial.println("NACK");
     return false;
   }
 
   WiFiClientSecure client;
-  client.setInsecure();  // Skip SSL cert validation (for dev only)
+  client.setInsecure(); // Skip SSL cert validation (for dev only)
 
   HTTPClient http;
 
@@ -97,5 +103,14 @@ bool sendToServer(String json) {
 
   http.end();
 
-  return (httpResponseCode > 0 && httpResponseCode < 300);
+  bool success = (httpResponseCode > 0 && httpResponseCode < 300);
+
+  // Send ACK/NACK back to Mega so it knows if this JSON was uploaded
+  if (success) {
+    megaSerial.println("ACK");
+  } else {
+    megaSerial.println("NACK");
+  }
+
+  return success;
 }

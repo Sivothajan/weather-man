@@ -15,6 +15,7 @@
  */
 
 #include <ESP8266WiFi.h>
+
 #include <WiFiClientSecure.h>
 
 #include "config.test.h"
@@ -64,7 +65,7 @@ void setup() {
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
 
-  client.setInsecure();  // Skip cert check
+  client.setInsecure(); // Skip cert check
   Serial.println("Connecting to host...");
 
   if (!client.connect(host, httpsPort)) {
@@ -74,8 +75,8 @@ void setup() {
 
   Serial.println("Connected. Sending GET request...");
   client.print(String("GET ") + path + " HTTP/1.1\r\n" + "Host: " + host +
-               "\r\n" + "User-Agent: ESP8266\r\n" +
-               "Connection: close\r\n\r\n");
+    "\r\n" + "User-Agent: ESP8266\r\n" +
+    "Connection: close\r\n\r\n");
 
   // Read headers
   while (client.connected()) {

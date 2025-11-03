@@ -42,13 +42,18 @@ export async function POST(req: Request) {
       );
 
     return NextResponse.json(
-      { message: 'API Status Response: Data is Added to the Database!' },
+      {
+        status: result.success ? 'ok' : 'error',
+        message: result.success
+          ? 'Data successfully added'
+          : 'Database insert failed',
+      },
       { status: result.success ? 201 : 500 }
     );
   } catch (error) {
     console.error('Error in add handler:', error);
     return NextResponse.json(
-      { message: 'Error processing request.' },
+      { status: 'error', message: 'Error processing request' },
       { status: 500 }
     );
   }

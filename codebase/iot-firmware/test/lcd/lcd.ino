@@ -173,7 +173,9 @@
 // -----------------------------------------------------------------------
 
 #include <Wire.h>
+
 #include <hd44780.h>
+
 #include <hd44780ioClass/hd44780_I2Cexp.h>  // i2c expander i/o class header
 
 // ============================================================================
@@ -220,7 +222,7 @@ const int LCD_COLS = 16;
 // for now create SDA and SCL defines for chipkit boards, as it is missing
 // note: this should continue to work if they eventually add these defines/const
 // values
-#if !defined(SDA) || !defined(SCL)
+#if!defined(SDA) || !defined(SCL)
 #if defined(_DTWI0_SDA_PIN) && defined(_DTWI0_SCL_PIN)
 #define SDA _DTWI0_SDA_PIN
 #define SCL _DTWI0_SCL_PIN
@@ -241,8 +243,8 @@ const int LCD_COLS = 16;
 // This hack includes SoftWire.h on that platform just to get the symbols
 // NOTE:
 // there is no Wire library support in Roger's STM32F2 core
-#if defined(ARDUINO_ARCH_STM32F1) || defined(ARDUINO_ARCH_STM32F4)
-#include <SoftWire.h>
+#if defined(ARDUINO_ARCH_STM32F1) || defined(ARDUINO_ARCH_STM32F4)#include <SoftWire.h>
+
 #endif
 
 /*
@@ -257,19 +259,19 @@ const int LCD_COLS = 16;
  * IDE.
  */
 
-#if defined(__AVR__)
-#include <avr/pgmspace.h>
+#if defined(__AVR__)#include <avr/pgmspace.h>
+
 #ifdef PROGMEM
 #undef PROGMEM
 #define PROGMEM __attribute__((section(".progmem.data")))
 #endif
 #define PROGMEMDIAG __attribute__((section(".progmem.diag")))
-#define P(name) \
-  const char name[] PROGMEMDIAG  // declare a const string in AVR Progmem
+#define P(name)\
+const char name[] PROGMEMDIAG // declare a const string in AVR Progmem
 
 #else
 // The rest of the world is so much simpler and normal
-#define P(name) const char name[]  // declare a const string
+#define P(name) const char name[] // declare a const string
 #endif
 
 /*
@@ -277,21 +279,21 @@ const int LCD_COLS = 16;
  * so they aren't duplicated on each use.
  */
 P(_hline) =
-    "--------------------------------------------------------------------";
+  "--------------------------------------------------------------------";
 P(_hstar) =
-    "********************************************************************";
+  "********************************************************************";
 P(_PASSED) = "PASSED";
 P(_FAILED) = "FAILED";
 
 #ifndef BIT
-#define BIT(_bitnum) (1 << _bitnum)
+#define BIT(_bitnum)(1 << _bitnum)
 #endif
 
 #ifdef __AVR__
-#define hline (const __FlashStringHelper *)_hline
-#define hstar (const __FlashStringHelper *)_hstar
-#define PASSED (const __FlashStringHelper *)_PASSED
-#define FAILED (const __FlashStringHelper *)_FAILED
+#define hline(const __FlashStringHelper * ) _hline
+#define hstar(const __FlashStringHelper * ) _hstar
+#define PASSED(const __FlashStringHelper * ) _PASSED
+#define FAILED(const __FlashStringHelper * ) _FAILED
 #else
 #define hline _hline
 #define hstar _hstar
@@ -301,15 +303,15 @@ P(_FAILED) = "FAILED";
 
 #define MAX_ERRORS 16
 
-#define DEFPROMPT ((const char *)0)
+#define DEFPROMPT((const char * ) 0)
 
-int NumLcd;               // number of LCD displays found.
-uint16_t WorkingLCD = 0;  // bitmap of LCDs that are "working"
+int NumLcd; // number of LCD displays found.
+uint16_t WorkingLCD = 0; // bitmap of LCDs that are "working"
 // macros to process working lcd info
-#define isWorkingLCD(_n) (WorkingLCD & BIT(_n))
+#define isWorkingLCD(_n)(WorkingLCD & BIT(_n))
 #define setWorkingLCD(_n) WorkingLCD |= BIT(_n)
 #define clrWorkingLCD(_n) WorkingLCD &= ~BIT(_n)
-#define anyWorkingLCD (WorkingLCD)  // non zero if there are any working LCDs
+#define anyWorkingLCD(WorkingLCD) // non zero if there are any working LCDs
 
 // convert a define to a string
 #define define2str(s) _str(s)
@@ -326,15 +328,15 @@ void setup() {
 
   Serial.begin(9600);
 
-#if (ARDUINO > 101)
+  #if(ARDUINO > 101)
   do {
     // wait on serial port to be ready but timout out after 5 seconds
     // this is for sytems that use virtual serial over USB.
-    if (millis() > 5000)  // millis starts at 0 after reset
+    if (millis() > 5000) // millis starts at 0 after reset
       break;
-    delay(10);  // easy way to allow some cores to call yield()
+    delay(10); // easy way to allow some cores to call yield()
   } while (!Serial);
-#endif
+  #endif
 
   Serial.println();
   Serial.println(hstar);
@@ -342,18 +344,18 @@ void setup() {
 
   Serial.println(hline);
   Serial.println(
-      F("I2CexpDiag - i2c LCD i/o expander backpack diagnostic tool"));
-#ifdef HD44780_VERSIONSTR
+    F("I2CexpDiag - i2c LCD i/o expander backpack diagnostic tool"));
+  #ifdef HD44780_VERSIONSTR
   Serial.println(hline);
   Serial.print(F("hd44780 lib version: "));
   Serial.println(HD44780_VERSIONSTR);
-#endif
+  #endif
 
-#if ARDUINO < 10605
+  #if ARDUINO < 10605
   // wait 3 seconds on older IDEs
   // to allow users some time to manually start monitor
   delay(3000);
-#endif
+  #endif
 
   Serial.println(hline);
   showSystemConfig();
@@ -363,16 +365,16 @@ void setup() {
 
   if (nopullups < 0) {
     Serial.println(F("I2C bus not usable"));
-    fatalError(3);  // this never returns
+    fatalError(3); // this never returns
   }
 
   Serial.println(hline);
   Wire.begin();
-  if (!showI2Cdevices())  // show all i2c devices on bus
+  if (!showI2Cdevices()) // show all i2c devices on bus
   {
     Serial.println(F("No I2C devices found"));
 
-    fatalError(1);  // this never returns
+    fatalError(1); // this never returns
   }
   Serial.println(hline);
 
@@ -383,14 +385,13 @@ void setup() {
   /*
    * Locate all the displays by attempting to intialize each one
    */
-  for (NumLcd = 0; NumLcd < (int)(sizeof(lcd) / sizeof(hd44780_I2Cexp));
-       NumLcd++) {
+  for (NumLcd = 0; NumLcd < (int)(sizeof(lcd) / sizeof(hd44780_I2Cexp)); NumLcd++) {
     char buf[16];
     int status;
     // set custom exectution times if configured
-#if defined(LCD_CHEXECTIME) && defined(LCD_INSEXECTIME)
+    #if defined(LCD_CHEXECTIME) && defined(LCD_INSEXECTIME)
     lcd[NumLcd].setExecTimes(LCD_CHEXECTIME, LCD_INSEXECTIME);
-#endif
+    #endif
 
     // If begin fails, then assume we have no more displays
     if ((status = lcd[NumLcd].begin(LCD_ROWS, LCD_COLS)) != 0) {
@@ -401,7 +402,7 @@ void setup() {
       break;
     }
 
-    setWorkingLCD(NumLcd);  // mark LCD as "working"
+    setWorkingLCD(NumLcd); // mark LCD as "working"
 
     Serial.print(F(" LCD at address: "));
     Serial.print(F("0x"));
@@ -422,16 +423,16 @@ void setup() {
 
     // attempt to blink backlight 3 times
     for (int i = 0; i < 3; i++) {
-      lcd[NumLcd].noBacklight();  // turn off backlight
+      lcd[NumLcd].noBacklight(); // turn off backlight
       delay(150);
-      lcd[NumLcd].backlight();  // turn on backlight
+      lcd[NumLcd].backlight(); // turn on backlight
       delay(200);
     }
   }
 
   if (!NumLcd) {
     Serial.println(F("No working LCD devices"));
-    fatalError(2);  // this never returns
+    fatalError(2); // this never returns
   }
   Serial.print(F("Total LCD devices found: "));
   Serial.println(NumLcd);
@@ -447,10 +448,10 @@ void setup() {
     // check for r/w control
     // by attempting to read lcd status
     if ((lcdstatus = lcd[n].status()) >= 0) {
-      if (lcdstatus & 0x80)  // check for stuck BUSY status
+      if (lcdstatus & 0x80) // check for stuck BUSY status
       {
         Serial.println(F(" LCD stuck BUSY status"));
-        clrWorkingLCD(n);  // mark LCD as no longer "working"
+        clrWorkingLCD(n); // mark LCD as no longer "working"
         continue;
       }
 
@@ -469,45 +470,45 @@ void setup() {
       Serial.println();
 
       Serial.print(F(" Address line test:\t"));
-      errors = lcdAddrLineTest(lcd[n], 0x00, 0x27);   // 1st block of memory
-      errors += lcdAddrLineTest(lcd[n], 0x40, 0x67);  // 2nd block of memory
+      errors = lcdAddrLineTest(lcd[n], 0x00, 0x27); // 1st block of memory
+      errors += lcdAddrLineTest(lcd[n], 0x40, 0x67); // 2nd block of memory
       if (errors) {
         Serial.print(FAILED);
-        clrWorkingLCD(n);  // mark LCD as no longer "working"
+        clrWorkingLCD(n); // mark LCD as no longer "working"
       } else {
         Serial.print(PASSED);
       }
 
-#if 0
-			Serial.println();
+      #if 0
+      Serial.println();
 
-			// quick/short test of DDRAM
-			// note: avoid  <CR> and <LF> in value range since those
-			// are currently dropped by write()
-			// Also, the hd44780 has 80 bytes of ram but it is not contiguous.
-			// The 1st 40 bytes is 0x00 - 0x27
-			// the 2nd 40 bytes is 0x40 - 0x67
-			// attempting to use 0x28 - 0x3f or 0x68-0x7f will fail as there
-			// technically is no memory there so it maps internally to other
-			// locations and a memory test would fail.
-			//
-			// this quick test will test a few values on the 2nd chunk of memory.
-			// 
-			Serial.print(F("  Quick DDRAM memory test: "));
-			errors = lcdDDRAMtest(lcd[n], 0x40, 0x67, '0', '9');
+      // quick/short test of DDRAM
+      // note: avoid  <CR> and <LF> in value range since those
+      // are currently dropped by write()
+      // Also, the hd44780 has 80 bytes of ram but it is not contiguous.
+      // The 1st 40 bytes is 0x00 - 0x27
+      // the 2nd 40 bytes is 0x40 - 0x67
+      // attempting to use 0x28 - 0x3f or 0x68-0x7f will fail as there
+      // technically is no memory there so it maps internally to other
+      // locations and a memory test would fail.
+      //
+      // this quick test will test a few values on the 2nd chunk of memory.
+      // 
+      Serial.print(F("  Quick DDRAM memory test: "));
+      errors = lcdDDRAMtest(lcd[n], 0x40, 0x67, '0', '9');
 
-			if(errors)
-				Serial.print(FAILED);
-			else
-				Serial.print(PASSED);
-#endif
+      if (errors)
+        Serial.print(FAILED);
+      else
+        Serial.print(PASSED);
+      #endif
       if (errors) {
         Serial.println();
         Serial.println(F(
-            "Memory test failures are usually due to poor solder connections"));
+          "Memory test failures are usually due to poor solder connections"));
         Serial.println(
-            F("Most common cause is poor solder joints on pins soldered to the "
-              "LCD"));
+          F("Most common cause is poor solder joints on pins soldered to the "
+            "LCD"));
       }
     } else {
       Serial.print(F(" (R/W control not supported)"));
@@ -518,13 +519,13 @@ void setup() {
 
   if (!anyWorkingLCD) {
     Serial.println(F("No working LCD devices"));
-    fatalError(2);  // this never returns
+    fatalError(2); // this never returns
   }
 
   for (int n = 0; n < NumLcd; n++) {
     char buf[16];
 
-    if (!(isWorkingLCD(n))) continue;  // skip over non working LCDs
+    if (!(isWorkingLCD(n))) continue; // skip over non working LCDs
 
     // showLCDconfig(Serial, lcd[n]);
 
@@ -551,14 +552,14 @@ void setup() {
   Serial.println(F("Each working display should have its backlight on"));
   Serial.println(F("and be displaying its #, address, and config information"));
   Serial.println(
-      F("If all pixels are on, or no pixels are showing, but backlight is on, "
-        "try adjusting contrast pot"));
+    F("If all pixels are on, or no pixels are showing, but backlight is on, "
+      "try adjusting contrast pot"));
   Serial.println(F("If backlight is off, wait for next test"));
   delay(10000);
   Serial.println(hline);
 
   Serial.println(
-      F("Blinking backlight test: to verify BL level autodetection"));
+    F("Blinking backlight test: to verify BL level autodetection"));
   Serial.println(F("If backlight is mostly off but"));
   Serial.println(F("you briefly see \"BL Off\" on display with backlight on,"));
   Serial.println(F("then the library autodetected incorrect BL level"));
@@ -625,7 +626,7 @@ void setup() {
 }
 
 void loop() {
-  static unsigned long lastsecs = -1;  // pre-initialize with non zero value
+  static unsigned long lastsecs = -1; // pre-initialize with non zero value
   unsigned long secs;
 
   secs = millis() / 1000;
@@ -633,15 +634,15 @@ void loop() {
   // see if 1 second has passed
   // so the display is only updated once per second
   if (secs != lastsecs) {
-    lastsecs = secs;  // keep track of last seconds
+    lastsecs = secs; // keep track of last seconds
 
     //  write the 'uptime' to each working display
     for (int n = 0; n < NumLcd; n++) {
-      if (!isWorkingLCD(n)) continue;  // skip over non working displays
+      if (!isWorkingLCD(n)) continue; // skip over non working displays
       // set the cursor to column 0, line 1
       // (note: line 1 is the second row, counting begins with 0):
       if (lcd[n].setCursor(0, 1)) {
-        clrWorkingLCD(n);  // mark display as no longer working
+        clrWorkingLCD(n); // mark display as no longer working
         // output uptime and error message to serial port
         PrintUpTime(Serial, secs);
         Serial.print(F(" - Error on Display: "));
@@ -656,7 +657,7 @@ void loop() {
         PrintUpTime(Serial, secs);
         Serial.print(" - Fatal error: ");
         Serial.println(2);
-        fatalError(2);  // this never returns
+        fatalError(2); // this never returns
       }
     }
   }
@@ -665,26 +666,26 @@ void loop() {
 // PrintUpTime(outdev, secs) - print uptime in HH:MM:SS format
 // outdev - the device to send output
 //   secs - the total number of seconds uptime
-void PrintUpTime(Print &outdev, unsigned long secs) {
+void PrintUpTime(Print & outdev, unsigned long secs) {
   unsigned int hr, mins, sec;
 
   // convert total seconds to hours, mins, seconds
-  mins = secs / 60;  // how many total minutes
-  hr = mins / 60;    // how many total hours
-  mins = mins % 60;  // how many minutes within the hour
-  sec = secs % 60;   // how many seconds within the minute
+  mins = secs / 60; // how many total minutes
+  hr = mins / 60; // how many total hours
+  mins = mins % 60; // how many minutes within the hour
+  sec = secs % 60; // how many seconds within the minute
 
   // print uptime in HH:MM:SS format
   // Print class does not support fixed width formatting
   // so insert a zero if number smaller than 10
   if (hr < 10) outdev.write('0');
-  outdev.print((int)hr);
+  outdev.print((int) hr);
   outdev.write(':');
   if (mins < 10) outdev.write('0');
-  outdev.print((int)mins);
+  outdev.print((int) mins);
   outdev.write(':');
   if (sec < 10) outdev.write('0');
-  outdev.print((int)sec);
+  outdev.print((int) sec);
 }
 
 // printDigitalPin(outdev, pin) - print digital pin #
@@ -725,19 +726,19 @@ void PrintUpTime(Print &outdev, unsigned long secs) {
 // on the I2C SDA and SCL header pins that map to GPIO 4 and GPIO 5. On those
 // boards D14 is the same as D4 and D15 is the same as D3
 //
-void printDigitalPin(Print &outdev, int pin) {
+void printDigitalPin(Print & outdev, int pin) {
   // On all cores, print the pin value
   outdev.print(pin);
 
-#if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
+  #if defined(ARDUINO_ARCH_ESP8266) || defined(ARDUINO_ARCH_ESP32)
   // print GPIO# for all ESP8266 & ESP32 boards since those cores uses GPIO bit
   // numbers as the pin number.
   outdev.print(F(" (GPIO"));
   outdev.print(pin);
   outdev.print(')');
-#endif
+  #endif
 
-#if !defined(I2CEXPDIAG_CFG_NO_DECODE_ESPXXXXPINS)
+  #if!defined(I2CEXPDIAG_CFG_NO_DECODE_ESPXXXXPINS)
 
   // this next part is ugly.
   // It is trying to convert the GPIO bit number back to a pin define name
@@ -756,9 +757,9 @@ void printDigitalPin(Print &outdev, int pin) {
   // Dn pins 0-8 on D1R1 boards.
   // luckily i2c pins fall inside of this range on these variants.
 
-// These boards have D0 to D8 symbols
-#if defined(ARDUINO_ESP8266_WEMOS_D1MINI) ||     \
-    defined(ARDUINO_ESP8266_WEMOS_D1MINIPRO) ||  \
+  // These boards have D0 to D8 symbols
+  #if defined(ARDUINO_ESP8266_WEMOS_D1MINI) || \
+    defined(ARDUINO_ESP8266_WEMOS_D1MINIPRO) || \
     defined(ARDUINO_ESP8266_WEMOS_D1MINILITE) || \
     defined(ARDUINO_ESP8266_NODEMCU) || defined(ARDUINO_ESP8266_WEMOS_D1R1)
 
@@ -771,29 +772,29 @@ void printDigitalPin(Print &outdev, int pin) {
   if (pin == D6) outdev.print(F(" D6"));
   if (pin == D7) outdev.print(F(" D7"));
   if (pin == D8) outdev.print(F(" D8"));
-#endif
+  #endif
 
-// boards that support D9 and D10
-// Note that older ESP8266 cores don't define ARDUINO_ESP8266_WEMOS_D1R1
-// so boards using older cores won't see these pins.
-#if defined(ARDUINO_ESP8266_NODEMCU) || defined(ARDUINO_ESP8266_WEMOS_D1R1)
+  // boards that support D9 and D10
+  // Note that older ESP8266 cores don't define ARDUINO_ESP8266_WEMOS_D1R1
+  // so boards using older cores won't see these pins.
+  #if defined(ARDUINO_ESP8266_NODEMCU) || defined(ARDUINO_ESP8266_WEMOS_D1R1)
   if (pin == D9) outdev.print(F(" D9"));
   if (pin == D10) outdev.print(F(" D10"));
-#endif
+  #endif
 
-// Boards that support D10 to D15
-// Note that older ESP8266 cores don't define ARDUINO_ESP8266_WEMOS_D1R1
-// so those boards won't see these pins.
-#if defined(ARDUINO_ESP8266_WEMOS_D1R1)
+  // Boards that support D10 to D15
+  // Note that older ESP8266 cores don't define ARDUINO_ESP8266_WEMOS_D1R1
+  // so those boards won't see these pins.
+  #if defined(ARDUINO_ESP8266_WEMOS_D1R1)
   if (pin == D11) outdev.print(F(" D11"));
   if (pin == D12) outdev.print(F(" D12"));
   if (pin == D13) outdev.print(F(" D13"));
   if (pin == D14) outdev.print(F(" D14"));
   if (pin == D15) outdev.print(F(" D15"));
-#endif
+  #endif
 
-// This define is for the DigiStump Oak board that stupidly uses Pn names
-#if defined(ARDUINO_ESP8266_OAK)
+  // This define is for the DigiStump Oak board that stupidly uses Pn names
+  #if defined(ARDUINO_ESP8266_OAK)
   if (pin == P0) outdev.print(F(" P0"));
   if (pin == P1) outdev.print(F(" P1"));
   if (pin == P2) outdev.print(F(" P2"));
@@ -806,225 +807,227 @@ void printDigitalPin(Print &outdev, int pin) {
   if (pin == P9) outdev.print(F(" P9"));
   if (pin == P10) outdev.print(F(" P10"));
   if (pin == P10) outdev.print(F(" P10"));
-#endif
+  #endif
 
-#endif  // I2CEXPDIAG_CFG_NO_DECODE_ESPXXXXPINS
+  #endif // I2CEXPDIAG_CFG_NO_DECODE_ESPXXXXPINS
 
-// Special ugly code for Roger's maple/stm32duino cores
-// They don't define SDA or SCL at all but code
-// above gets them from SoftWire
-// Since they are #define symbols that reverence other PXX symbols
-// we will print define string instead of its value
-#if defined(ARDUINO_ARCH_STM32F1) || defined(ARDUINO_ARCH_STM32F4)
+  // Special ugly code for Roger's maple/stm32duino cores
+  // They don't define SDA or SCL at all but code
+  // above gets them from SoftWire
+  // Since they are #define symbols that reverence other PXX symbols
+  // we will print define string instead of its value
+  #if defined(ARDUINO_ARCH_STM32F1) || defined(ARDUINO_ARCH_STM32F4)
   if (pin == SDA)
     outdev.print(
-        F(" " define2str(SDA)));  // print define string not its final value
+      F(" "
+        define2str(SDA))); // print define string not its final value
   if (pin == SCL)
     outdev.print(
-        F(" " define2str(SCL)));  // print define string not its final value
-#endif
+      F(" "
+        define2str(SCL))); // print define string not its final value
+  #endif
 
-//////////////////////////////////////////////////////////////////////////
-// code for STM32 platform defines
-#if defined(ARDUINO_ARCH_STM32)
-#if defined(PA0)
+  //////////////////////////////////////////////////////////////////////////
+  // code for STM32 platform defines
+  #if defined(ARDUINO_ARCH_STM32)
+  #if defined(PA0)
   if (pin == PA0) outdev.print(F(" PA0"));
-#endif
-#if defined(PA1)
+  #endif
+  #if defined(PA1)
   if (pin == PA1) outdev.print(F(" PA1"));
-#endif
-#if defined(PA2)
+  #endif
+  #if defined(PA2)
   if (pin == PA2) outdev.print(F(" PA2"));
-#endif
-#if defined(PA3)
+  #endif
+  #if defined(PA3)
   if (pin == PA3) outdev.print(F(" PA3"));
-#endif
-#if defined(PA4)
+  #endif
+  #if defined(PA4)
   if (pin == PA4) outdev.print(F(" PA4"));
-#endif
-#if defined(PA5)
+  #endif
+  #if defined(PA5)
   if (pin == PA5) outdev.print(F(" PA5"));
-#endif
-#if defined(PA6)
+  #endif
+  #if defined(PA6)
   if (pin == PA6) outdev.print(F(" PA6"));
-#endif
-#if defined(PA7)
+  #endif
+  #if defined(PA7)
   if (pin == PA7) outdev.print(F(" PA7"));
-#endif
-#if defined(PA8)
+  #endif
+  #if defined(PA8)
   if (pin == PA8) outdev.print(F(" PA8"));
-#endif
-#if defined(PA9)
+  #endif
+  #if defined(PA9)
   if (pin == PA9) outdev.print(F(" PA9"));
-#endif
-#if defined(PA10)
+  #endif
+  #if defined(PA10)
   if (pin == PA10) outdev.print(F(" PA10"));
-#endif
-#if defined(PA11)
+  #endif
+  #if defined(PA11)
   if (pin == PA11) outdev.print(F(" PA11"));
-#endif
-#if defined(PA12)
+  #endif
+  #if defined(PA12)
   if (pin == PA12) outdev.print(F(" PA12"));
-#endif
-#if defined(PA13)
+  #endif
+  #if defined(PA13)
   if (pin == PA13) outdev.print(F(" PA13"));
-#endif
-#if defined(PA14)
+  #endif
+  #if defined(PA14)
   if (pin == PA14) outdev.print(F(" PA14"));
-#endif
-#if defined(PA15)
+  #endif
+  #if defined(PA15)
   if (pin == PA15) outdev.print(F(" PA15"));
-#endif
-#if defined(PB0)
+  #endif
+  #if defined(PB0)
   if (pin == PB0) outdev.print(F(" PB0"));
-#endif
-#if defined(PB1)
+  #endif
+  #if defined(PB1)
   if (pin == PB1) outdev.print(F(" PB1"));
-#endif
-#if defined(PB2)
+  #endif
+  #if defined(PB2)
   if (pin == PB2) outdev.print(F(" PB2"));
-#endif
-#if defined(PB3)
+  #endif
+  #if defined(PB3)
   if (pin == PB3) outdev.print(F(" PB3"));
-#endif
-#if defined(PB4)
+  #endif
+  #if defined(PB4)
   if (pin == PB4) outdev.print(F(" PB4"));
-#endif
-#if defined(PB5)
+  #endif
+  #if defined(PB5)
   if (pin == PB5) outdev.print(F(" PB5"));
-#endif
-#if defined(PB6)
+  #endif
+  #if defined(PB6)
   if (pin == PB6) outdev.print(F(" PB6"));
-#endif
-#if defined(PB7)
+  #endif
+  #if defined(PB7)
   if (pin == PB7) outdev.print(F(" PB7"));
-#endif
-#if defined(PB8)
+  #endif
+  #if defined(PB8)
   if (pin == PB8) outdev.print(F(" PB8"));
-#endif
-#if defined(PB9)
+  #endif
+  #if defined(PB9)
   if (pin == PB9) outdev.print(F(" PB9"));
-#endif
-#if defined(PB10)
+  #endif
+  #if defined(PB10)
   if (pin == PB10) outdev.print(F(" PB10"));
-#endif
-#if defined(PB11)
+  #endif
+  #if defined(PB11)
   if (pin == PB11) outdev.print(F(" PB11"));
-#endif
-#if defined(PB12)
+  #endif
+  #if defined(PB12)
   if (pin == PB12) outdev.print(F(" PB12"));
-#endif
-#if defined(PB13)
+  #endif
+  #if defined(PB13)
   if (pin == PB13) outdev.print(F(" PB13"));
-#endif
-#if defined(PB14)
+  #endif
+  #if defined(PB14)
   if (pin == PB14) outdev.print(F(" PB14"));
-#endif
-#if defined(PB15)
+  #endif
+  #if defined(PB15)
   if (pin == PB15) outdev.print(F(" PB15"));
-#endif
-#if defined(PC0)
+  #endif
+  #if defined(PC0)
   if (pin == PC0) outdev.print(F(" PC0"));
-#endif
-#if defined(PC1)
+  #endif
+  #if defined(PC1)
   if (pin == PC1) outdev.print(F(" PC1"));
-#endif
-#if defined(PC2)
+  #endif
+  #if defined(PC2)
   if (pin == PC2) outdev.print(F(" PC2"));
-#endif
-#if defined(PC3)
+  #endif
+  #if defined(PC3)
   if (pin == PC3) outdev.print(F(" PC3"));
-#endif
-#if defined(PC4)
+  #endif
+  #if defined(PC4)
   if (pin == PC4) outdev.print(F(" PC4"));
-#endif
-#if defined(PC5)
+  #endif
+  #if defined(PC5)
   if (pin == PC5) outdev.print(F(" PC5"));
-#endif
-#if defined(PC6)
+  #endif
+  #if defined(PC6)
   if (pin == PC6) outdev.print(F(" PC6"));
-#endif
-#if defined(PC7)
+  #endif
+  #if defined(PC7)
   if (pin == PC7) outdev.print(F(" PC7"));
-#endif
-#if defined(PC8)
+  #endif
+  #if defined(PC8)
   if (pin == PC8) outdev.print(F(" PC8"));
-#endif
-#if defined(PC9)
+  #endif
+  #if defined(PC9)
   if (pin == PC9) outdev.print(F(" PC9"));
-#endif
-#if defined(PC10)
+  #endif
+  #if defined(PC10)
   if (pin == PC10) outdev.print(F(" PC10"));
-#endif
-#if defined(PC11)
+  #endif
+  #if defined(PC11)
   if (pin == PC11) outdev.print(F(" PC11"));
-#endif
-#if defined(PC12)
+  #endif
+  #if defined(PC12)
   if (pin == PC12) outdev.print(F(" PC12"));
-#endif
-#if defined(PC13)
+  #endif
+  #if defined(PC13)
   if (pin == PC13) outdev.print(F(" PC13"));
-#endif
-#if defined(PC14)
+  #endif
+  #if defined(PC14)
   if (pin == PC14) outdev.print(F(" PC14"));
-#endif
-#if defined(PC15)
+  #endif
+  #if defined(PC15)
   if (pin == PC15) outdev.print(F(" PC15"));
-#endif
+  #endif
 
-#endif  // ARDUINO_ARCH_STM32
-//////////////////////////////////////////////////////////////////////////
+  #endif // ARDUINO_ARCH_STM32
+  //////////////////////////////////////////////////////////////////////////
 
-//////////////////////////////////////////////////////////////////////////
-// print the analog pin if it matches the pin #
-#if defined(A0) || defined(PIN_A0)
+  //////////////////////////////////////////////////////////////////////////
+  // print the analog pin if it matches the pin #
+  #if defined(A0) || defined(PIN_A0)
   if (pin == A0) outdev.print(F(" A0"));
-#endif
-#if defined(A1) || defined(PIN_A1)
+  #endif
+  #if defined(A1) || defined(PIN_A1)
   if (pin == A1) outdev.print(F(" A1"));
-#endif
-#if defined(A2) || defined(PIN_A2)
+  #endif
+  #if defined(A2) || defined(PIN_A2)
   if (pin == A2) outdev.print(F(" A2"));
-#endif
-#if defined(A3) || defined(PIN_A3)
+  #endif
+  #if defined(A3) || defined(PIN_A3)
   if (pin == A3) outdev.print(F(" A3"));
-#endif
-#if defined(A4) || defined(PIN_A4)
+  #endif
+  #if defined(A4) || defined(PIN_A4)
   if (pin == A4) outdev.print(F(" A4"));
-#endif
-#if defined(A5) || defined(PIN_A5)
+  #endif
+  #if defined(A5) || defined(PIN_A5)
   if (pin == A5) outdev.print(F(" A5"));
-#endif
-#if defined(A6) || defined(PIN_A6)
+  #endif
+  #if defined(A6) || defined(PIN_A6)
   if (pin == A6) outdev.print(F(" A6"));
-#endif
-#if defined(A7) || defined(PIN_A7)
+  #endif
+  #if defined(A7) || defined(PIN_A7)
   if (pin == A7) outdev.print(F(" A7"));
-#endif
-#if defined(A8) || defined(PIN_A8)
+  #endif
+  #if defined(A8) || defined(PIN_A8)
   if (pin == A8) outdev.print(F(" A8"));
-#endif
-#if defined(A9) || defined(PIN_A9)
+  #endif
+  #if defined(A9) || defined(PIN_A9)
   if (pin == A9) outdev.print(F(" A9"));
-#endif
-#if defined(A10) || defined(PIN_A10)
+  #endif
+  #if defined(A10) || defined(PIN_A10)
   if (pin == A10) outdev.print(F(" A10"));
-#endif
-#if defined(A11) || defined(PIN_A11)
+  #endif
+  #if defined(A11) || defined(PIN_A11)
   if (pin == A11) outdev.print(F(" A11"));
-#endif
-#if defined(A12) || defined(PIN_A12)
+  #endif
+  #if defined(A12) || defined(PIN_A12)
   if (pin == A12) outdev.print(F(" A12"));
-#endif
-#if defined(A13) || defined(PIN_A13)
+  #endif
+  #if defined(A13) || defined(PIN_A13)
   if (pin == A13) outdev.print(F(" A13"));
-#endif
-#if defined(A14) || defined(PIN_A14)
+  #endif
+  #if defined(A14) || defined(PIN_A14)
   if (pin == A14) outdev.print(F(" A14"));
-#endif
-#if defined(A15) || defined(PIN_A15)
+  #endif
+  #if defined(A15) || defined(PIN_A15)
   if (pin == A15) outdev.print(F(" A15"));
-#endif
+  #endif
   //////////////////////////////////////////////////////////////////////////
 
   return;
@@ -1034,67 +1037,67 @@ void printDigitalPin(Print &outdev, int pin) {
  * dump everthying we know about the system environment
  */
 void showSystemConfig(void) {
-#ifdef ARDUINO
+  #ifdef ARDUINO
   Serial.print(F("Reported Arduino Revision: "));
-#if ARDUINO > 158  // ARDUINO rev format changed after 1.5.8 to #.##.## (breaks
-                   // after 3.x.x for 16 int bit calc)
+  #if ARDUINO > 158 // ARDUINO rev format changed after 1.5.8 to #.##.## (breaks
+  // after 3.x.x for 16 int bit calc)
   Serial.print(ARDUINO / 10000);
   Serial.print('.');
   Serial.print((ARDUINO % 10000) / 100);
   Serial.print('.');
   Serial.println((ARDUINO % 10000) % 100);
-#elif ARDUINO >= 100  // 1.0.0 to 1.5.8 uses rev format #.#.#
+  #elif ARDUINO >= 100 // 1.0.0 to 1.5.8 uses rev format #.#.#
   Serial.print(ARDUINO / 100);
   Serial.print('.');
   Serial.print((ARDUINO % 100) / 10);
   Serial.print('.');
   Serial.println((ARDUINO % 100) % 10);
-#else
+  #else
   Serial.print(F("0."));
-  Serial.println(define2str(ARDUINO));  // print the raw string vs as a number
-#endif
+  Serial.println(define2str(ARDUINO)); // print the raw string vs as a number
+  #endif
 
-#endif
+  #endif
 
-// only print board name if platform hands it to us
-#if defined(ARDUINO_BOARD) || defined(BOARD_NAME)
+  // only print board name if platform hands it to us
+  #if defined(ARDUINO_BOARD) || defined(BOARD_NAME)
   Serial.print(F("Arduino Board: "));
-#if defined(ARDUINO_BOARD)
+  #if defined(ARDUINO_BOARD)
   Serial.print(ARDUINO_BOARD);
-#if defined(ARDUINO_VARIANT)
+  #if defined(ARDUINO_VARIANT)
   Serial.print(F(" Arduino Variant: "));
   Serial.print(ARDUINO_VARIANT);
-#endif
-#elif defined(BOARD_NAME)
+  #endif
+  #elif defined(BOARD_NAME)
   Serial.print(BOARD_NAME);
-#else
+  #else
   Serial.print(F("unknown"));
-#endif
+  #endif
   Serial.println();
-#endif
+  #endif
 
-#if defined(__AVR__)
+  #if defined(__AVR__)
   Serial.print(F("CPU ARCH: AVR - "));
-#elif defined(__arm__)
+  #elif defined(__arm__)
   Serial.print(F("CPU ARCH: arm - "));
-#elif defined(__PIC32MX__)
+  #elif defined(__PIC32MX__)
   Serial.print(F("CPU ARCH: pic32 - "));
-#elif defined(ARDUINO_ARCH_ESP8266)
+  #elif defined(ARDUINO_ARCH_ESP8266)
   Serial.print(F("CPU ARCH: ESP8266 - "));
-#elif defined(ARDUINO_ARCH_ESP32)
+  #elif defined(ARDUINO_ARCH_ESP32)
   Serial.print(F("CPU ARCH: ESP32 - "));
-#elif defined(ARDUINO_ARCH_STM32)
+  #elif defined(ARDUINO_ARCH_STM32)
   Serial.print(F("CPU ARCH: STM32 - "));
-#endif
+  #endif
 
   Serial.print(F("F_CPU: "));
-// just in case the core does not define this
-// (like cores in RogerClark's STM32 platform)
-#ifdef F_CPU
+  // just in case the core does not define this
+  // (like cores in RogerClark's STM32 platform)
+  #ifdef F_CPU
   Serial.println(F_CPU);
-#else
+  #else
   Serial.println("undefined");
-#endif
+  #endif
 
   Serial.println(hline);
 
@@ -1130,7 +1133,7 @@ int pullupOnPin(uint8_t pin) {
   pinMode(pin, INPUT_PULLUP);
   delay(20);
   if (digitalRead(pin) == LOW) {
-    status = -1;  // pin appears to be driven low
+    status = -1; // pin appears to be driven low
     goto leave;
   }
 
@@ -1141,12 +1144,12 @@ int pullupOnPin(uint8_t pin) {
   pinMode(pin, INPUT);
   delayMicroseconds(10);
   if (digitalRead(pin) == HIGH)
-    status = 0;  // pin appears to have external pullup
+    status = 0; // pin appears to have external pullup
   else
-    status = 1;  // pin appears to NOT have an external pullup
+    status = 1; // pin appears to NOT have an external pullup
 
-leave:
-  pinMode(pin, INPUT);  // ensure pin is left in input mode
+  leave:
+    pinMode(pin, INPUT); // ensure pin is left in input mode
   return (status);
 }
 /*
@@ -1156,16 +1159,16 @@ leave:
  * returns < zero if indeterminate
  */
 int pinsShorted(uint8_t p1, uint8_t p2) {
-  int rval = 0;  // assume not shorted
+  int rval = 0; // assume not shorted
 
   pinMode(p1, INPUT_PULLUP);
   pinMode(p2, INPUT_PULLUP);
-  delay(150);  // this needs quite a while for chipkit/pic32 to let signals rise
-               // up
+  delay(150); // this needs quite a while for chipkit/pic32 to let signals rise
+  // up
 
   // check to see if both pins are high
   if ((digitalRead(p1) != HIGH) || (digitalRead(p2) != HIGH))
-    return (-1);  // can't determine if pins are shorted
+    return (-1); // can't determine if pins are shorted
 
   pinMode(p1, OUTPUT);
   digitalWrite(p1, LOW);
@@ -1236,13 +1239,13 @@ int i2cpulluptest() {
     Serial.println(hstar);
     if (rval > 0) {
       Serial.println(
-          F("WARNING: I2C requires external pullups for proper operation"));
+        F("WARNING: I2C requires external pullups for proper operation"));
       Serial.println(
-          F("It may appear to work without them, but may be unreliable and "
-            "slower"));
+        F("It may appear to work without them, but may be unreliable and "
+          "slower"));
       Serial.println(F("Do not be surprised if it fails to work correctly"));
       Serial.println(F(
-          "Install external pullup resistors to ensure proper I2C operation"));
+        "Install external pullup resistors to ensure proper I2C operation"));
     } else {
       if (rval == -1)
         Serial.println(F("ERROR: SDA or SCL stuck pin"));
@@ -1280,12 +1283,12 @@ int i2cexpPinsTest(uint8_t addr) {
   //
 
   for (int pin = 0; pin < 8; pin++) {
-    wdata = (1 << pin);  // convert pin# to bit position mask
+    wdata = (1 << pin); // convert pin# to bit position mask
 
     Wire.beginTransmission(addr);
     Wire.write(wdata);
     Wire.endTransmission();
-    Wire.requestFrom((int)addr, 1);
+    Wire.requestFrom((int) addr, 1);
     rval = Wire.read();
     rdata = uint8_t(rval);
     Wire.endTransmission();
@@ -1360,7 +1363,7 @@ int showI2Cdevices(void) {
  * basic reads/writes work.
  */
 
-uint8_t lcdw1test(hd44780 &lcd, uint8_t addr) {
+uint8_t lcdw1test(hd44780 & lcd, uint8_t addr) {
   uint8_t errors = 0;
   int rdata;
 
@@ -1372,20 +1375,20 @@ uint8_t lcdw1test(hd44780 &lcd, uint8_t addr) {
 
     if (rdata < 0) {
       Serial.print(F(" Read Error after writing "));
-      Serial.println((unsigned int)pat, HEX);
+      Serial.println((unsigned int) pat, HEX);
       errors++;
-      delay(1);  // easy way to allow some cores to call yield()
+      delay(1); // easy way to allow some cores to call yield()
     } else if ((rdata != pat)) {
       if (!errors) Serial.println();
       Serial.print(F("\tCompare error: addr: "));
       Serial.print(addr, HEX);
       Serial.print(F(" read "));
-      Serial.print((unsigned int)rdata, HEX);
+      Serial.print((unsigned int) rdata, HEX);
       Serial.print(F(" != wrote "));
-      Serial.println((unsigned int)pat, HEX);
+      Serial.println((unsigned int) pat, HEX);
 
       errors++;
-      delay(1);  // easy way to allow some cores to call yield()
+      delay(1); // easy way to allow some cores to call yield()
     }
   }
   return (errors);
@@ -1397,7 +1400,7 @@ uint8_t lcdw1test(hd44780 &lcd, uint8_t addr) {
  *
  * This will verify that all memory is being addressed correctly.
  */
-int lcdAddrLineTest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr) {
+int lcdAddrLineTest(hd44780 & lcd, uint8_t saddr, uint8_t eaddr) {
   int errors = 0;
   int rdata;
 
@@ -1410,9 +1413,9 @@ int lcdAddrLineTest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr) {
     if (lcd.write(addr) != 1) {
       if (!errors) Serial.println();
       Serial.print(F("\tRead Error addr: "));
-      Serial.println((unsigned int)addr, HEX);
+      Serial.println((unsigned int) addr, HEX);
       errors++;
-      delay(1);  // easy way to allow some cores to call yield()
+      delay(1); // easy way to allow some cores to call yield()
     }
   }
 
@@ -1429,20 +1432,20 @@ int lcdAddrLineTest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr) {
     if (rdata < 0) {
       if (!errors) Serial.println();
       Serial.print(F("\tRead Error addr: "));
-      Serial.println((unsigned int)addr, HEX);
+      Serial.println((unsigned int) addr, HEX);
       errors++;
-      delay(1);  // easy way to allow some cores to call yield()
+      delay(1); // easy way to allow some cores to call yield()
     } else if ((rdata != addr)) {
       if (!errors) Serial.println();
       Serial.print(F("\tCompare error: addr: "));
       Serial.print(addr, HEX);
       Serial.print(F(" read "));
-      Serial.print((unsigned int)rdata, HEX);
+      Serial.print((unsigned int) rdata, HEX);
       Serial.print(F(" != wrote "));
-      Serial.println((unsigned int)addr, HEX);
+      Serial.println((unsigned int) addr, HEX);
 
       errors++;
-      delay(1);  // easy way to allow some cores to call yield()
+      delay(1); // easy way to allow some cores to call yield()
     }
   }
   return (errors);
@@ -1469,8 +1472,8 @@ int lcdAddrLineTest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr) {
  *
  */
 
-int lcdDDRAMtest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr, uint8_t sval,
-                 uint8_t eval) {
+int lcdDDRAMtest(hd44780 & lcd, uint8_t saddr, uint8_t eaddr, uint8_t sval,
+  uint8_t eval) {
   uint8_t addr;
   int data;
   int rdata;
@@ -1493,7 +1496,7 @@ int lcdDDRAMtest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr, uint8_t sval,
     // writes will bump it
     lcd.setCursor(saddr, 0);
     for (addr = saddr; addr <= eaddr; addr++) {
-      lcd.write((uint8_t)data);
+      lcd.write((uint8_t) data);
 
       if (++data > eval) data = sval;
     }
@@ -1512,7 +1515,7 @@ int lcdDDRAMtest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr, uint8_t sval,
 
       if (rdata < 0) {
         Serial.print(F(" Read Error, addr: "));
-        Serial.print((unsigned int)addr, HEX);
+        Serial.print((unsigned int) addr, HEX);
         Serial.print(F(" sval: "));
         Serial.print(sval);
         Serial.print(F(" expected data: "));
@@ -1523,11 +1526,11 @@ int lcdDDRAMtest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr, uint8_t sval,
 
       } else if (data != rdata) {
         Serial.print(F(" Verify error: ("));
-        Serial.print((unsigned int)addr);
+        Serial.print((unsigned int) addr);
         Serial.print(F(") read "));
-        Serial.print((unsigned int)rdata, HEX);
+        Serial.print((unsigned int) rdata, HEX);
         Serial.print(F(" != wrote "));
-        Serial.print((unsigned int)data, HEX);
+        Serial.print((unsigned int) data, HEX);
         Serial.println();
 
         if (++errors > MAX_ERRORS) return (errors);
@@ -1542,72 +1545,78 @@ int lcdDDRAMtest(hd44780 &lcd, uint8_t saddr, uint8_t eaddr, uint8_t sval,
 // create a LCD configuration string
 // requires being handed a 16 byte buffer to hold the string
 // returns the original buffer pointer for convenience.
-char *lcdConfigStr(char *str, hd44780_I2Cexp &lcd) {
-  int rv;
-  char *p = str;
-#if 1
-  switch (lcd.getProp(hd44780_I2Cexp::Prop_expType)) {
+char * lcdConfigStr(char * str, hd44780_I2Cexp & lcd) {
+    int rv;
+    char * p = str;
+    #if 1
+    switch (lcd.getProp(hd44780_I2Cexp::Prop_expType)) {
     case I2Cexp_PCF8574:
-      *p++ = 'P';
+      *
+      p++ = 'P';
       break;
     case I2Cexp_MCP23008:
-      *p++ = 'M';
+      *
+      p++ = 'M';
       break;
     default:
-      *p++ = 'U';
-  }
-#else
-        *p++ = lcd.getProp(hd44780_I2Cexp::Prop_expType + '0';
-#endif
-  *p++ = lcd.getProp(hd44780_I2Cexp::Prop_rs) + '0';
+      *
+      p++ = 'U';
+    }
+    #else
+      *
+      p++ = lcd.getProp(hd44780_I2Cexp::Prop_expType + '0'; #endif *
+        p++ = lcd.getProp(hd44780_I2Cexp::Prop_rs) + '0';
 
-  // r/w support may or may not be enabled.
-  rv = lcd.getProp(hd44780_I2Cexp::Prop_rw);
-  if ((unsigned int)rv <= 7)  // check if r/w is supported
-    *p++ = rv + '0';
+        // r/w support may or may not be enabled.
+        rv = lcd.getProp(hd44780_I2Cexp::Prop_rw);
+        if ((unsigned int) rv <= 7) // check if r/w is supported
+          *
+          p++ = rv + '0';
 
-  *p++ = lcd.getProp(hd44780_I2Cexp::Prop_en) + '0';
-  *p++ = lcd.getProp(hd44780_I2Cexp::Prop_d4) + '0';
-  *p++ = lcd.getProp(hd44780_I2Cexp::Prop_d5) + '0';
-  *p++ = lcd.getProp(hd44780_I2Cexp::Prop_d6) + '0';
-  *p++ = lcd.getProp(hd44780_I2Cexp::Prop_d7) + '0';
-  rv = lcd.getProp(hd44780_I2Cexp::Prop_bl);
-  if ((unsigned int)rv <= 7)  // check if bl control is supported
-  {
-    *p++ = rv + '0';
-#if 1
-    if (lcd.getProp(hd44780_I2Cexp::Prop_blLevel) == HIGH)
-      *p++ = 'H';
-    else
-      *p++ = 'L';
-#else
-    if (lcd.getProp(hd44780_I2Cexp::Prop_blLevel) == HIGH)
-      *p++ = '1';
-    else
-      *p++ = '0';
-#endif
-  }
+        * p++ = lcd.getProp(hd44780_I2Cexp::Prop_en) + '0';
+        * p++ = lcd.getProp(hd44780_I2Cexp::Prop_d4) + '0';
+        * p++ = lcd.getProp(hd44780_I2Cexp::Prop_d5) + '0';
+        * p++ = lcd.getProp(hd44780_I2Cexp::Prop_d6) + '0';
+        * p++ = lcd.getProp(hd44780_I2Cexp::Prop_d7) + '0'; rv = lcd.getProp(hd44780_I2Cexp::Prop_bl);
+        if ((unsigned int) rv <= 7) // check if bl control is supported
+        {
+          * p++ = rv + '0';
+          #if 1
+          if (lcd.getProp(hd44780_I2Cexp::Prop_blLevel) == HIGH)
+            *
+            p++ = 'H';
+          else
+            *
+            p++ = 'L';
+          #else
+          if (lcd.getProp(hd44780_I2Cexp::Prop_blLevel) == HIGH)
+            *
+            p++ = '1';
+          else
+            *
+            p++ = '0';
+          #endif
+        }
 
-  *p = 0;  // terminate string
+        * p = 0; // terminate string
 
-  return (str);
-}
+        return (str);
+      }
 
-// fatalError() - loop & blink an error code
-void fatalError(int ecode) {
-  hd44780::fatalError(ecode);  // does not return
-}
+    // fatalError() - loop & blink an error code
+    void fatalError(int ecode) {
+      hd44780::fatalError(ecode); // does not return
+    }
 
-void waitinput(const char *prompt) {
-  if (prompt)
-    Serial.print(prompt);
-  else
-    Serial.print(F("<Press <ENTER> or click [Send] to Continue>"));
+    void waitinput(const char * prompt) {
+      if (prompt)
+        Serial.print(prompt);
+      else
+        Serial.print(F("<Press <ENTER> or click [Send] to Continue>"));
 
-  while (Serial.available()) Serial.read();  // swallow all input
+      while (Serial.available()) Serial.read(); // swallow all input
 
-  while (!Serial.available()) {
-  }  // wait on serial input
+      while (!Serial.available()) {} // wait on serial input
 
-  Serial.println();
-}
+      Serial.println();
+    }
